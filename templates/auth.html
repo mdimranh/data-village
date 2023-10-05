@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+<style>
+    .iti {
+        width: 100%;
+    }
+    .side-bar{
+        background-image: url('../static/img/side-bg.jpg');
+        background-size: cover;
+        opacity: 0.9;
+    }
+</style>
+{% endblock style %}
+
+{% block main %}
+<div class="p-4 bg-gray-100 fixed left-0 right-0 bottom-0 top-16 z-20 overflow-y-auto">
+    <span class="flex xl:gap-4 flex-wrap w-full justify-center xl:justify-center h-full items-center">
+        <div class="flex max-w-3xl w-full p-2 border border-gray-300 bg-white shadow-md rounded-lg">
+            <div class="flex-none w-60 h-[400px] rounded-md p-4 side-bar">
+                <ul class="flex flex-col gap-4">
+                    <li class="flex gap-4 items-center">
+                        <button class="px-3 py-2 border-2 border-white bg-gray-100 inline-flex rounded-full leading-none font-medium w-min h-min transition-colors duration-[400ms] bg-primary-light-blue text-primary-marine-blue border-primary-light-blue">1</button>
+                        <span class="lg:inline text-white uppercase">
+                          <p class="font-normal">Step 1</p>
+                          <span class="font-bold">Personal Info</span>
+                        </span>
+                    </li>
+                    <li class="flex gap-4 items-center">
+                        <button class="px-3 py-2 border-2 border-white text-white inline-flex rounded-full leading-none font-medium w-min h-min transition-colors duration-[400ms] bg-primary-light-blue text-primary-marine-blue border-primary-light-blue">2</button>
+                        <span class="lg:inline text-white uppercase">
+                          <p class="font-normal">Step 2</p>
+                          <span class="font-bold">Phone Verify</span>
+                        </span>
+                    </li>
+                    <li class="flex gap-4 items-center">
+                        <button class="px-3 py-2 border-2 border-white text-white inline-flex rounded-full leading-none font-medium w-min h-min transition-colors duration-[400ms] bg-primary-light-blue text-primary-marine-blue border-primary-light-blue">3</button>
+                        <span class="lg:inline text-white uppercase">
+                          <p class="font-normal">Step 3</p>
+                          <span class="font-bold">Email Verify</span>
+                        </span>
+                    </li>
+                </ul>
+              </div>
+              <div class="w-full p-4 flex flex-col justify-between">
+                <div id="personal-info">
+                    <p class="font-bold text-2xl mb-6">Personal Info</p>
+                    <div class="inputs">
+                        <div class="flex">
+                            <div class="mb-6 w-full">
+                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                                    email/phone</label>
+                                <input type="text" name="identity" id="email" {% if identity %} value="{{ identity }}" {% endif %}
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Email or phone" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="phone-verify" class="hidden">
+                    <p class="font-bold text-2xl mb-6">Phone Verification</p>
+                    <div class="inputs">
+                        <div class="flex">
+                            <div class="mb-6 w-full">
+                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Code</label>
+                                <input type="text" name="identity" id="email" {% if identity %} value="{{ identity }}" {% endif %}
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Email or phone" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button id="backBtn" class="text-gray-600 font-bold">Go Back</button>
+                    <button id="nextBtn" class="border border-gray-200 bg-green-600 text-white p-2 rounded-md">Next Step</button>
+                </div>
+              </div>
+        </div>
+    </span>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+<script>
+    var prev = null
+    var current = "personal-info"
+    var next = "phone-verify"
+    let next_btn = document.getElementById("nextBtn")
+    let back_btn = document.getElementById("backBtn")
+    next_btn.addEventListener("click", function(){
+        document.getElementById(next).classList.remove('hidden')
+        document.getElementById(current).classList.add('hidden')
+        current = next
+        next = "email-verify"
+        prev = "personal-info"
+    })
+    back_btn.addEventListener("click", function(){
+        document.getElementById(next).classList.remove('hidden')
+        document.getElementById(current).classList.add('hidden')
+        current = prev
+        prev = 
+        next = "email-verify"
+    })
+</script>
+<script>
+    $(function () {
+        var input = document.querySelectorAll("input[id='phone']");
+        var iti_el = $('.iti.iti--allow-dropdown.iti--separate-dial-code');
+        if (iti_el.length) {
+            iti.destroy();
+        }
+        for (var i = 0; i < input.length; i++) {
+            iti = intlTelInput(input[i], {
+                autoHideDialCode: false,
+                autoPlaceholder: "aggressive",
+                initialCountry: "BD",
+                separateDialCode: true,
+                onlyCountries: ["BD"],
+                customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
+                    return '' + selectedCountryPlaceholder.replace(/[0-9]/g, 'X');
+                },
+                // geoIpLookup: function (callback) {
+                //     $.get('https://ipinfo.io', function () { }, "jsonp").always(function (resp) {
+                //         var countryCode = (resp && resp.country) ? resp.country : "";
+                //         callback(countryCode);
+                //     });
+                // },
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.0/js/utils.js" // just for 
+            });
+            $('input[id="phone"]').on("focus click countrychange", function (e, countryData) {
+
+                var pl = $(this).attr('placeholder') + '';
+                var res = pl.replace(/X/g, '9');
+                if (res != 'undefined') {
+                    $(this).inputmask(res, { placeholder: "X", clearMaskOnLostFocus: true });
+                }
+            });
+            $('input[id="phone"]').on("focusout", function (e, countryData) {
+                var intlNumber = iti.getNumber();
+                console.log(intlNumber);
+            });
+        }
+    })
+</script>
+<script>
+    document.getElementById('login-btn').addEventListener('click', function () {
+        document.getElementById('login-form').classList.remove('hidden');
+        document.getElementById('signup-form').classList.add('hidden');
+    });
+    document.getElementById('signup-btn').addEventListener('click', function () {
+        document.getElementById('login-form').classList.add('hidden');
+        document.getElementById('signup-form').classList.remove('hidden');
+    });
+</script>
+{% endblock main %}
