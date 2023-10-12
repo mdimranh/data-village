@@ -14,7 +14,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class CustomUserManager(BaseUserManager):
-    def _create_user(self, email, phone, password, is_staff, is_superuser, **extra_fields):
+    def _create_user(self, email, phone, password, gender, is_staff, is_superuser, **extra_fields):
         now = timezone.now()
 
         if not email:
@@ -24,6 +24,7 @@ class CustomUserManager(BaseUserManager):
         user = self.model(
                 email=email,
                 phone=phone,
+                gender=gender,
                 is_staff=is_staff, is_active=True,
                 is_superuser=is_superuser,
                 last_login=now,
@@ -40,10 +41,17 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, email, phone, password, **extra_fields):
         return self._create_user(email, phone, password, True, True, **extra_fields)
 
+GENDER_CHOICES = (
+    ('male', 'Male'),
+    ('female', 'Female'),
+    ("others", "other's"),
+) 
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     phone = PhoneNumberField(unique=True, region='BD')
     full_name = models.CharField(max_length=255, blank=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='male')
     picture = models.ImageField(upload_to="media/user", blank=True, null=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now=True)
     is_active   = models.BooleanField(default=True)

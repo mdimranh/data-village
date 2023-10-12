@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+<style>
+    .iti {
+        width: 100%;
+    }
+</style>
+{% endblock style %}
+{% block main %}
+<div class="p-4 container mx-auto max-w-6xl">
+    <div class="bg-white px-4 pt-4 rounded-md shadow-md border border-gray-200 gap-4">
+        <div class="flex justify-between">
+            <div class="flex justify-start gap-4">
+                <img class="w-40 h-40 object-cover rounded-md" src="https://www.ispu.org/wp-content/uploads/2019/10/youth-web-page.jpg?x46312" alt="">
+                <div>
+                    <div class="flex flex-col justify-between h-full">
+                        <div>
+                            <h1 class="font-bold text-xl text-gray-600">{{request.user.full_name}}</h1>
+                            <div class="flex flex-wrap gap-5 mt-2">
+                                <a href="tel:{{request.user.phone}}" class="font-semibold text-gray-400 flex gap-1 items-center cursor-pointer hover:text-cyan-700">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                                        </svg>                                    
+                                    </span>
+                                    {{request.user.phone}}
+                                </a>
+                                <a href="mailto:{{request.user.email}}" class="font-semibold text-gray-400 flex gap-1 items-center cursor-pointer hover:text-cyan-700">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                            <path d="M19.5 22.5a3 3 0 003-3v-8.174l-6.879 4.022 3.485 1.876a.75.75 0 01-.712 1.321l-5.683-3.06a1.5 1.5 0 00-1.422 0l-5.683 3.06a.75.75 0 01-.712-1.32l3.485-1.877L1.5 11.326V19.5a3 3 0 003 3h15z" />
+                                            <path d="M1.5 9.589v-.745a3 3 0 011.578-2.641l7.5-4.039a3 3 0 012.844 0l7.5 4.039A3 3 0 0122.5 8.844v.745l-8.426 4.926-.652-.35a3 3 0 00-2.844 0l-.652.35L1.5 9.59z" />
+                                        </svg>             
+                                    </span>
+                                    {{request.user.email}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="border border-dashed border-gray-300 px-4 py-1 w-28 rounded-md">
+                                <p class="font-bold text-xl text-gray-600">5</p>
+                                <p class="text-gray-500">Course</p>
+                            </div>
+                            <div class="border border-dashed border-gray-300 px-4 py-1 w-28 rounded-md">
+                                <p class="font-bold text-xl text-gray-600">25</p>
+                                <p class="text-gray-500">Download</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="flex flex-wrap text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+            <li class="mr-2" role="presentation">
+                <button class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Overview</button>
+            </li>
+            <li class="mr-2" role="presentation">
+                <button class="inline-block p-4 border-b-2 border-transparent aria-selected:border-b-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
+            </li>
+            <li role="presentation">
+                <button class="inline-block p-4 border-b-2 border-transparent aria-selected:border-b-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="contacts-tab" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Contacts</button>
+            </li>
+        </ul>
+    </div>
+    
+    <div id="myTabContent" class="mt-4 rounded-lg">
+        {% include 'profile/sections/overview.html' %}
+        {% include 'profile/sections/settings.html' %}
+        <div class="hidden p-4 rounded-lg bg-white shadow-md dark:bg-gray-800" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+            <div class="flex justify-between border-b border-b-gray-200 p-4">
+                <h1 class="font-bold text-gray-500 text-lg">Contacts</h1>
+                <h1 class="px-4 py-1 bg-blue-500 rounded text-white cursor-pointer hover:bg-blue-600">Edit</h1>
+            </div>
+            <div class="p-4">
+                <h1>Name</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+<script>
+    $(function () {
+        var input = document.querySelectorAll("input[id='phone']");
+        var iti_el = $('.iti.iti--allow-dropdown.iti--separate-dial-code');
+        if (iti_el.length) {
+            iti.destroy();
+        }
+        for (var i = 0; i < input.length; i++) {
+            iti = intlTelInput(input[i], {
+                autoHideDialCode: false,
+                autoPlaceholder: "aggressive",
+                initialCountry: "BD",
+                separateDialCode: true,
+                // onlyCountries: ["BD"],
+                customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
+                    return '' + selectedCountryPlaceholder.replace(/[0-9]/g, 'X');
+                },
+                // geoIpLookup: function (callback) {
+                //     $.get('https://ipinfo.io', function () { }, "jsonp").always(function (resp) {
+                //         var countryCode = (resp && resp.country) ? resp.country : "";
+                //         callback(countryCode);
+                //     });
+                // },
+                hiddenInput: "full_phone",
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.0/js/utils.js" // just for 
+            });
+            $('input[id="phone"]').on("focus click countrychange", function (e, countryData) {
+
+                var pl = $(this).attr('placeholder') + '';
+                var res = pl.replace(/X/g, '9');
+                if (res != 'undefined') {
+                    $(this).inputmask(res, { placeholder: "X", clearMaskOnLostFocus: true });
+                }
+            });
+            $('input[id="phone"]').on("focusout", function (e, countryData) {
+                var intlNumber = iti.getNumber();
+                console.log(intlNumber);
+            });
+        }
+    })
+</script>
+<script>
+    let pro_btn = document.getElementById("pro-edit")
+    pro_btn.addEventListener("click", function(e) {
+        document.getElementById('settings-tab').click();
+    })
+</script>
+{% endblock main %}

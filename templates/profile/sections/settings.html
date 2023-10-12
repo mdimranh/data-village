@@ -1,0 +1,82 @@
+{% load static %}
+
+<div class="hidden flex flex-col gap-4" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+
+    <div class="rounded-lg bg-white shadow-md dark:bg-gray-800 border border-gray-200">
+        <div class="flex justify-between border-b border-b-gray-200 px-4 py-2">
+            <h1 class="font-bold text-gray-500 text-lg">Settings</h1>
+        </div>
+        <div class="flex flex-col gap-4 px-4 py-2 mb-2">
+            <div class="grid grid-cols-12 mt-3">
+                <div class="col-span-4 text-sm font-bold text-gray-400">Name</div>
+                <input type="text" id="first_name" class="col-span-8 w-full bg-gray-100 border-transparent p-2 rounded" value="{{request.user.full_name}}" required>
+            </div>
+            <div class="grid grid-cols-12">
+                <div class="col-span-4 text-sm font-bold text-gray-400">Email</div>
+                <input type="email" id="first_name" class="col-span-8 w-full bg-gray-100 border-transparent p-2 rounded" value="{{request.user.email}}" required>
+            </div>
+            <div class="grid grid-cols-12">
+                <div class="col-span-4 text-sm font-bold text-gray-400">Contact Phone</div>
+                <div class="col-span-8">
+                    <input type="text" name="phone" id="phone" 
+                    value="{{ request.user.phone }}"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Phone" required>
+                </div>
+            </div>
+            <div class="grid grid-cols-12">
+                <div class="col-span-4 text-sm font-bold text-gray-400">Gender</div>
+                <ul class="col-span-8 grid gap-6 md:grid-cols-3 max-w-xs">
+                    <li>
+                        <input type="radio" id="male" name="gender" value="male" class="hidden peer" required>
+                        <label for="male" class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
+                            <div class="block">
+                                <div class="w-full">Male</div>
+                            </div>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" id="female" name="gender" value="female" class="hidden peer">
+                        <label for="female" class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <div class="block">
+                                <div class="w-full">Female</div>
+                            </div>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" id="others" name="gender" value="other's" class="hidden peer">
+                        <label for="others" class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <div class="block">
+                                <div class="w-full">Others</div>
+                            </div>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="flex w-full justify-end gap-2 px-4 py-2 border-t border-t-gray-200">
+            <button class="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-600">Save Change</button>
+        </div>
+    </div>
+
+    <div class="rounded-lg bg-white shadow-md dark:bg-gray-800 border border-gray-200">
+        <div class="flex justify-between border-b border-b-gray-200 px-4 py-2">
+            <h1 class="font-bold text-gray-500 text-lg">Deactivate Account</h1>
+        </div>
+        <div class="p-4">
+            <div>
+                <div class="flex flex-col gap-2 border rounded-md border-dashed border-yellow-400 bg-yellow-50 p-4">
+                    <h1 class="text-xl font-bold text-gray-600">You Are Deactivating Your Account</h1>
+                    <p>For extra security, this requires you to confirm your email or phone number when you reset yousignr password.</p>
+                </div>
+                <div class="flex items-center mt-4 mb-2">
+                    <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I confirm my account deactivation</label>
+                </div>         
+            </div>
+        </div>
+        <div class="flex w-full justify-end gap-2 px-4 py-2 border-t border-t-gray-200">
+            <button class="bg-red-600 px-4 py-2 rounded-md text-white hover:bg-red-700">Deactivate Account</button>
+        </div>
+    </div>
+</div>

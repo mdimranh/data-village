@@ -19,6 +19,8 @@ def Home(request):
 
 class Login(View):
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect("/")
         context = {
             "login": True
         }
@@ -55,6 +57,8 @@ class Crypto:
 
 class Signup(View):
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect("/")
         context = {
             "login": False
         }

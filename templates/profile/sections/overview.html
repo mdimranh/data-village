@@ -1,0 +1,24 @@
+<div class="dark:bg-gray-800 rounded-lg bg-white shadow-md border border-gray-100" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    <div class="flex justify-between border-b border-b-gray-200 px-4 py-2">
+        <h1 class="font-bold text-gray-500 text-lg">Overview</h1>
+        <h1 id="pro-edit" class="px-4 py-1 bg-blue-500 rounded text-white cursor-pointer hover:bg-blue-600">Edit</h1>
+    </div>
+    <div class="flex flex-col gap-4 px-4 py-2">
+        <div class="grid grid-cols-12 mt-3">
+            <div class="col-span-4 text-sm font-bold text-gray-400">Name</div>
+            <div class="col-span-8 text-base font-semibold text-gray-700">{{request.user.full_name}}</div>
+        </div>
+        <div class="grid grid-cols-12">
+            <div class="col-span-4 text-sm font-bold text-gray-400">Email</div>
+            <div class="col-span-8 text-base font-semibold text-gray-700">{{request.user.email}}</div>
+        </div>
+        <div class="grid grid-cols-12">
+            <div class="col-span-4 text-sm font-bold text-gray-400">Contact Phone</div>
+            <div class="col-span-8 text-base font-semibold text-gray-700">{{request.user.phone}}</div>
+        </div>
+        <div class="grid grid-cols-12">
+            <div class="col-span-4 text-sm font-bold text-gray-400">Gender</div>
+            <div class="col-span-8 text-base font-semibold text-gray-700">{{request.user.gender}}</div>
+        </div>
+    </div>
+</div>

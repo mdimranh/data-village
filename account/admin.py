@@ -43,11 +43,11 @@ class UserChangeForm(forms.ModelForm):
     password hash display field.
     """
     password = ReadOnlyPasswordHashField()
-    phone = PhoneNumberField(region="BD", widget=PhoneNumberPrefixWidget(country_choices=[('+880', "BD +880")]))
+    phone = PhoneNumberField(region="BD", widget=PhoneNumberPrefixWidget(country_choices=[('BD', 'BD +880')]))
 
     class Meta:
         model = User
-        fields = ('email', 'phone', 'password', 'is_active')
+        fields = ('email', 'phone', 'gender', 'password', 'is_active')
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
         # This is done here, rather than on the field, because the
@@ -70,10 +70,10 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('full_name', 'user_profile', 'email', 'phone', 'is_staff', 'is_active', 'last_login', 'date_joined')
+    list_display = ('full_name', 'user_profile', 'email', 'phone', 'gender', 'is_staff', 'is_active', 'last_login', 'date_joined')
     list_filter = ('is_staff', 'is_active')
     fieldsets = (
-        (None, {'fields': ('full_name', 'email', 'phone', 'password', 'is_active', 'picture')}),
+        (None, {'fields': ('full_name', 'email', 'phone', 'gender', 'password', 'is_active', 'picture')}),
         ('Permissions', {'fields': ('is_staff', 'groups', 'user_permissions')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
@@ -81,7 +81,7 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'phone', 'password1', 'password2')}
+            'fields': ('email', 'phone', 'gender', 'password1', 'password2')}
         ),
     )
     search_fields = ('email', 'phone')
