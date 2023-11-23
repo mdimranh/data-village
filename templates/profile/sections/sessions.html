@@ -1,0 +1,83 @@
+{% load static %}
+{% load user_sessions %}
+{% load humanize %}
+
+<!-- <link rel="stylesheet" href="{% static 'tailwind/output.css' %}"> -->
+
+<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-500 uppercase border-b border-gray-200 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+            <th scope="col" class="py-3">
+                Location
+            </th>
+            <th scope="col" class="py-3">
+                Device
+            </th>
+            <th scope="col" class="py-3">
+                Ip Address
+            </th>
+            <th scope="col" class="py-3">
+                Time
+            </th>
+            <th scope="col" class="py-3">
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <th scope="row" class="flex items-center py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                <div class="">
+                    {% if current.ip|location == None %}
+                        <div class="text-base font-semibold">Local</div>
+                    {% else %}
+                        <div class="text-base font-semibold">{{current.ip|location}}</div>
+                    {% endif %}
+                </div>  
+            </th>
+            <td class="py-4">
+                {{current.user_agent|device}}
+            </td>
+            <td class="py-4">
+                {{current.ip}}
+                <!-- {{request.session.expire_date}} -->
+            </td>
+            <td class="py-4">
+                <p>{{current.last_activity|timesince}} ago</p>
+            </td>
+            <td class="py-4">
+                <p class="font-medium dark:text-blue-500 py-1 text-lime-500">Current Session</p>
+            </td>
+        </tr>
+        {% for session in sessions  %}
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="flex items-center py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                    <div class="">
+                        {% if session.ip|location == None %}
+                            <div class="text-base font-semibold">Local</div>
+                        {% else %}
+                            <div class="text-base font-semibold">{{session.ip|location}}</div>
+                        {% endif %}
+                    </div>  
+                </th>
+                <td class="py-4">
+                    {{session.user_agent|device}}
+                </td>
+                <td class="py-4">
+                    {{session.ip}}
+                    <!-- {{request.session.expire_date}} -->
+                </td>
+                <td class="py-4">
+                    <p>{{ session.last_activity|timesince }} ago</p>
+                </td>
+                <td class="py-4">
+                    {% if session.expired %}
+                        <p class="font-medium dark:text-blue-500">Expired</p>
+                    {% else %}
+                        <button hx-get="/user/session/signout/{{session.session_key}}" hx-target="#sessions" class="font-medium text-blue-500 dark:text-blue-500">Sign out</button>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

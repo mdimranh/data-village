@@ -20,10 +20,13 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    path('', include('course.urls')),
-    path('user/', include('account.urls')),
+    path('', include('apps.course.urls')),
+    path('', include('account.urls')),
+    path('', include('apps.membership.urls')),
+    path('', include('user_sessions.urls', 'user_sessions')),
+    path('', include('apps.chat.urls')),
+    path('', include('apps.data.urls')),
+    path('admin/', include('dashboard.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-handler404 = "helpers.views.handle_not_found"

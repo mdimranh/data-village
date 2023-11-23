@@ -25,13 +25,13 @@
             <h3 class="mb-6">Start your website in seconds. Don't have an account? <span id="signup-btn"
                     class="cursor-pointer font-bold text-lime-700">Sign up.</span>
             </h3>
-            <div class="mb-6">
+            {% comment %} <div class="mb-6">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                     email</label>
                 <input type="text" name="email" id="email" {% if email %} value="{{ email }}" {% endif %}
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Email">
-            </div>
+            </div> {% endcomment %}
             <div class="mb-6">
                 <label for="phone" class="block mb-2 w-full text-sm font-medium text-gray-900 dark:text-white">Your
                     Phone</label>
@@ -149,7 +149,9 @@
         <img class="max-w-xl xl:w-auto w-0" src="{% static 'img/svg/login.svg' %}" alt="">
     </span>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+<script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'node_modules/inputmask/dist/jquery.inputmask.min.js' %}"></script>
+<script src="{% static 'node_modules/intl-tel-input/build/js/intlTelInput.min.js' %}"></script>
 <script>
     $(function () {
         var input = document.querySelectorAll("input[id='phone']");
@@ -174,7 +176,7 @@
                 //     });
                 // },
                 hiddenInput: "full_phone",
-                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.0/js/utils.js" // just for 
+                utilsScript: "{% static 'node_modules/intl-tel-input/build/js/utils.js' %}" // just for 
             });
             $('input[id="phone"]').on("focus click countrychange", function (e, countryData) {
 

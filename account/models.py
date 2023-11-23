@@ -35,16 +35,16 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, phone=None, password=None, **extra_fields):
-        return self._create_user(email, phone, password, False, False, **extra_fields)
+    def create_user(self, email, phone=None, password=None, gender='male', **extra_fields):
+        return self._create_user(email, phone, password, gender, False, False, **extra_fields)
 
-    def create_superuser(self, email, phone, password, **extra_fields):
-        return self._create_user(email, phone, password, True, True, **extra_fields)
+    def create_superuser(self, email, phone, password, gender='male', **extra_fields):
+        return self._create_user(email, phone, password, gender, True, True, **extra_fields)
 
 GENDER_CHOICES = (
     ('male', 'Male'),
     ('female', 'Female'),
-    ("others", "other's"),
+    ("others", "Other's"),
 ) 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -52,7 +52,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = PhoneNumberField(unique=True, region='BD')
     full_name = models.CharField(max_length=255, blank=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='male')
-    picture = models.ImageField(upload_to="media/user", blank=True, null=True)
+    picture = models.ImageField(upload_to="user", blank=True, null=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now=True)
     is_active   = models.BooleanField(default=True)
     is_admin    = models.BooleanField(default=False)

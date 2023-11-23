@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTML useEffect Example</title>
+</head>
+<body>
+  <div id="app">
+    <button id="btn">Click Me</button>
+    <p id="count"></p>
+  </div>
+
+  <script>
+    // JavaScript code
+
+    // Function to simulate the useEffect behavior
+    function useEffect(callback, dependencies) {
+      // Store the previous dependencies
+      let prevDeps = useRef([]);
+      
+      // Check if the dependencies have changed
+      const dependenciesChanged = dependencies.some((dep, index) => dep !== prevDeps.current[index]);
+      
+      // If the dependencies have changed or it's the first render, run the callback
+      if (dependenciesChanged || prevDeps.current.length === 0) {
+        callback();
+        prevDeps.current = dependencies;
+      }
+    }
+
+    // Simulate useRef
+    function useRef(initialValue) {
+      if (!useRef.cache) {
+        useRef.cache = { current: initialValue };
+      }
+      return useRef.cache;
+    }
+
+    // Your code here
+    const app = document.getElementById('count');
+    const btn = document.getElementById('btn');
+    
+    let count = 0;
+
+    function updateCount() {
+      app.innerHTML = `Count: ${count}`;
+    }
+
+    // Simulate useEffect with dependencies
+    useEffect(() => {
+      updateCount();
+    }, [count]);
+
+    // Event listener for the button
+    btn.addEventListener('click', () => {
+      count++;
+      console.log(count);
+    });
+  </script>
+</body>
+</html>
