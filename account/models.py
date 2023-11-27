@@ -43,8 +43,7 @@ class CustomUserManager(BaseUserManager):
 
 GENDER_CHOICES = (
     ('male', 'Male'),
-    ('female', 'Female'),
-    ("others", "Other's"),
+    ('female', 'Female')
 ) 
 
 class User(AbstractBaseUser, PermissionsMixin):
