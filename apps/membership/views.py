@@ -1,11 +1,11 @@
 from django.shortcuts import render
 
-from .models import Membership
+from .models import Pricing
 
 
-def Pricing(request):
-    memberships = Membership.objects.all()
+def PricingView(request):
+    pricings = Pricing.objects.all()
     context = {
-        "memberships": memberships
+        "memberships": pricings
     }
     return render(request, "pricing.html", context)

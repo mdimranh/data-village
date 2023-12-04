@@ -53,8 +53,11 @@ INSTALLED_APPS = [
     "home",
     "apps.course",
     "apps.membership",
+    "apps.payment",
     "apps.chat",
     "apps.data",
+
+
     "django_jsonform",
 
     # Third party libraries

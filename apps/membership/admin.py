@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib import admin
 
-from .models import Membership
+from .models import Membership, Pricing
 
 # from utils.fields.arrayfield import ArrayFieldWidget
 
@@ -18,4 +18,5 @@ from .models import Membership
 # class MembershipAdmin(admin.ModelAdmin):
 #     form = MembershipAdminForm
 
+admin.site.register(Pricing)
 admin.site.register(Membership)

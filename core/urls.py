@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('management/', admin.site.urls),
     path('', include('home.urls')),
     path('', include('apps.course.urls')),
     path('', include('account.urls')),
@@ -28,5 +28,6 @@ urlpatterns = [
     path('', include('user_sessions.urls', 'user_sessions')),
     path('', include('apps.chat.urls')),
     path('', include('apps.data.urls')),
+    path('payment/', include('apps.payment.urls')),
     path('admin/', include('dashboard.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
