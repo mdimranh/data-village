@@ -1,7 +1,7 @@
 {% extends 'dashboard/base.html' %}
 
 {% block main %}
-    <div class="flex justify-between items-center px-3 py-1 bg-white border-b border-b-slate-100">
+    <div class="flex justify-between items-center px-3 py-1 bg-white border-b border-b-slate-300">
         <h1 class="font-bold text-2xl text-slate-500">Users</h1>
         <nav class="flex my-4" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -155,8 +155,8 @@
                                                     {% endif %}
                                                 </div>
                                             </td>
-                                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{user.last_login}}</td>
                                             <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{user.date_joined}}</td>
+                                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{user.last_login}}</td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>
