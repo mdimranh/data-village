@@ -7,7 +7,6 @@ class Privacy(models.Model):
     # body = models.TextField()
     body = RichTextField()
 
-class PrivacyForm(ModelForm):
-    class Meta:
-        model = Privacy
-        fields = "__all__"
+class RefundPolicy(models.Model):
+    # body = models.TextField()
+    body = RichTextField()

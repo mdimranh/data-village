@@ -7,6 +7,20 @@ ClassicEditor
 	} )
 	.catch( handleSampleError );
 
+	editor.ui.componentFactory.add('customButton', locale => {
+		const view = new editor.ButtonView(locale);
+		view.set({
+			label: 'Custom Button',
+			icon: 'https://csod072009s.searchunify.com/resources/Assets/upload-image.svg',
+			tooltip: true
+		});
+		view.on('execute', () => {
+			editor.execute('customCommand');
+		});
+
+		return view;
+	});
+
 function handleSampleError( error ) {
 	const issueUrl = 'https://github.com/ckeditor/ckeditor5/issues';
 

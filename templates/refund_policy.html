@@ -4,12 +4,12 @@
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'packages/ckeditor5/sample/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'packages/ckeditor5/sample/tailwind-reset.css' %}">
 {% endblock style %}
 
 {% block main %}
 <div class="p-4 bg-gray-100 fixed left-0 right-0 bottom-0 top-12 z-20 overflow-y-auto">
-}
-    <div class="max-w-5xl mx-auto bg-white p-8 prose no-tailwindcss-base ck-content">
+    <div class="max-w-5xl mx-auto bg-white p-8 prose">
         {{privacy.body|safe}}
     </div>
 </div>

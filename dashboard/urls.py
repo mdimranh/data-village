@@ -6,5 +6,6 @@ from .views import *
 
 urlpatterns = [
     path("", Dashboard),
-    path("privacy", PrivacyView)
+    path("privacy", PrivacyView),
+    path("refund/policy", RefundPolicyView),
 ] + user_urlpattern + data_urlpattern
