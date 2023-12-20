@@ -8,6 +8,7 @@
     "intl-tel-input": "^18.2.1",
     "jquery": "^3.7.1",
     "postcss": "^8.4.29",
+    "remixicon": "^4.0.1",
     "sweetalert2": "^11.7.32",
     "swiper": "^10.3.1",
     "tailwindcss": "^3.3.3"

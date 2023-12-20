@@ -4,7 +4,7 @@ from .models import Privacy, RefundPolicy
 
 
 def Dashboard(request):
-    return render(request, 'dashboard/base.html')
+    return render(request, 'dashboard/dashboard/home.html')
 
 def PrivacyView(request):
     if request.method == 'GET':
