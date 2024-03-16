@@ -1,0 +1,572 @@
+{% extends 'base.html' %} {% load static %} 
+
+{% block style %}
+
+<style>
+    .bg-image {
+        background-image: url("{% static 'img/course1.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        height: 280px;
+    }
+
+    @media (min-width: 768px) {
+        .bg-image {
+            height: 220px;
+        }
+    }
+
+    .mb-8 {
+        margin-bottom: 2rem; /* Assuming the base font size is 16px */
+    }
+
+    @media (min-width: 768px) {
+        .md\:mb-14 {
+            margin-bottom: 3.5rem; /* Assuming the base font size is 16px */
+        }
+    }
+
+    @media (min-width: 1280px) {
+        .xl\:mb-20 {
+            margin-bottom: 5rem; /* Assuming the base font size is 16px */
+        }
+    }
+</style>
+
+{% endblock style %}
+
+{% block main %}
+
+    <!-- course banner  -->
+    <section
+      class="bg-image h-[280px] md:h-[220px] mb-8"
+    >
+      <!-- overlay container  -->
+      <div class="bg-black/60 h-full">
+        <div
+          class="max-w-[1100px] h-full mx-auto px-5 xl:px-3 flex flex-col justify-center items-center text-center gap-2"
+        >
+          <h4
+            class="text-lg md:text-xl lg:text-2xl xl:text-3xl text-white font-bold"
+          >
+            ওয়েব ডেভেলপমেন্ট উইথ পাইথন জ্যাঙ্গো
+          </h4>
+
+          <!-- divider  -->
+          <div class="flex items-center">
+            <div class="bg-white w-48 h-[3px]"></div>
+            <img
+              src="/public/star-fall-minimalistic-2-svgrepo-com.png"
+              class="w-6"
+            />
+            <div class="bg-white w-48 h-[3px]"></div>
+          </div>
+
+          <p class="text-sm lg:text-base text-white">
+            বর্তমান সময়ের সবচেয়ে চাহিদাসম্পন্ন প্রোগ্রামিং ল্যাংগুয়েজের একটি হল
+            পাইথন। সহজ আর ওপেন সোর্সসহ হাই-লেভেল ফ্রেমওয়ার্ক হিসেবে পাইথনের
+            ফ্রেমওয়ার্ক জ্যাঙ্গো– এর জনপ্রিয়তাও এখন তুঙ্গে। তাই আপনি যদি ওয়েব
+            ডেভলপমেন্টে আপনার ক্যারিয়ার গড়তে চান, তাহলে পাইথন জ্যাঙ্গো কোর্সটি
+            হতে পারে আপনার জন্য সেরা পছন্দ।
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Course Features-->
+    <div
+      class="max-w-[1230px] mx-auto px-5 xl:px-3 flex flex-col-reverse lg:flex-row gap-3 xl:gap-4 items-center mb-12 md:mb-16 xl:mb-20"
+    >
+      <div class="w-full lg:w-[55%]">
+        <h4
+          class="text-lg md:text-xl xl:text-[22px] text-neutral-500 font-semibold mb-3"
+        >
+          নাম্বার ওয়ান প্রোগ্রামিং ল্যাংগুয়েজ ও ফ্রেমওয়ার্কে ওয়েব ডেভেলপমেন্ট
+          শিখতে
+        </h4>
+        <h2
+          class="text-lg md:text-2xl xl:text-3xl text-[#B00D0D] font-bold mb-4"
+        >
+          ওয়েব ডেভেলপমেন্ট উইথ পাইথন জ্যাঙ্গো
+        </h2>
+
+        <!-- course duration -->
+        <section class="flex gap-5 mb-5">
+          <div
+            class="px-4 py-1 border border-gray-500 rounded-lg w-36 flex flex-col items-center justify-center text-center"
+          >
+            <span class="text-gray-500">কোর্সের মেয়াদ</span>
+            <h2 class="text-lg lg:text-xl xl:text-2xl font-bold text-gray-600">
+              ৬ মাস
+            </h2>
+          </div>
+
+          <div
+            class="px-4 py-1 border border-gray-500 rounded-lg w-36 flex flex-col items-center justify-center text-center"
+          >
+            <span class="text-gray-500">লেকচার </span>
+            <h2 class="text-lg lg:text-xl xl:text-2xl font-bold text-gray-600">
+              ৫০+
+            </h2>
+          </div>
+
+          <div
+            class="px-4 py-1 border border-gray-500 rounded-lg w-36 flex flex-col items-center justify-center text-center"
+          >
+            <span class="text-gray-500">প্রজেক্ট </span>
+            <h2 class="text-lg lg:text-xl xl:text-2xl font-bold text-gray-600">
+              ১০+
+            </h2>
+          </div>
+        </section>
+
+        <h2 class="text-lg lg:text-lg xl:text-xl font-bold text-gray-600 mb-2">
+          <span class="text-[#B00D0D]">কোর্স ফীঃ</span> ১২,০০০ টাকা
+        </h2>
+        <h2 class="text-lg lg:text-lg xl:text-xl font-bold text-gray-600 mb-2">
+          <span class="text-[#B00D0D]">ক্লাস টাইপঃ</span> অনলাইন লাইভ ক্লাস
+        </h2>
+        <h2 class="text-lg lg:text-lg xl:text-xl font-bold text-gray-600">
+          <span class="text-[#B00D0D]">ক্লাস শুরুর তারিখঃ</span> ১৫ই জানুয়ারী
+          ২০২৪
+        </h2>
+
+        <p class="text-sm lg:text-base text-gray-600 py-5">
+          অভিজ্ঞতা অর্জন হয় দক্ষতা বৃদ্ধির মাধ্যমে। আর দক্ষতাই পারে সাফল্যের
+          শিখরে পৌঁছে দিতে। তাই সময় নষ্ট না করি, দক্ষতা বৃদ্ধি করি।
+        </p>
+
+        <!-- buttons  -->
+        <div class="space-y-2 md:space-x-5 xl:space-x-12">
+          <button
+            class="text-[#940F0F] font-semibold text-sm px-6 py-2 border-2 border-[#940F0F] rounded-xl"
+          >
+            ফ্রী সেমিনার
+          </button>
+          <button
+            class="text-white font-semibold text-sm bg-[#940F0F] px-6 py-2 border-2 border-white rounded-xl"
+          >
+            ভর্তি হোন
+          </button>
+          <button
+            class="text-[#940F0F] font-semibold text-sm px-6 py-2 border-2 border-[#940F0F] rounded-xl"
+          >
+            সিলেবাস
+          </button>
+        </div>
+
+        <div class="my-3 flex items-center gap-36">
+          <p class="text-gray-600 flex justify-start items-center">
+            <span class="mr-4">50+ Reviews</span>
+            <img src="/public/star-svgrepo-com.png" class="w-4" />
+            <img src="/public/star-svgrepo-com.png" class="w-4" />
+            <img src="/public/star-svgrepo-com.png" class="w-4" />
+            <img src="/public/star-svgrepo-com.png" class="w-4" />
+            <img src="/public/star-svgrepo-com.png" class="w-4" />
+          </p>
+
+          <p class="text-gray-600 flex justify-start items-center">
+            Students 150+
+          </p>
+        </div>
+      </div>
+
+      <div class="lg:w-[45%]">
+        <img src="/public/7-1-1024x576.webp" class="rounded-lg" />
+      </div>
+    </div>
+
+    <!-- Course Details-->
+    <div
+      class="max-w-[1230px] mx-auto px-5 xl:px-3 flex flex-col-reverse md:flex-row gap-4 items-center mb-12 md:mb-16 xl:mb-20"
+    >
+      <div class="w-full md:w-[67%]">
+        <h2 class="text-lg md:text-2xl xl:text-3xl text-[#B00D0D] font-bold">
+          কোর্সের বিস্তারিত
+        </h2>
+        <p class="text-sm lg:text-base text-gray-600 py-2 lg:py-3">
+          বর্তমানে যে কোনো জটিল ওয়েব অ্যাপ্লিকেশন তৈরিতে পাইথন জ্যাঙ্গো বেছে
+          নিচ্ছেন প্রায় ৭৬% ডেভলপার। সহজে ব্যবহার উপযোগী প্রচুর লাইব্রেরি
+          থাকায় সব সমস্যারই সমাধান পাওয়া যায় দ্রুত। আর এজন্যই আমাদের কোর্সে
+          পাইথনের ব্যাসিক লজিক থেকে শুরু করে প্রোটোটাইপ তৈরি যেমন শেখানো হয়,
+          তেমনি জ্যাঙ্গোর লাইব্রেরি ব্যবহার করাও শেখানো হয়। সেই সাথে এডমিন
+          প্যানেলের কাজ সম্পর্কেও বিস্তারিত শিখতে পারবেন। দেশি-বিদেশি বিভিন্ন জব
+          সাইট বা লিংকডইনে প্রতিদিন দেশ বা দেশের বাইরে থেকে পাইথন ডেভলপমেন্ট
+          সংক্রান্ত অসংখ্য কাজ আসে। প্রতিযোগিতার এই যুগে সার্টিফাইড এই কোর্স
+          আপনাকে এগিয়ে রাখবে ক্যারিয়ারের দৌড়ে। <br />
+          তাই আপনি যদি ওয়েব ডেভলপমেন্ট, ইউনিট টেস্টিং এবং ফর্ম প্রসেসিং এর
+          বিস্তারিত সবকিছু শিখতে চান তাহলে আমাদের ওয়েব ডেভেলপমেন্ট উইথ পাইথন
+          জ্যাঙ্গো কোর্সটি আপনার জন্য।
+        </p>
+      </div>
+
+      <div class="w-full md:w-[33%]">
+        <img src="/public/Graphic1-1024x576.webp" class="rounded-lg" />
+      </div>
+    </div>
+
+    <!-- Course Curriculam -->
+    <div class="max-w-[1230px] mx-auto px-5 xl:px-3 mb-12 md:mb-16 xl:mb-24">
+      <h2
+        class="text-lg md:text-2xl xl:text-3xl text-[#B00D0D] font-bold mb-3 md:mb-4"
+      >
+        কোর্স কারিকুলাম
+      </h2>
+      <p class="text-sm lg:text-base text-gray-600 pb-5 xl:pb-9">
+        বেসিক টু এডভান্সড ওয়েব ডেভেলপমেন্ট উইথ পাইথন জ্যাঙ্গো কোর্সটি এমনভাবে
+        সাজানো হয়েছে, যেনো একজন শিক্ষার্থী কোর্সটি সম্পন্ন করে দেশি-বিদেশি
+        বিভিন্ন কোম্পানিগুলোতে জব করতে পারে এবং ফ্রীলান্সিং করতে পারে। এই কোর্সে
+        বিভিন্ন সফটওয়্যার এ ব্যবহার এবং প্রজেক্ট ধরে ধরে কোডিং শিখানো হবে। এখানে
+        আমরা Atom, Pycharm, VS Code, Web Browser ইত্যাদি সফটওয়্যারের কাজ শিখবো।
+        এবং এগুলো ব্যবহার করে কিভাবে ওয়েবসাইট বানাবো তা শিখবো। কোর্সটি সম্পন্ন
+        করে আপনি ফ্রীলান্সিং এবং দেশি-বিদেশি কোম্পানিগুলোতে জব করতে পারবেন।
+      </p>
+
+      <!-- grid section  -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-5">
+        <!-- cards  -->
+
+        <div class="space-y-1">
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Introduction
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Python OOP
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Flask
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Django Overview
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Introduction
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Introduction
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Introduction
+          </p>
+        </div>
+
+        <div class="space-y-1">
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Introduction
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Python OOP
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Flask
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Django Overview
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Introduction
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Introduction
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Introduction
+          </p>
+        </div>
+
+        <div class="space-y-1">
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Introduction
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Python OOP
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Flask
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Django Overview
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Introduction
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Introduction
+          </p>
+          <p
+            class="text-base lg:text-lg text-[#940F0F] flex gap-2 justify-start items-center"
+          >
+            <img src="/public/tick-circle-svgrepo-com.png" class="w-4 lg:w-5" />
+            Introduction
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Who This Course is for?  -->
+    <div class="max-w-[1230px] mx-auto px-5 xl:px-3 mb-12 md:mb-16 xl:mb-20">
+      <h4 class="text-lg md:text-2xl xl:text-3xl text-[#940F0F] font-bold mb-7">
+        এই কোর্স যাদের জন্য
+      </h4>
+
+      <!-- grid section  -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- cards  -->
+
+        <div
+          class="bg-[#FFF3F3] flex flex-col gap-3 items-center text-center p-8 rounded-lg"
+        >
+          <div class="bg-white rounded-2xl w-24 shadow-md p-3">
+            <img
+              src="/public/meeting-meet-svgrepo-com.png"
+              class="h-full w-full object-contain"
+            />
+          </div>
+
+          <h4
+            class="text-base md:text-lg xl:text-xl text-[#940F0F] font-semibold"
+          >
+            ফ্রিল্যান্সিং এ আগ্রহী
+          </h4>
+        </div>
+
+        <div
+          class="bg-[#FFF3F3] flex flex-col gap-3 items-center text-center p-8 rounded-lg"
+        >
+          <div class="bg-white rounded-2xl w-24 shadow-md p-3">
+            <img
+              src="/public/meeting-meet-svgrepo-com.png"
+              class="h-full w-full object-contain"
+            />
+          </div>
+
+          <h4
+            class="text-base md:text-lg xl:text-xl text-[#940F0F] font-semibold"
+          >
+            ছাত্র-ছাত্রী
+          </h4>
+        </div>
+
+        <div
+          class="bg-[#FFF3F3] flex flex-col gap-3 items-center text-center p-8 rounded-lg"
+        >
+          <div class="bg-white rounded-2xl w-24 shadow-md p-3">
+            <img
+              src="/public/meeting-meet-svgrepo-com.png"
+              class="h-full w-full object-contain"
+            />
+          </div>
+
+          <h4
+            class="text-base md:text-lg xl:text-xl text-[#940F0F] font-semibold"
+          >
+            চাকুরী প্রত্যাশী
+          </h4>
+        </div>
+      </div>
+    </div>
+
+    <!-- Where You can work  -->
+    <div class="max-w-[1230px] mx-auto px-5 xl:px-3 mb-12 md:mb-16 xl:mb-20">
+      <h4 class="text-lg md:text-2xl xl:text-3xl text-[#940F0F] font-bold mb-7">
+        আপনি যেখানে কাজ করতে পারেন
+      </h4>
+
+      <!-- grid section  -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- cards  -->
+
+        <div
+          class="bg-[#FFF3F3] flex flex-col gap-3 items-center text-center p-8 rounded-lg"
+        >
+          <img src="/public/meeting-meet-svgrepo-com.png" class="w-24" />
+          <p class="text-sm lg:text-base text-gray-600">
+            কোর্সটি সম্পন্ন করে আপনি যেকোনো কোম্পানির যেকোন ধরনের ওয়েবসাইট তৈরি
+            থেকে শুরু করে ওয়েবসাইট ডেভেলপমেন্ট সব করতে পারবেন। বর্তমানে
+            দেশ-বিদেশের বিভিন্ন কোম্পানিতে পাইথন জ্যাঙ্গো ডেভেলপারের চাহিদা
+            বেড়েই চলেছে। তাই আপনি যদি ওয়েব ডেভেলপমেন্ট উইথ পাইথন জ্যাঙ্গো কোর্স
+            করেন, তাহলে দেশ বা দেশের বাইরে রিমোট অথবা লোকাল জব হিসেবে যেকোনো
+            কোম্পানিতে কাজ করতে পারেন। সাথে ফ্রীলান্সিং করতে পারবেন। এক্ষেত্রে
+            কোডক্লাব আইটি ইন্সটিটিউটের জব প্লেসমেন্ট ডিপার্টমেন্ট
+            শিক্ষার্থীদেরকে সাহায্য করে থাকে।
+          </p>
+        </div>
+
+        <div
+          class="bg-[#FFF3F3] flex flex-col gap-3 items-center text-center p-8 rounded-lg"
+        >
+          <img src="/public/meeting-meet-svgrepo-com.png" class="w-24" />
+          <p class="text-sm lg:text-base text-gray-600">
+            এক জরিপে দেখা গেছে, কোম্পানিতে জবের পাশাপাশি প্রায় ৫০ শতাংশই
+            ফ্রিল্যান্সিং করে থাকেন। কারণ একজন ফ্রিল্যান্সার স্বাধীনভাবে কাজ
+            করার পাশাপাশি ভাল আয় করতে পারেন। বিশ্বের বিভিন্ন দেশ থেকে
+            ফ্রিল্যান্সার, ফাইভার, আপওয়ার্ক, লেজিট সহ বিভিন্ন মার্কেটপ্লেসে
+            প্রতিদিন ওয়েব ডেভেলপমেন্টের অসংখ্য কাজ আসে। তাই একজন দক্ষ পাইথন
+            জ্যাঙ্গো ডেভেলপার হয়ে থাকেন তাহলে আপনিও হতে পারেন সফল ফ্রিল্যান্সার।
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Special Services  -->
+    <div class="max-w-[1230px] mx-auto px-5 xl:px-3 mb-12 md:mb-16 xl:mb-20">
+      <h4 class="text-lg md:text-2xl xl:text-3xl text-[#940F0F] font-bold mb-7">
+        কোডক্লাব আইটি ইন্সটিটিউটের শিক্ষার্থীদের জন্য বিশেষ সেবা
+      </h4>
+
+      <!-- grid section  -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- cards  -->
+
+        <div
+          class="bg-[#FFF3F3] flex flex-col gap-4 items-center text-center p-8 rounded-lg"
+        >
+          <img src="/public/meeting-meet-svgrepo-com.png" class="w-16" />
+          <h4
+            class="text-lg lg:text-xl xl:text-[22px] text-[#940F0F] font-semibold"
+          >
+            অনলাইন লাইভ ব্যাচ
+          </h4>
+          <p class="text-sm lg:text-base text-gray-600">
+            আপনি কি প্রবাসী শিক্ষার্থী? অথবা বাসায় বসে নিজে নিজে স্কিল ডেভলপ
+            করতে ইচ্ছুক? আপনার জন্য কোডক্লাব আইটি ইন্সটিটিউট চালু করেছে অনলাইন
+            ব্যাচ। আমাদের অফলাইন ব্যাচের মেন্টর, কোর্স মডিউল আর একই রকম সুযোগ
+            সুবিধা নিয়ে লাইভ ক্লাস পাচ্ছেন আপনার পছন্দমতো যেকোনো সময়ে।
+          </p>
+        </div>
+
+        <div
+          class="bg-[#FFF3F3] flex flex-col gap-4 items-center text-center p-8 rounded-lg"
+        >
+          <img src="/public/meeting-meet-svgrepo-com.png" class="w-16" />
+          <h4
+            class="text-lg lg:text-xl xl:text-[22px] text-[#940F0F] font-semibold"
+          >
+            রিভিউ ক্লাস
+          </h4>
+          <p class="text-sm lg:text-base text-gray-600">
+            কোর্স চলাকালীন সময়ে কোন টপিক বা ক্লাস বুঝতে শিক্ষার্থীদের যেন কোন
+            ধরনের অসুবিধার সম্মুখীন না হতে হয়, সেজন্যে আমাদের রয়েছে রিভিউ
+            ক্লাসের ব্যবস্থা। প্রতিটি শিক্ষার্থী যাতে ক্লাস থেকেই ১০০% শিখে যেতে
+            পারে তা নিশ্চিত করাই রিভিউ ক্লাসের উদ্দেশ্য। ব্যস্ততার মাঝেও এখন
+            কোডক্লাব আইটি ইন্সটিটিউটে স্কিল ডেভেলপমেন্ট হবে পুরোদমে।
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- How will admission  -->
+    <section class="px-5 xl:px-3 mb-12 md:mb-16 xl:mb-20">
+      <div
+        class="max-w-[1230px] h-full mx-auto flex flex-col justify-center items-center text-center gap-4 lg:gap-7"
+      >
+        <h4 class="text-lg md:text-2xl xl:text-3xl text-[#940F0F] font-bold">
+          কিভাবে ভর্তি হবেন?
+        </h4>
+        <p class="text-sm lg:text-base xl:text-lg text-gray-700">
+          আর সময় নষ্ট না করে সিট ফিল-আপ হওয়ার আগেই নিজের পছন্দের কোর্সে ভর্তি
+          হয়ে যান। নিচের ভর্তি হোন বাটনে ক্লিক করে অথবা মেনুতে থাকা Admission
+          Now বাটনে ক্লিক করে প্রসেসগুলো ফলো করে সহজে ভর্তি হয়ে যান আপনার
+          পছন্দের কোর্সে।
+        </p>
+
+        <button
+          class="text-white bg-[#940F0F] px-9 py-2 border-2 border-white rounded-xl mr-4"
+        >
+          ভর্তি হোন
+        </button>
+      </div>
+    </section>
+
+    <!-- course admission banner  -->
+    <section
+      class="bg-[url('/public/CodeCLub-IT-Institute-Seminer.jpg')] bg-cover bg-top-left h-[250px] lg:h-[330px] px-5 xl:px-3"
+    >
+      <div
+        class="max-w-[580px] h-full mx-auto flex flex-col justify-center items-center text-center gap-3 md:gap-5 xl:gap-7"
+      >
+        <h4
+          class="text-lg md:text-2xl lg:text-3xl xl:text-4xl text-amber-400 font-bold"
+        >
+          সকল কোর্সে ভর্তি চলছে ...
+        </h4>
+        <p class="text-sm md:text-base lg:text-base xl:text-xl text-white">
+          আর সময় নষ্ট না করে ক্যারিয়ার গড়ার লক্ষে ভর্তি হয়ে যান আপনার পছন্দের যে
+          কোন কোর্সে।
+        </p>
+
+        <div>
+          <button
+            class="text-white font-bold text-sm lg:text-base px-5 py-2 border-2 border-white rounded-xl mr-4"
+          >
+            জয়েন ফ্রি সেমিনার
+          </button>
+          <button
+            class="text-lime-400 font-bold text-sm lg:text-base px-5 py-2 border-2 border-lime-400 rounded-xl"
+          >
+            সকল কোর্স দেখুন
+          </button>
+        </div>
+      </div>
+    </section>
+{% endblock main %}
