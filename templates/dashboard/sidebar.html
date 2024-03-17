@@ -1,5 +1,8 @@
 <aside id="separator-sidebar" class="fixed top-12 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 border-r border-r-slate-200 bg-white" aria-label="Sidebar">
-    <div class="h-full px-3 py-4 overflow-y-auto dark:bg-gray-800">
+    <div class="relative h-full px-3 py-4 overflow-y-auto dark:bg-gray-800">
+      <div class="absolute h-[calc(100vh-80px)] right-0 flex items-center">
+         <p class="h-10 w-4 bg-slate-600 cursor-pointer flex items-center justify-center rounded-tl-md rounded-bl-md font-bold text-white"><</p>
+      </div>
        <ul class="space-y-2 font-medium">
           <li>
              <a href="/admin" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group {% if request.path == '/admin' or request.path == '/admin/' %} bg-gray-200 text-black {% endif %}">
@@ -41,6 +44,12 @@
              <a href="/admin/users" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group {% if request.path == '/admin/users' %} bg-gray-200 text-black {% endif %}">
                 <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM17.3628 15.2332C20.4482 16.0217 22.7679 18.7235 22.9836 22H20C20 19.3902 19.0002 17.0139 17.3628 15.2332ZM15.3401 12.9569C16.9728 11.4922 18 9.36607 18 7C18 5.58266 17.6314 4.25141 16.9849 3.09687C19.2753 3.55397 21 5.57465 21 8C21 10.7625 18.7625 13 16 13C15.7763 13 15.556 12.9853 15.3401 12.9569Z" fill="currentColor"></path></svg>
                 <span class="flex-1 ms-3 whitespace-nowrap">Users</span>
+             </a>
+          </li>
+         <li>
+             <a href="/admin/messages" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group {% if request.path == '/admin/messages' %} bg-gray-200 text-black {% endif %}">
+                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM17.3628 15.2332C20.4482 16.0217 22.7679 18.7235 22.9836 22H20C20 19.3902 19.0002 17.0139 17.3628 15.2332ZM15.3401 12.9569C16.9728 11.4922 18 9.36607 18 7C18 5.58266 17.6314 4.25141 16.9849 3.09687C19.2753 3.55397 21 5.57465 21 8C21 10.7625 18.7625 13 16 13C15.7763 13 15.556 12.9853 15.3401 12.9569Z" fill="currentColor"></path></svg>
+                <span class="flex-1 ms-3 whitespace-nowrap">Messages</span>
              </a>
           </li>
           <li>

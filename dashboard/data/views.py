@@ -3,7 +3,7 @@ import time
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 
-from apps.data.models import Folder
+from apps.data.models import File, Folder
 
 
 def DataView(request, *args, **kwargs):
@@ -55,11 +55,17 @@ def SubFolder(request, fid, **kwargs):
         "#D61F69",
     ]
     if request.method == "GET":
-        folders = Folder.objects.filter(parent__id=fid)
+        folder = Folder.objects.filter(id=fid).first()
         return render(
             request,
             "dashboard/data/datas.html",
-            {"folders": folders, "colors": colors},
+            {
+                "folders": Folder.objects.filter(parent__id=fid),
+                "files": File.objects.filter(folder__id=fid),
+                "colors": colors,
+                "sequence": folder.sequence,
+                "parent_id": fid,
+            },
         )
 
     if request.method == "POST":
@@ -72,12 +78,16 @@ def SubFolder(request, fid, **kwargs):
             }
             folder = Folder(**data)
             folder.save()
-            folders = Folder.objects.filter(parent__id=fid)
 
             return render(
                 request,
                 "dashboard/data/folders.html",
-                {"folders": folders, "colors": colors},
+                {
+                    "folders": Folder.objects.filter(parent__id=fid),
+                    "files": File.objects.filter(folder__id=fid),
+                    "colors": colors,
+                    "parent_id": fid,
+                },
             )
 
 
@@ -105,11 +115,14 @@ def DeleteFolder(request, **kwargs):
         else:
             folder.delete()
             if folder.parent is not None:
-                folders = Folder.objects.filter(parent__id=folder.parent.id)
                 return render(
                     request,
                     "dashboard/data/folders.html",
-                    {"folders": folders, "colors": colors},
+                    {
+                        "folders": Folder.objects.filter(parent__id=folder.parent.id),
+                        "colors": colors,
+                        "parent_id": fid,
+                    },
                 )
             else:
                 folders = Folder.objects.filter(parent__isnull=True)
@@ -119,3 +132,30 @@ def DeleteFolder(request, **kwargs):
                     {"folders": folders, "colors": colors, "parent": True},
                 )
             return HttpResponse("Folder deleted successfully")
+
+
+def AddFile(request, id):
+    colors = [
+        "#4B5563",
+        "#E02424",
+        "#9F580A",
+        "#057A55",
+        "#1C64F2",
+        "#5850EC",
+        "#7E3AF2",
+        "#D61F69",
+    ]
+    if request.method == "POST":
+        data = request.POST
+        file = request.FILES["file"]
+        folder = Folder.objects.filter(id=id).first()
+        newfile = File(
+            name=file.name, file=file, permium=False, folder=folder, size=10.5
+        )
+        newfile.save()
+        files = File.objects.filter(folder__id=id)
+        return render(
+            request,
+            "dashboard/data/folders.html",
+            {"files": files, "colors": colors, "parent_id": id},
+        )

@@ -5,17 +5,33 @@ class Folder(models.Model):
     name = models.CharField(max_length=255)
     premium = models.BooleanField(default=False)
     color = models.CharField(max_length=255, default="#4B5563")
-    parent = models.ForeignKey("Folder", on_delete=models.CASCADE, related_name="owner", blank=True, null=True)
+    parent = models.ForeignKey(
+        "Folder", on_delete=models.CASCADE, related_name="owner", blank=True, null=True
+    )
 
     def __str__(self):
         return self.name
+
+    def get_parents(self, id, parents):
+        folder = Folder.objects.filter(id=id).first()
+        if folder is not None:
+            parents.append({"id": folder.id, "name": folder.name})
+            if folder.parent:
+                return self.get_parents(folder.parent.id, parents)
+        return parents
+
+    def sequence(self):
+        if not self.parent:
+            return [{"id": self.id, "name": self.name}]
+        return self.get_parents(self.id, [])
 
     def sub_folder(self):
         return Folder.objects.filter(parent=self).count()
 
     class Meta:
-        ordering = ('-id',)
-    
+        ordering = ("-id",)
+
+
 class File(models.Model):
     name = models.CharField(max_length=255)
     file = models.FileField(upload_to="media/files")
