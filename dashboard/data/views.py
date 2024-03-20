@@ -1,5 +1,9 @@
+import os
 import time
 
+from django.core.files.storage import default_storage
+from django.db.models import FileField
+from django.db.models.signals import post_delete
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 
@@ -73,7 +77,6 @@ def SubFolder(request, fid, **kwargs):
             data = {
                 "name": request.POST.get("name"),
                 "premium": request.POST.get("premium") == "yes",
-                "color": request.POST.get("color"),
                 "parent": Folder.objects.get(id=fid),
             }
             folder = Folder(**data)
@@ -85,13 +88,69 @@ def SubFolder(request, fid, **kwargs):
                 {
                     "folders": Folder.objects.filter(parent__id=fid),
                     "files": File.objects.filter(folder__id=fid),
-                    "colors": colors,
                     "parent_id": fid,
                 },
             )
 
 
 def DeleteFolder(request, **kwargs):
+    if request.method == "DELETE" and request.htmx:
+        id = request.GET.get("id")
+        folder = Folder.objects.filter(id=id).first()
+        if folder is None:
+            return HttpResponseNotFound("Folder not found")
+        else:
+            folder.delete()
+            if folder.parent is not None:
+                folders = Folder.objects.filter(parent__id=folder.parent.id)
+                return render(
+                    request,
+                    "dashboard/data/folders.html",
+                    {
+                        "folders": folders,
+                        "parent_id": folder.parent.id,
+                    },
+                )
+            else:
+                folders = Folder.objects.filter(parent__isnull=True)
+                return render(
+                    request,
+                    "dashboard/data/folders.html",
+                    {"folders": folders, "parent": True},
+                )
+            return HttpResponse("Folder deleted successfully")
+
+
+def AddFile(request, id):
+    if request.method == "POST" and request.htmx:
+        data = request.POST
+        errors = {}
+        file = request.FILES.get("file")
+        name = data.get("name")
+        if name == "":
+            errors["name"] = "This field is required"
+        if errors:
+            response = render(
+                request,
+                "dashboard/data/forms/inputs.html",
+                {"parent_id": id, "errors": errors},
+            )
+            response["HX-Retarget"] = "#addfile-inputs"
+            response["HX-Reswap"] = "innerHTML"
+            return response
+        folder = Folder.objects.filter(id=id).first()
+        free = data.get("free") == "yes"
+        newfile = File(name=name, file=file, permium=not free, folder=folder, size=10.5)
+        newfile.save()
+        files = File.objects.filter(folder__id=id)
+        return render(
+            request,
+            "dashboard/data/folders.html",
+            {"files": files, "parent_id": id},
+        )
+
+
+def DeleteFile(request, **kwargs):
     colors = [
         "#4B5563",
         "#E02424",
@@ -105,57 +164,49 @@ def DeleteFolder(request, **kwargs):
     if request.method == "DELETE":
         # time.sleep(5)
         id = request.GET.get("id")
-        folder = Folder.objects.filter(
+        file = File.objects.filter(
             id=id
         ).first()  # Use first() to get the first object in the queryset
-        if folder is None:
+        if file is None:
             return HttpResponseNotFound(
-                "Folder not found"
+                "File not found"
             )  # Return 404 response if folder is not found
         else:
-            folder.delete()
-            if folder.parent is not None:
-                return render(
-                    request,
-                    "dashboard/data/folders.html",
-                    {
-                        "folders": Folder.objects.filter(parent__id=folder.parent.id),
-                        "colors": colors,
-                        "parent_id": fid,
-                    },
-                )
-            else:
-                folders = Folder.objects.filter(parent__isnull=True)
-                return render(
-                    request,
-                    "dashboard/data/folders.html",
-                    {"folders": folders, "colors": colors, "parent": True},
-                )
-            return HttpResponse("Folder deleted successfully")
+            folder = Folder.objects.filter(id=file.folder.id).first()
+            file.delete()
+            context = {
+                "parent_id": folder.id,
+            }
+            files = File.objects.filter(folder__id=folder.id)
+            if files:
+                context["files"] = files
+            context["folders"] = Folder.objects.filter(parent__id=folder.id)
+            return render(request, "dashboard/data/folders.html", context)
+            return HttpResponse("File deleted successfully")
 
 
-def AddFile(request, id):
-    colors = [
-        "#4B5563",
-        "#E02424",
-        "#9F580A",
-        "#057A55",
-        "#1C64F2",
-        "#5850EC",
-        "#7E3AF2",
-        "#D61F69",
-    ]
-    if request.method == "POST":
-        data = request.POST
-        file = request.FILES["file"]
-        folder = Folder.objects.filter(id=id).first()
-        newfile = File(
-            name=file.name, file=file, permium=False, folder=folder, size=10.5
-        )
-        newfile.save()
-        files = File.objects.filter(folder__id=id)
-        return render(
-            request,
-            "dashboard/data/folders.html",
-            {"files": files, "colors": colors, "parent_id": id},
-        )
+# def file_cleanup(sender, **kwargs):
+#     for fieldname in sender._meta.get_all_field_names():
+#         try:
+#             field = sender._meta.get_field(fieldname)
+#         except:
+#             field = None
+
+#         if field and isinstance(field, FileField):
+#             inst = kwargs["instance"]
+#             f = getattr(inst, fieldname)
+#             m = inst.__class__._default_manager
+#             if (
+#                 hasattr(f, "path")
+#                 and os.path.exists(f.path)
+#                 and not m.filter(
+#                     **{"%s__exact" % fieldname: getattr(inst, fieldname)}
+#                 ).exclude(pk=inst._get_pk_val())
+#             ):
+#                 try:
+#                     default_storage.delete(f.path)
+#                 except:
+#                     pass
+
+
+# post_delete.connect(file_cleanup, sender=File)

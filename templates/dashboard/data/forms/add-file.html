@@ -1,0 +1,22 @@
+<form class="space-y-4" hx-post="/admin/folder/{{parent_id}}/file" hx-trigger="submit" hx-encoding="multipart/form-data">
+    {% csrf_token %}
+    {% include "dashboard/data/forms/inputs.html" %}
+    <div class="p-2 text-center">
+        <button id="add-file-button" hx-post="/admin/folder/{{parent_id}}/file" hx-target="#folders" type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+            Add File
+        </button>
+        <button data-modal-hide="add-file" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+    </div>
+</form>
+<script>
+htmx.on('htmx:xhr:progress', function (evt) {
+    if (evt.detail.elt.id === "add-file-button") {
+        console.log("evt.detail = ", evt.detail)
+        const progressValue = evt.detail.loaded / evt.detail.total * 100;
+        htmx.removeClass(htmx.find("#progress-parent"), "hidden");
+        const progressElement = htmx.find('#progress');
+        progressElement.style.width = `${progressValue}%`;
+        progressElement.innerText = `${Math.round(progressValue)}%`;
+    }
+});
+</script>

@@ -1,3 +1,4 @@
+
 <div class="w-full flex justify-between pb-4">
         <!-- <label for="simple-search" class="sr-only">Search</label> -->
         <form class="relative w-full max-w-md">
@@ -31,48 +32,10 @@
         </div>
     {% endfor %}
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-{% comment %} <script>
-    document.addEventListener("htmx:confirm", function(e) {
-        e.preventDefault();
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes, delete it!",
-            showLoaderOnConfirm: true, // Show loader icon
-            allowOutsideClick: () => !Swal.isLoading(), // Prevent closing while loading
-            preConfirm: () => {
-                return false;
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: "Success",
-                    text: "Folder deleted successfully",
-                    icon: "success"
-                });
-            }
-        }).catch((error) => {
-            Swal.fire({
-                title: "Failed",
-                text: error.message,
-                icon: "error"
-            });
-        });
-    });
-</script> {% endcomment %}
 
 <script>
-    htmx.on("htmx:beforeSwap", (e) => {
-        // Empty response targeting #dialog => hide the modal
-        if (e.detail.target.id == "folders" && !e.detail.xhr.response) {
-        console.log("Success");
-        }
-    })
     
     document.addEventListener("htmx:confirm", function(e) {
         if(e.detail.verb === "delete"){
@@ -103,10 +66,36 @@
         if(event.detail.requestConfig.verb === "delete"){
             var successMessage = "Folder deleted successfully";
             Swal.fire({
-                title: "Success",
-                text: successMessage,
-                icon: "success"
-            });
+                toast: true,
+                icon: 'success',
+                title: successMessage,
+                animation: false,
+                position: 'bottom-right',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+        },
+        if(event.detail.requestConfig.verb === "delete"){
+            var successMessage = "Folder added successfully";
+            Swal.fire({
+                toast: true,
+                icon: 'success',
+                title: successMessage,
+                animation: false,
+                position: 'bottom-right',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
         }
     });
     document.addEventListener("htmx:responseError", function(event) {
