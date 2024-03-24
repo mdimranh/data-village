@@ -14,7 +14,7 @@
         New Folder
     </button>
 </div>
-<div class="flex gap-4 flex-wrap">
+<div class="flex gap-4 flex-wrap justify-center">
     {% for folder in folders %}
     <div class="relative w-64 border border-slate-300 rounded-lg group hover:bg-blue-50 hover:border-blue-400 cursor-pointer">
         <a class="flex h-full w-full p-2" {% if not parent %} href="/admin/data/{{folder.id}}" {%else%} href="/admin/data/{{folder.id}}" {% endif %}>
@@ -32,98 +32,3 @@
         </div>
     {% endfor %}
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-    
-    document.addEventListener("htmx:confirm", function(e) {
-        if(e.detail.verb === "delete"){
-            e.preventDefault();
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
-                confirmButtonText: "Yes, delete it!",
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    e.detail.issueRequest(true)
-                    // dont close the swal. start loading after response show message
-                }
-            });
-        }
-    });
-    
-    {% comment %} document.addEventListener("htmx:beforeSend", function(event) {
-        console.log("Before send")
-        Swal.showLoading(); // Show loading spinner on every htmx request
-    }); {% endcomment %}
-
-    document.addEventListener("htmx:afterSwap", function(event) {
-        if(event.detail.requestConfig.verb === "delete"){
-            var successMessage = "Folder deleted successfully";
-            Swal.fire({
-                toast: true,
-                icon: 'success',
-                title: successMessage,
-                animation: false,
-                position: 'bottom-right',
-                showConfirmButton: false,
-                timer: 5000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-        },
-        if(event.detail.requestConfig.verb === "delete"){
-            var successMessage = "Folder added successfully";
-            Swal.fire({
-                toast: true,
-                icon: 'success',
-                title: successMessage,
-                animation: false,
-                position: 'bottom-right',
-                showConfirmButton: false,
-                timer: 5000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-        }
-    });
-    document.addEventListener("htmx:responseError", function(event) {
-        if(event.detail.requestConfig.verb == "delete"){
-            var errorMessage = "Failed to delete";
-            Swal.fire({
-                title: "Failed",
-                text: errorMessage,
-                icon: "error"
-            });
-        }
-    });
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        var deleteButtons = document.querySelectorAll('.delete-button');
-        var editButtons = document.querySelectorAll('.edit-button');
-        deleteButtons.forEach(function(deleteButton) {
-            deleteButton.addEventListener('click', function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-            });
-        })
-        
-        editButtons.forEach(function(editButton) {
-            editButton.addEventListener('click', function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-            });
-        })
-    });
-</script>

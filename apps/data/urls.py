@@ -1,7 +1,5 @@
 from django.urls import path
 
-from .views import datas
+from .views import *
 
-urlpatterns = [
-    path('datas/<str:type>', datas)
-]
+urlpatterns = [path("datas/<str:type>", datas), path("data/<str:type>", data)]

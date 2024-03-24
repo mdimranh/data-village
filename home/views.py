@@ -16,18 +16,25 @@ from utils.verify import Messaging
 
 
 def Home(request):
-    return render(request, 'home.html')
+    return render(request, "home.html")
+
+
+def excel(request):
+    return render(request, "excel.html")
+
 
 class DashboardList(ListView):
     model = User
     template_name = "dashboard.html"
 
+
 def PrivacyView(request):
     privacy = Privacy.objects.first()
     context = {"privacy": privacy}
-    return render(request, 'privacy.html', context)
+    return render(request, "privacy.html", context)
+
 
 def RefundPolicyView(request):
     privacy = RefundPolicy.objects.first()
     context = {"privacy": privacy}
-    return render(request, 'refund_policy.html', context)
+    return render(request, "refund_policy.html", context)

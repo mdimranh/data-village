@@ -143,6 +143,7 @@ def AddFile(request, id):
         newfile = File(name=name, file=file, permium=not free, folder=folder, size=10.5)
         newfile.save()
         files = File.objects.filter(folder__id=id)
+        folders = Folder.objects.filter(parent__isnull=True)
         return render(
             request,
             "dashboard/data/folders.html",

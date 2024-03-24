@@ -1944,10 +1944,6 @@ input:checked + .toggle-bg {
   margin-bottom: 2rem;
 }
 
-.-ml-1 {
-  margin-left: -0.25rem;
-}
-
 .-ml-5 {
   margin-left: -1.25rem;
 }
@@ -2908,6 +2904,11 @@ input:checked + .toggle-bg {
   border-color: rgb(227 160 8 / var(--tw-border-opacity));
 }
 
+.border-slate-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(226 232 240 / var(--tw-border-opacity));
+}
+
 .border-b-gray-200 {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(229 231 235 / var(--tw-border-opacity));
@@ -3045,6 +3046,11 @@ input:checked + .toggle-bg {
 .bg-red-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(200 30 30 / var(--tw-bg-opacity));
+}
+
+.bg-slate-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
 }
 
 .bg-slate-600 {
@@ -3288,10 +3294,6 @@ input:checked + .toggle-bg {
   padding-bottom: 1.25rem;
 }
 
-.pl-10 {
-  padding-left: 2.5rem;
-}
-
 .pl-11 {
   padding-left: 2.75rem;
 }
@@ -3304,12 +3306,12 @@ input:checked + .toggle-bg {
   padding-right: 0.25rem;
 }
 
-.pr-4 {
-  padding-right: 1rem;
+.pr-12 {
+  padding-right: 3rem;
 }
 
-.pr-6 {
-  padding-right: 1.5rem;
+.pr-4 {
+  padding-right: 1rem;
 }
 
 .ps-10 {
@@ -3330,14 +3332,6 @@ input:checked + .toggle-bg {
 
 .pt-5 {
   padding-top: 1.25rem;
-}
-
-.pr-8 {
-  padding-right: 2rem;
-}
-
-.pr-12 {
-  padding-right: 3rem;
 }
 
 .text-left {
@@ -3850,11 +3844,6 @@ input:checked + .toggle-bg {
   color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
-.hover\:text-gray-800:hover {
-  --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity));
-}
-
 .hover\:text-gray-900:hover {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
@@ -4209,11 +4198,6 @@ input:checked + .toggle-bg {
 :is(.dark .dark\:hover\:text-blue-600:hover) {
   --tw-text-opacity: 1;
   color: rgb(28 100 242 / var(--tw-text-opacity));
-}
-
-:is(.dark .dark\:hover\:text-gray-100:hover) {
-  --tw-text-opacity: 1;
-  color: rgb(243 244 246 / var(--tw-text-opacity));
 }
 
 :is(.dark .dark\:hover\:text-gray-300:hover) {

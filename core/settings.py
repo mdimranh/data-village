@@ -26,8 +26,9 @@ SECRET_KEY = "django-insecure-fompasih*m=#u1_il=7v=d+1yy7il@1om$fo8y*h+9mgd4zo9l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*", "127.0.0.1", "localhost"]
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     "django_htmx",
     "django_browser_reload",
+    "corsheaders",
     # Local app
     "account",
     "home",
@@ -69,6 +71,7 @@ MIDDLEWARE = [
     # "django_browser_reload.middleware.BrowserReloadMiddleware",
     # 'django.contrib.sessions.middleware.SessionMiddleware',
     "user_sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
