@@ -1,0 +1,95 @@
+{% load static %}
+
+<form autocomplete="off" id="login-form" hx-post="{% if request.path == '/signup'  %}/login{% else %}{{request.get_full_path}}{% endif %}" hx-target="#login-form"  hx-swap="outerHTML"
+    class="{% if not login %}hidden{% endif %}
+            max-w-xl w-full px-8 py-12 border border-gray-300 bg-white shadow-md rounded-lg" method="post">
+    {% csrf_token %}
+    <a href="/" class="flex items-center mb-5">
+        <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="Flowbite Logo" />
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Data Village</span>
+    </a>
+    <h1 class="font-bold">WELCOME BACK</h1>
+    <h3 class="mb-6">Start your website in seconds. Don't have an account? <span id="signup-btn"
+            class="cursor-pointer font-bold text-lime-700">Sign up.</span>
+    </h3>
+    <div class="mb-6">
+        <label for="phone" class="block mb-2 w-full text-sm font-medium text-gray-900 dark:text-white">Your
+            Phone</label>
+        <input for="login_full_phone" type="text" name="phone" id="phone" {% if phone %}
+            value="{{ phone }}" {% endif %}
+            class="bg-gray-50 border {% if errors.identity %}border-red-700{% endif %} border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Phone">
+        {% if errors.identity %}<span class="text-red-700 text-sm">{{errors.identity}}</span>{% endif %}
+        <input type="hidden" name="full_phone" id="login_full_phone" value="{{full_phone}}">
+    </div>
+    <div class="mb-3">
+        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+            password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" {% if password %}
+            autocomplete="password" value="{{ password }}" {% endif %} class=" {% if errors.password %}border-red-700{% endif %} bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+            focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+            dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        {% if errors.password %}<span class="text-red-700 text-sm">{{errors.password}}</span>{% endif %}
+    </div>
+    {% if errors.message %}
+        <h1 class='text-red-600'>{{errors.message}}</h1>
+    {% endif %}
+    <span id="login-error"></span>
+    <button type="submit"
+        class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+</form>
+
+<script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'node_modules/inputmask/dist/jquery.inputmask.min.js' %}"></script>
+<script src="{% static 'node_modules/intl-tel-input/build/js/intlTelInput.min.js' %}"></script>
+<script>
+    $(function () {
+        var inputFields = document.querySelectorAll("input[id='phone']");
+        var itiInstances = [];
+
+        // Initialize intlTelInput for each input field
+        for (var i = 0; i < inputFields.length; i++) {
+            var input = inputFields[i];
+            var iti = window.intlTelInput(input, {
+                autoHideDialCode: false,
+                autoPlaceholder: "aggressive",
+                initialCountry: "BD",
+                separateDialCode: true,
+                onlyCountries: ["BD"],
+                customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
+                    return '' + selectedCountryPlaceholder.replace(/[0-9]/g, 'X');
+                },
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/utils.js"
+            });
+            itiInstances.push(iti);
+        }
+
+        // Event handler for input fields
+        $('input[id="phone"]').on("focus click countrychange", function (e, countryData) {
+            var pl = $(this).attr('placeholder') + '';
+            var res = pl.replace(/X/g, '9');
+            if (res != 'undefined') {
+                $(this).inputmask(res, { placeholder: "X", clearMaskOnLostFocus: true });
+            }
+        });
+
+        // Event handler for focusout
+        $('input[id="phone"]').on("focusout change", function (e) {
+            var index = $('input[id="phone"]').index(this);
+            var iti = itiInstances[index];
+            var intlNumber = iti.getNumber();
+            var full_phone_id = $(this).attr("for");
+            $(`#${full_phone_id}`).val(intlNumber);
+        });
+    });
+</script>
+<script>
+    document.getElementById('login-btn').addEventListener('click', function () {
+        document.getElementById('login-form').classList.remove('hidden');
+        document.getElementById('signup-form').classList.add('hidden');
+    });
+    document.getElementById('signup-btn').addEventListener('click', function () {
+        document.getElementById('login-form').classList.add('hidden');
+        document.getElementById('signup-form').classList.remove('hidden');
+    });
+</script>

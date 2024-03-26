@@ -34,7 +34,7 @@ def DataView(request, *args, **kwargs):
             data = {
                 "name": request.POST.get("name"),
                 "premium": request.POST.get("premium") == "yes",
-                "color": request.POST.get("color"),
+                # "color": request.POST.get("color"),
             }
             folder = Folder(**data)
             folder.save()
@@ -43,7 +43,7 @@ def DataView(request, *args, **kwargs):
             return render(
                 request,
                 "dashboard/data/folders.html",
-                {"folders": folders, "colors": colors, "parent": True},
+                {"folders": folders, "parent": True},
             )
 
 

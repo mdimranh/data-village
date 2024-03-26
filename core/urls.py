@@ -34,3 +34,5 @@ urlpatterns = [
     path("payment/", include("apps.payment.urls")),
     path("admin/", include("dashboard.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = "home.views.error404"

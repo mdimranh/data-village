@@ -1,0 +1,139 @@
+{% load static %}
+
+<form autocomplete="off" id="signup-form" hx-post="/signup" hx-target="#signup-form"  hx-swap="outerHTML"
+    class="max-w-xl {% if login %}hidden{% endif %} w-full px-8 py-12 border border-gray-300 bg-white shadow-md rounded-lg"
+    method="post">
+    {% csrf_token %}
+    <a href="https://flowbite.com/" class="flex items-center mb-5">
+        <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="Flowbite Logo" />
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+    </a>
+    <h1 class="font-bold">WELCOME BACK</h1>
+    <h3 class="mb-6">Start your website in seconds. Don't have an account? <span id="login-btn"
+            class="cursor-pointer font-bold text-lime-700">Login.</span>
+    </h3>
+    <div class="mb-6">
+        <label for="full_name" class="block mb-2 w-full text-sm font-medium text-gray-900 dark:text-white">Your Full Name</label>
+        <input type="text" name="full_name" id="full_name" {% if full_name %}
+            value="{{ full_name }}" {% endif %}
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Full Name" required>
+    </div>
+    <div class="mb-6">
+        <label for="phone" class="block mb-2 w-full text-sm font-medium text-gray-900 dark:text-white">Your
+            Phone</label>
+        <input  for="signup_full_phone" type="text" name="phone" id="phone" {% if phone %}
+            value="{{ phone }}" {% endif %}
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Phone" required>
+        <input type="hidden" name="full_phone" id="signup_full_phone" value="{{full_phone}}">
+        {% if errors.phone %}<span class="text-red-700 text-sm">{{errors.phone}}</span>{% endif %}
+    </div>
+    <div class="mb-6">
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+            email</label>
+        <input type="email" name="email" id="email" {% if email %} value="{{ email }}" {% endif %}
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Email" required>
+            {% if errors.email %}<span class="text-red-700 text-sm">{{errors.email}}</span>{% endif %}
+    </div>
+    <div class="mb-6">
+        <h3 class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Your Gender</h3>
+        <ul class="grid w-full gap-6 md:grid-cols-2">
+            <li>
+                <input type="radio" id="male" name="gender" value="male" class="hidden peer" required {% if not gender or gender == 'male' %}checked{% endif %}>
+                <label for="male" class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
+                    <div class="block">
+                        <div class="w-full">Male</div>
+                    </div>
+                </label>
+            </li>
+            <li>
+                <input type="radio" id="female" name="gender" value="female" class="hidden peer" {% if gender == 'female' %}checked{% endif %}>
+                <label for="female" class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                    <div class="block">
+                        <div class="w-full">Female</div>
+                    </div>
+                </label>
+            </li>
+        </ul>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+            password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" {% if password %}
+            autocomplete="password" value="{{ password }}" {% endif %}
+            class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                    focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+    </div>
+    <!-- <div class="flex items-start mb-2">
+                <div class="flex items-center h-5">
+                    <input id="remember" type="checkbox" value="" name="remember_me"
+                        class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800">
+                </div>
+                <label for="remember" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember
+                    me</label>
+            </div> -->
+
+    {% if error %}
+    <h1 class="text-red-600">{{error}}</h1>
+    {% endif %}
+    <button type="submit"
+        class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+</form>
+
+<script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'node_modules/inputmask/dist/jquery.inputmask.min.js' %}"></script>
+<script src="{% static 'node_modules/intl-tel-input/build/js/intlTelInput.min.js' %}"></script>
+<script>
+    $(function () {
+        var inputFields = document.querySelectorAll("input[id='phone']");
+        var itiInstances = [];
+
+        // Initialize intlTelInput for each input field
+        for (var i = 0; i < inputFields.length; i++) {
+            var input = inputFields[i];
+            var iti = window.intlTelInput(input, {
+                autoHideDialCode: false,
+                autoPlaceholder: "aggressive",
+                initialCountry: "BD",
+                separateDialCode: true,
+                onlyCountries: ["BD"],
+                customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
+                    return '' + selectedCountryPlaceholder.replace(/[0-9]/g, 'X');
+                },
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/js/utils.js"
+            });
+            itiInstances.push(iti);
+        }
+
+        // Event handler for input fields
+        $('input[id="phone"]').on("focus click countrychange", function (e, countryData) {
+            var pl = $(this).attr('placeholder') + '';
+            var res = pl.replace(/X/g, '9');
+            if (res != 'undefined') {
+                $(this).inputmask(res, { placeholder: "X", clearMaskOnLostFocus: true });
+            }
+        });
+
+        // Event handler for focusout
+        $('input[id="phone"]').on("focusout change", function (e) {
+            var index = $('input[id="phone"]').index(this);
+            var iti = itiInstances[index];
+            var intlNumber = iti.getNumber();
+            var full_phone_id = $(this).attr("for");
+            $(`#${full_phone_id}`).val(intlNumber);
+        });
+    });
+</script>
+<script>
+    document.getElementById('login-btn').addEventListener('click', function () {
+        document.getElementById('login-form').classList.remove('hidden');
+        document.getElementById('signup-form').classList.add('hidden');
+    });
+    document.getElementById('signup-btn').addEventListener('click', function () {
+        document.getElementById('login-form').classList.add('hidden');
+        document.getElementById('signup-form').classList.remove('hidden');
+    });
+</script>

@@ -14,7 +14,7 @@
         New Folder
     </button>
 </div>
-<div class="flex gap-4 flex-wrap justify-center">
+<div class="flex gap-4 flex-wrap justify-start">
     {% for folder in folders %}
     <div class="relative w-64 border border-slate-300 rounded-lg group hover:bg-blue-50 hover:border-blue-400 cursor-pointer">
         <a class="flex h-full w-full p-2" {% if not parent %} href="/admin/data/{{folder.id}}" {%else%} href="/admin/data/{{folder.id}}" {% endif %}>

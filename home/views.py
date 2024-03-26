@@ -15,6 +15,10 @@ from dashboard.models import Privacy, RefundPolicy
 from utils.verify import Messaging
 
 
+def error404(request, exception):
+    return render(request, "home.html")
+
+
 def Home(request):
     return render(request, "home.html")
 

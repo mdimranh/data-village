@@ -18,84 +18,64 @@
 {% endblock style %}
 
 {% block main %}
-<div class="p-4 bg-gray-100 fixed left-0 right-0 bottom-0 top-16 z-20 overflow-y-auto">
-    <span class="flex xl:gap-4 flex-wrap w-full justify-center xl:justify-center h-full items-center">
-        <form class="flex flex-col max-w-xl w-full px-8 py-16 border border-gray-300 bg-white shadow-md rounded-lg" method="post">
-          {% csrf_token %}
-          <input type="hidden" name="secret" value="{{secret}}">
-          <div class="font-bold text-2xl text-gray-700">Please Verify Your Email</div>
-          <div class="font-semibold text-gray-600 mt-2">Enter six digit OTP Code send to {{email}}</div>
-          <div class="flex justify-between gap-3 w-full mt-12">
-            <input name="d1" class="w-16 h-16 border-2 border-gray-200 rounded-md text-center" type="number" />
-            <input name="d2" class="w-16 h-16 border-2 border-gray-200 rounded-md text-center" type="number" disabled />
-            <input name="d3" class="w-16 h-16 border-2 border-gray-200 rounded-md text-center" type="number" disabled />
-            <input name="d4" class="w-16 h-16 border-2 border-gray-200 rounded-md text-center" type="number" disabled />
-            <input name="d5" class="w-16 h-16 border-2 border-gray-200 rounded-md text-center" type="number" disabled />
-            <input name="d6" class="w-16 h-16 border-2 border-gray-200 rounded-md text-center" type="number" disabled />
-          </div>
-          {% if error %}
-            <span class="text-red-700 text-sm mt-2">{{error}}</span>
-          {% endif %}
-          <div class="font-semibold text-gray-600 mt-14">Don't received OTP Code? <span class="text-blue-700 cursor-pointer">Resend Code</span></div>
-          <div class="flex w-full justify-center">
-            <button id="submit-btn" class="mt-6 font-bold text-lg bg-lime-700 text-white rounded-md px-4 py-2 disabled:opacity-50" disabled>Verify & Proced</button>
-          </div>
-        </form>
-        <!-- <img class="max-w-xl xl:w-auto w-0" src="{% static 'img/svg/login.svg' %}" alt=""> -->
-    </span>
-</div>
+{% include "verify/email-otp-card.html" %}
 <script>
-  const inputs = document.querySelectorAll("input"),
-  button = document.getElementById("submit-btn");
+  function initpage(){
+    const inputs = document.querySelectorAll("input"),
+    button = document.getElementById("submit-btn");
 
-  // iterate over all inputs
-  inputs.forEach((input, index1) => {
-  input.addEventListener("keyup", (e) => {
-      // This code gets the current input element and stores it in the currentInput variable
-      // This code gets the next sibling element of the current input element and stores it in the nextInput variable
-      // This code gets the previous sibling element of the current input element and stores it in the prevInput variable
-      const currentInput = input,
-      nextInput = input.nextElementSibling,
-      prevInput = input.previousElementSibling;
+    // iterate over all inputs
+    inputs.forEach((input, index1) => {
+    input.addEventListener("keyup", (e) => {
+        // This code gets the current input element and stores it in the currentInput variable
+        // This code gets the next sibling element of the current input element and stores it in the nextInput variable
+        // This code gets the previous sibling element of the current input element and stores it in the prevInput variable
+        const currentInput = input,
+        nextInput = input.nextElementSibling,
+        prevInput = input.previousElementSibling;
 
-      // if the value has more than one character then clear it
-      if (currentInput.value.length > 1) {
-      currentInput.value = "";
-      return;
-      }
-      // if the next input is disabled and the current value is not empty
-      //  enable the next input and focus on it
-      if (nextInput && nextInput.hasAttribute("disabled") && currentInput.value !== "") {
-      nextInput.removeAttribute("disabled");
-      nextInput.focus();
-      }
-
-      // if the backspace key is pressed
-      if (e.key === "Backspace") {
-      // iterate over all inputs again
-      inputs.forEach((input, index2) => {
-          // if the index1 of the current input is less than or equal to the index2 of the input in the outer loop
-          // and the previous element exists, set the disabled attribute on the input and focus on the previous element
-          if (index1 <= index2 && prevInput) {
-          input.setAttribute("disabled", true);
-          input.value = "";
-          prevInput.focus();
-          }
-      });
-      }
-      //if the fourth input( which index number is 3) is not empty and has not disable attribute then
-      //add active class if not then remove the active class.
-      if (!inputs[5].disabled && inputs[5].value !== "") {
-        button.removeAttribute("disabled");
+        // if the value has more than one character then clear it
+        if (currentInput.value.length > 1) {
+        currentInput.value = "";
         return;
-      }
-      else {
-        button.setAttribute("disabled", true);
-      }
-  });
-  });
+        }
+        // if the next input is disabled and the current value is not empty
+        //  enable the next input and focus on it
+        if (nextInput && nextInput.hasAttribute("disabled") && currentInput.value !== "") {
+        nextInput.removeAttribute("disabled");
+        nextInput.focus();
+        }
 
-  //focus the first input which index is 0 on window load
-  window.addEventListener("load", () => inputs[0].focus());
+        // if the backspace key is pressed
+        if (e.key === "Backspace") {
+        // iterate over all inputs again
+        inputs.forEach((input, index2) => {
+            // if the index1 of the current input is less than or equal to the index2 of the input in the outer loop
+            // and the previous element exists, set the disabled attribute on the input and focus on the previous element
+            if (index1 <= index2 && prevInput) {
+            input.setAttribute("disabled", true);
+            input.value = "";
+            prevInput.focus();
+            }
+        });
+        }
+        //if the fourth input( which index number is 3) is not empty and has not disable attribute then
+        //add active class if not then remove the active class.
+        if (!inputs[5].disabled && inputs[5].value !== "") {
+          button.removeAttribute("disabled");
+          return;
+        }
+        else {
+          button.setAttribute("disabled", true);
+        }
+    });
+    });
+
+    //focus the first input which index is 0 on window load
+    inputs[0].focus();
+  }
+  htmx.onLoad(function(content) {
+    initpage();
+  })
 </script>
 {% endblock main %}

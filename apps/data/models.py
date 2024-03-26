@@ -22,7 +22,9 @@ class Folder(models.Model):
     def sequence(self):
         if not self.parent:
             return [{"id": self.id, "name": self.name}]
-        return self.get_parents(self.id, [])
+        datas = self.get_parents(self.id, [])
+        datas.reverse()
+        return datas
 
     def sub_folder(self):
         return Folder.objects.filter(parent=self).count()
