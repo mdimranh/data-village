@@ -14,10 +14,20 @@
 <div ws-connect="/ws/chat/{{roomid}}" htmx:wsOpen="console.log('WebSocket opened'); alert('Yes')">
     <div class="absolute top-0 flex w-full">
         <div class="absolute top-0 w-full p-2 flex gap-3 h-auto bg-white">
-            <img class="w-14 h-14 rounded-full object-cover" src="{{partner.picture.url}}" alt="">
+            {% if partner.picture %}
+                <img class="w-14 h-14 rounded-full object-cover" src="{{partner.picture.url}}" alt="">
+            {% else %}
+                <div class="relative inline-flex items-center justify-center w-14 h-14 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                    <span class="text-xl text-gray-600 dark:text-gray-300">{{partner.avatar_name}}</span>
+                </div>
+            {% endif %}
             <div class="flex flex-col justify-center">
                 <p class="text-gray-600 font-bold text-xl">{{partner.full_name}}</p>
-                <p class="text-green-500">active</p>
+                {% if partner.online %}
+                    <p class="text-green-500">online</p>
+                {% else %}
+                    <p class="text-red-500">offline</p>
+                {% endif %}
             </div>
         </div>
         <button type="button" data-drawer-hide="chat" aria-controls="chat"
@@ -35,12 +45,12 @@
         {% for message in messages %}
         {% if message.sender.id == request.user.id %}
         <div class="x{{request.user.id}}-message">
-            <p class="px-4 py-2 rounded-3xl max-w-2xl w-fit">{{message.body}}
+            <p class="px-4 py-2 rounded-3xl max-w-2xl w-fit message-body">{{message.body}}
             </p>
         </div>
         {% else %}
         <div class="x-message">
-            <p class="px-4 py-2 rounded-3xl max-w-2xl w-fit bg-gray-200 rounded-bl-none">{{message.body}}
+            <p class="px-4 py-2 rounded-3xl max-w-2xl w-fit bg-gray-200 rounded-bl-none message-body">{{message.body}}
             </p>
         </div>
         {% endif %}
@@ -71,3 +81,29 @@
         </form>
     </div>
 </div>
+<script>
+htmx.on("htmx:wsAfterMessage", function(e){
+    $("#message").val("")
+})
+function autoDetectLinks() {
+    var messageBodies = document.querySelectorAll('.message-body');
+    messageBodies.forEach(function(messageBody) {
+        var messageText = messageBody.innerHTML;
+        var regex = /(?:^|[^"'])\b(https?:\/\/\S+)\b(?![^<>]*>)/gi; // Modified regex to avoid matching URLs within existing anchor tags
+
+        messageBody.innerHTML = messageText.replace(regex, function(match) {
+            // Check if the match is not already within an anchor tag
+            if (!/<a\s+[^>]*>.*?<\/a>/i.test(match)) {
+                return '<a class="underline" href="' + match + '">' + match + '</a>'; // Convert detected links into clickable tags
+            } else {
+                return match; // Ignore if the match is already within an anchor tag
+            }
+        });
+    });
+}
+htmx.onLoad(function(content) {
+    // Function to auto-detect links and convert them into clickable tags for all message bodies
+    autoDetectLinks();
+})
+window.onload = autoDetectLinks();
+</script>

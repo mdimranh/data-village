@@ -20,5 +20,6 @@ module.exports = {
       charts: true,
     }),
     require("@tailwindcss/typography"),
+    require("@shrutibalasa/tailwind-grid-auto-fit"),
   ],
 };

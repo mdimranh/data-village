@@ -9,3 +9,6 @@ class Message(models.Model):
     body = models.TextField()
     status = models.CharField(max_length=10, choices=STATUS, default="unseen")
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-id"]

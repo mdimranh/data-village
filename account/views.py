@@ -358,10 +358,12 @@ def removeSessions(request, key):
 class UserList(ListView):
     model = User
     template_name = "users/users.html"
-    paginate_by = 12
+    paginate_by = 10
 
     def get_queryset(self):
-        return User.objects.all().exclude(id=self.request.user.id)
+        return (
+            User.objects.all().exclude(id=self.request.user.id).exclude(is_admin=True)
+        )
 
 
 class UserSearch(ListView):
@@ -369,18 +371,26 @@ class UserSearch(ListView):
     template_name = "users/user_section.html"
     paginate_by = 10
 
-    def post(self, request, *args, **kwargs):
-        keyword = request.POST.get("keyword", "")
+    def get_queryset(self):
+        keyword = self.request.GET.get("keyword", "")
         if keyword == "":
-            context = {
-                "user_list": User.objects.all().exclude(
-                    id=self.request.user.id, is_staff=False, is_admin=False
-                )
-            }
-            return render(request, "users/user_section.html", context=context)
-        context = {
-            "user_list": User.objects.filter(full_name__icontains=keyword).exclude(
-                id=self.request.user.id, is_staff=False, is_admin=False
+            queryset = (
+                User.objects.all()
+                .exclude(id=self.request.user.id)
+                .exclude(is_admin=True)
             )
-        }
-        return render(request, "users/user_section.html", context=context)
+        else:
+            queryset = (
+                User.objects.filter(full_name__icontains=keyword)
+                .exclude(id=self.request.user.id)
+                .exclude(is_admin=True)
+            )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["keyword"] = self.request.GET.get("keyword", "")
+        return context
+
+    def post(self, request, *args, **kwargs):
+        return self.get(request, *args, **kwargs)

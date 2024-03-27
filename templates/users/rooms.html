@@ -14,7 +14,13 @@
 <div ws-connect="/ws/chat/{{roomid}}">
     <div class="absolute top-0 flex w-full">
         <div class="absolute top-0 w-full p-2 flex gap-3 h-auto bg-white">
-            <img class="w-14 h-14 rounded-full object-cover" src="{{partner.picture.url}}" alt="">
+            {% if partner.picture %}
+                <img class="w-14 h-14 rounded-full object-cover" src="{{partner.picture.url}}" alt="">
+            {% else %}
+                <div class="relative inline-flex items-center justify-center w-14 h-14 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                    <span class="text-xl text-gray-600 dark:text-gray-300">{{partner.avatar_name}}</span>
+                </div>
+            {% endif %}
             <div class="flex flex-col justify-center">
                 <p class="text-gray-600 font-bold text-xl">{{partner.full_name}}</p>
                 <p class="text-green-500">active</p>
