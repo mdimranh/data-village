@@ -1,3 +1,5 @@
+{% load custom_filters %}
+
 <section class="bg-gray-50 dark:bg-gray-900 w-full">
   <div class="w-full">
       <!-- Start coding here -->
@@ -65,7 +67,7 @@
                           <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <a href="">{{file.name}}</a>
                           </th>
-                          <td class="px-4 py-3">{{file.size}}</td>
+                          <td class="px-4 py-3">{{ file.size|filesizeformat }}</td>
                           <td class="px-4 py-3">25 / 5</td>
                           <td class="px-4 py-3">Premium</td>
                           <td class="px-4 py-3 flex items-center justify-end gap-4">

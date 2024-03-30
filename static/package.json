@@ -2,6 +2,7 @@
   "dependencies": {
     "apexcharts": "^3.42.0",
     "autoprefixer": "^10.4.15",
+    "djvalidator": "^2.0.0",
     "flowbite": "^1.8.1",
     "htmx.org": "^1.9.6",
     "inputmask": "^5.0.8",

@@ -140,7 +140,9 @@ def AddFile(request, id):
             return response
         folder = Folder.objects.filter(id=id).first()
         free = data.get("free") == "yes"
-        newfile = File(name=name, file=file, permium=not free, folder=folder, size=10.5)
+        newfile = File(
+            name=name, file=file, permium=not free, folder=folder, size=file.size
+        )
         newfile.save()
         files = File.objects.filter(folder__id=id)
         folders = Folder.objects.filter(parent__isnull=True)
