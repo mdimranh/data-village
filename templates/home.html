@@ -1,11 +1,7 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block style %}
+{% extends 'base.html' %} {% load static %} {% block style %}
 <link rel="stylesheet" href="{% static 'node_modules/swiper/swiper-bundle.min.css' %}" />
-<link rel="stylesheet" href="{% static 'node_modules/sweetalert2/dist/sweetalert2.all.min.css' %}" />
-
-<!-- Demo styles -->
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+<link rel="stylesheet" href="{% static 'css/swipper.css' %}" />
 <style>
 
   .swiper {
@@ -47,88 +43,703 @@
       background: #007aff;
     }
 </style>
-{% endblock style %}
-    
-{% block main %}
+{% endblock style %} {% block main %}
+<div style="background-color: white">
+  <!-- Header -->
+  <header
+    id="header"
+    class="header py-28 text-center md:pt-36 lg:text-left xl:pt-20 xl:pb-32 flex w-full justify-center"
+  >
+    <div class="max-w-screen-2xl px-4 sm:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8 flex">
+      <div class="mb-16 lg:mt-32 xl:mt-40 xl:mr-12">
+        <h1 class="h1-large mb-5">Team management mobile application</h1>
+        <p class="p-large mb-8">
+          Start getting things done together with your team based on Pavo's
+          revolutionary team management features
+        </p>
+        <a class="btn-solid-lg" href="#your-link"
+          ><i class="fab fa-apple"></i>Download</a
+        >
+        <a class="btn-solid-lg secondary" href="#your-link"
+          ><i class="fab fa-google-play"></i>Download</a
+        >
+      </div>
+      {% comment %} <div class="xl:text-right">
+        <img
+          class="inline"
+          src="{% static 'img/images/header-smartphone.png' %}"
+          alt="alternative"
+        />
+      </div> {% endcomment %}
+        <div class="flex">
+            <div class="swiper mySwiper rounded-2xl">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                    <img src="{% static 'img/course1.jpg' %}" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                    <img src="{% static 'img/course2.jpg' %}" alt="">
+                    </div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+    <!-- end of container -->
+  </header>
+  <!-- end of header -->
+  <!-- end of header -->
 
-<div class="container mx-auto">
-  <div class="flex">
-      <div class="swiper mySwiper">
+  <!-- Introduction -->
+  <div class="pt-4 pb-14 text-center">
+    <div class="container px-4 sm:px-8 xl:px-4">
+      <p class="mb-4 text-gray-800 text-3xl leading-10 lg:max-w-5xl lg:mx-auto">
+        Team management mobile apps don’t get better than Pavo. It's probably
+        the best app in the world for this purpose. Don’t hesitate to give it a
+        try today and you will fall in love with it
+      </p>
+    </div>
+    <!-- end of container -->
+  </div>
+  <!-- end of introduction -->
+
+  <!-- Features -->
+  <div id="features" class="cards-1">
+    <div class="container px-4 sm:px-8 xl:px-4">
+      <!-- Card -->
+      <div class="card">
+        <div class="card-image">
+          <img
+            src="{% static 'img/images/features-icon-1.svg' %}"
+            alt="alternative"
+          />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Platform Integration</h5>
+          <p class="mb-4">
+            You sales force can use the app on any smartphone platform without
+            compatibility issues
+          </p>
+        </div>
+      </div>
+      <!-- end of card -->
+
+      <!-- Card -->
+      <div class="card">
+        <div class="card-image">
+          <img
+            src="{% static 'img/images/features-icon-2.svg' %}"
+            alt="alternative"
+          />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Easy On Resources</h5>
+          <p class="mb-4">
+            Works smoothly even on older generation hardware due to our
+            optimization efforts
+          </p>
+        </div>
+      </div>
+      <!-- end of card -->
+
+      <!-- Card -->
+      <div class="card">
+        <div class="card-image">
+          <img
+            src="{% static 'img/images/features-icon-3.svg' %}"
+            alt="alternative"
+          />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Great Performance</h5>
+          <p class="mb-4">
+            Optimized code and innovative technology insure no delays and
+            ultra-fast responsiveness
+          </p>
+        </div>
+      </div>
+      <!-- end of card -->
+
+      <!-- Card -->
+      <div class="card">
+        <div class="card-image">
+          <img
+            src=" {% static 'img/images/features-icon-4.svg' %}"
+            alt="alternative"
+          />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Multiple Languages</h5>
+          <p class="mb-4">
+            Choose from one of the 40 languages that come pre-installed and
+            start selling smarter
+          </p>
+        </div>
+      </div>
+      <!-- end of card -->
+
+      <!-- Card -->
+      <div class="card">
+        <div class="card-image">
+          <img
+            src="{% static 'img/images/features-icon-5.svg' %}"
+            alt="alternative"
+          />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Free Updates</h5>
+          <p class="mb-4">
+            Don't worry about future costs, pay once and receive all future
+            updates at no extra cost
+          </p>
+        </div>
+      </div>
+      <!-- end of card -->
+
+      <!-- Card -->
+      <div class="card">
+        <div class="card-image">
+          <img
+            src="{% static 'img/images/features-icon-6.svg' %}"
+            alt="alternative"
+          />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Community Support</h5>
+          <p class="mb-4">
+            Register the app and get acces to knowledge and ideas from the Pavo
+            online community
+          </p>
+        </div>
+      </div>
+      <!-- end of card -->
+    </div>
+    <!-- end of container -->
+  </div>
+  <!-- end of cards-1 -->
+  <!-- end of features -->
+
+  <!-- Details 1 -->
+  <div id="details" class="pt-12 pb-16 lg:pt-16">
+    <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-12 lg:gap-x-12">
+      <div class="lg:col-span-5">
+        <div class="mb-16 lg:mb-0 xl:mt-16">
+          <h5 class="mb-6">Results driven ground breaking technology</h5>
+          <p class="mb-4">
+            Based on our team's extensive experience in developing line of
+            business applications and constructive customer feedback we reached
+            a new level of revenue.
+          </p>
+          <p class="mb-4">
+            We enjoy helping small and medium sized tech businesses take a shot
+            at established Fortune 500 companies
+          </p>
+        </div>
+      </div>
+      <!-- end of col -->
+      <div class="lg:col-span-7">
+        <div class="xl:ml-14">
+          <img
+            class="inline"
+            src="{% static 'img/images/details-1.jpg' %}"
+            alt="alternative"
+          />
+        </div>
+      </div>
+      <!-- end of col -->
+    </div>
+    <!-- end of container -->
+  </div>
+  <!-- end of details 1 -->
+
+  <!-- Details 2 -->
+  <div class="py-24">
+    <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-12 lg:gap-x-12">
+      <div class="lg:col-span-7">
+        <div class="mb-12 lg:mb-0 xl:mr-14">
+          <img
+            class="inline"
+            src="{% static 'img/images/details-2.jpg' %}"
+            alt="alternative"
+          />
+        </div>
+      </div>
+      <!-- end of col -->
+      <div class="lg:col-span-5">
+        <div class="xl:mt-12">
+          <h5 class="mb-6">Instant results for the marketing department</h5>
+          <ul class="list mb-7 space-y-2">
+            <li class="flex">
+              <i class="fas fa-chevron-right"></i>
+              <div>Features that will help you and your marketers</div>
+            </li>
+            <li class="flex">
+              <i class="fas fa-chevron-right"></i>
+              <div>Smooth learning curve due to the knowledge base</div>
+            </li>
+            <li class="flex">
+              <i class="fas fa-chevron-right"></i>
+              <div>Ready out-of-the-box with minor setup settings</div>
+            </li>
+          </ul>
+          <a
+            class="btn-solid-reg popup-with-move-anim mr-1.5"
+            href="#details-lightbox"
+            >Lightbox</a
+          >
+          <a class="btn-outline-reg" href="article.html">Details</a>
+        </div>
+      </div>
+      <!-- end of col -->
+    </div>
+    <!-- end of container -->
+  </div>
+  <!-- end of details 2 -->
+
+  <!-- Details 3 -->
+  <div class="pt-16 pb-12">
+    <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-12 lg:gap-x-12">
+      <div class="lg:col-span-5">
+        <div class="mb-16 lg:mb-0 xl:mt-16">
+          <h5 class="mb-6">Platform integration and life time free updates</h5>
+          <p class="mb-4">
+            Get a glimpse of what this app can do for your marketing automation
+            and understand why current users are so excited when using Pavo
+            together with their teams.
+          </p>
+          <p class="mb-4">
+            We will promptly answer any questions and honor your requests based
+            on the service level agreement
+          </p>
+        </div>
+      </div>
+      <!-- end of col -->
+      <div class="lg:col-span-7">
+        <div class="ml-14">
+          <img
+            class="inline"
+            src="{% static 'img/images/details-3.jpg' %}"
+            alt="alternative"
+          />
+        </div>
+      </div>
+      <!-- end of col -->
+    </div>
+    <!-- end of container -->
+  </div>
+  <!-- end of details 3 -->
+
+  <!-- Statistics -->
+  <div class="counter bg-gray">
+    <div class="container px-4 sm:px-8">
+      <!-- Counter -->
+      <div id="counter">
+        <div class="cell border border-slate-200 rounded-lg">
+          <div class="counter-value number-count" data-count="231">1</div>
+          <p class="counter-info">Happy Users</p>
+        </div>
+        <div class="cell">
+          <div class="counter-value number-count" data-count="385">1</div>
+          <p class="counter-info">Issues Solved</p>
+        </div>
+        <div class="cell">
+          <div class="counter-value number-count" data-count="159">1</div>
+          <p class="counter-info">Good Reviews</p>
+        </div>
+        <div class="cell">
+          <div class="counter-value number-count" data-count="127">1</div>
+          <p class="counter-info">Case Studies</p>
+        </div>
+        <div class="cell">
+          <div class="counter-value number-count" data-count="211">1</div>
+          <p class="counter-info">Orders Received</p>
+        </div>
+      </div>
+      <!-- end of counter -->
+    </div>
+    <!-- end of container -->
+  </div>
+  <!-- end of counter -->
+  <!-- end of statistics -->
+
+  <!-- Testimonials -->
+  <div class="slider-1 py-32">
+    <div class="container px-4 sm:px-8">
+      <h5 class="mb-12 text-center lg:max-w-xl lg:mx-auto">
+        What do users think about Pavo
+      </h5>
+
+      <!-- Card Slider -->
+      <div class="slider-container">
+        <div class="swiper-container card-slider">
           <div class="swiper-wrapper">
-            <div class="swiper-slide relative">
-              <img src="{% static 'img/course1.jpg' %}" alt="">
-              <h1 class="absolute top-10 left-10 font-bold text-6xl text-white">Slide 1</h1>
-            </div>
+            <!-- Slide -->
             <div class="swiper-slide">
-              <img src="{% static 'img/course2.jpg' %}" alt="">
+              <div class="card bg-gray">
+                <img
+                  class="card-image"
+                  src="{% static 'img/images/testimonial-1.jpg' %}"
+                  alt="alternative"
+                />
+                <div class="card-body">
+                  <p class="italic mb-3">
+                    It's been so fun to work with Pavo, I've managed to
+                    integrate it properly into my business flow and it's great
+                  </p>
+                  <p class="testimonial-author">Jude Thorn - Designer</p>
+                </div>
+              </div>
             </div>
+            <!-- end of swiper-slide -->
+            <!-- end of slide -->
+
+            <!-- Slide -->
+            <div class="swiper-slide">
+              <div class="card">
+                <img
+                  class="card-image"
+                  src="{% static 'img/images/testimonial-2.jpg' %}"
+                  alt="alternative"
+                />
+                <div class="card-body">
+                  <p class="italic mb-3">
+                    We were so focused on launching as many campaigns as
+                    possible that we've forgotten to target our loyal customers
+                  </p>
+                  <p class="testimonial-author">Roy Smith - Developer</p>
+                </div>
+              </div>
+            </div>
+            <!-- end of swiper-slide -->
+            <!-- end of slide -->
+
+            <!-- Slide -->
+            <div class="swiper-slide">
+              <div class="card">
+                <img
+                  class="card-image"
+                  src="{% static 'img/images/testimonial-3.jpg' %}"
+                  alt="alternative"
+                />
+                <div class="card-body">
+                  <p class="italic mb-3">
+                    I've been searching for a tool like Pavo for so long. I love
+                    the reports it generates and the amazing high accuracy
+                  </p>
+                  <p class="testimonial-author">Marsha Singer - Marketer</p>
+                </div>
+              </div>
+            </div>
+            <!-- end of swiper-slide -->
+            <!-- end of slide -->
+
+            <!-- Slide -->
+            <div class="swiper-slide">
+              <div class="card">
+                <img
+                  class="card-image"
+                  src="{% static 'img/images/testimonial-4.jpg' %}"
+                  alt="alternative"
+                />
+                <div class="card-body">
+                  <p class="italic mb-3">
+                    We've been waiting for a powerful piece of software that can
+                    help businesses manage their marketing projects
+                  </p>
+                  <p class="testimonial-author">Tim Shaw - Designer</p>
+                </div>
+              </div>
+            </div>
+            <!-- end of swiper-slide -->
+            <!-- end of slide -->
+
+            <!-- Slide -->
+            <div class="swiper-slide">
+              <div class="card">
+                <img
+                  class="card-image"
+                  src="{% static 'img/images/testimonial-5.jpg' %}"
+                  alt="alternative"
+                />
+                <div class="card-body">
+                  <p class="italic mb-3">
+                    Searching for a great prototyping and layout design app was
+                    difficult but thankfully I found app suite quickly
+                  </p>
+                  <p class="testimonial-author">Lindsay Spice - Marketer</p>
+                </div>
+              </div>
+            </div>
+            <!-- end of swiper-slide -->
+            <!-- end of slide -->
+
+            <!-- Slide -->
+            <div class="swiper-slide">
+              <div class="card">
+                <img
+                  class="card-image"
+                  src="{% static 'img/images/testimonial-6.jpg' %}"
+                  alt="alternative"
+                />
+                <div class="card-body">
+                  <p class="italic mb-3">
+                    The app support team is amazing. They've helped me with some
+                    issues and I am so grateful to the entire team
+                  </p>
+                  <p class="testimonial-author">Ann Blake - Developer</p>
+                </div>
+              </div>
+            </div>
+            <!-- end of swiper-slide -->
+            <!-- end of slide -->
           </div>
+          <!-- end of swiper-wrapper -->
+
+          <!-- Add Arrows -->
           <div class="swiper-button-next"></div>
           <div class="swiper-button-prev"></div>
-          <div class="swiper-pagination"></div>
+          <!-- end of add arrows -->
+        </div>
+        <!-- end of swiper-container -->
       </div>
+      <!-- end of slider-container -->
+      <!-- end of card slider -->
+    </div>
+    <!-- end of container -->
   </div>
+  <!-- end of slider-1 -->
+  <!-- end of testimonials -->
 
-  <div class="w-full dark:bg-gray-800 dark:border-gray-700 mt-3">
-    <!-- <dl class="flex justify-between">
-      <div class="flex flex-col items-center justify-center border border-gray-200">
-          <dt class="mb-2 text-3xl font-extrabold">73M+</dt>
-          <dd class="text-gray-500 dark:text-gray-400">Developers</dd>
-      </div>
-      <div class="flex flex-col items-center justify-center">
-          <dt class="mb-2 text-3xl font-extrabold">100M+</dt>
-          <dd class="text-gray-500 dark:text-gray-400">Public repositories</dd>
-      </div>
-      <div class="flex flex-col items-center justify-center">
-          <dt class="mb-2 text-3xl font-extrabold">1000s</dt>
-          <dd class="text-gray-500 dark:text-gray-400">Open source projects</dd>
-      </div>
-      </div>
-    </dl> -->
-    
-    <div class="grid mb-8 border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 md:mb-12 md:grid-cols-2">
-      <div class="flex flex-col items-center justify-center border border-gray-200 p-20">
-        <dt class="mb-2 text-3xl font-extrabold">73M+</dt>
-        <dd class="text-gray-500 dark:text-gray-400">Developers</dd>
-      </div>
-      <div class="flex flex-col items-center justify-center border border-gray-200">
-        <dt class="mb-2 text-3xl font-extrabold">73M+</dt>
-        <dd class="text-gray-500 dark:text-gray-400">Developers</dd>
-      </div>
-      <div class="flex flex-col items-center justify-center border border-gray-200">
-        <dt class="mb-2 text-3xl font-extrabold">73M+</dt>
-        <dd class="text-gray-500 dark:text-gray-400">Developers</dd>
-      </div>
+<div class="flex w-full bg-gray p-4 items-center">
+<div class="container my-12 bg-gray">
+    <h1 class="text-center mb-8">Have Any Question?</h1>
+    <div
+    id="accordion-flush"
+    class="gap-3 flex flex-col"
+    data-accordion="collapse"
+    data-active-classes="text-gray-900 dark:text-white"
+    data-inactive-classes="text-gray-500 dark:text-gray-400"
+  >
+    <div class="bg-white px-4 py-1 rounded-md drop-shadow">
+        <h5 id="accordion-flush-heading-1">
+            <button
+                type="button"
+                class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3"
+                data-accordion-target="#accordion-flush-body-1"
+                aria-expanded="true"
+                aria-controls="accordion-flush-body-1"
+            >
+                <span>What is Data Village?</span>
+                <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+                >
+                <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5 5 1 1 5"
+                />
+                </svg>
+            </button>
+        </h5>
+        <div
+        id="accordion-flush-body-1"
+        class="hidden"
+        aria-labelledby="accordion-flush-heading-1"
+        >
+            <div class="py-3 border-gray-200 dark:border-gray-700">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">
+                Flowbite is an open-source library of interactive components built on
+                top of Tailwind CSS including buttons, dropdowns, modals, navbars, and
+                more.
+                </p>
+                <p class="text-gray-500 dark:text-gray-400">
+                Check out this guide to learn how to
+                <a
+                    href="/docs/getting-started/introduction/"
+                    class="text-blue-600 dark:text-blue-500 hover:underline"
+                    >get started</a
+                >
+                and start developing websites even faster with components on top of
+                Tailwind CSS.
+                </p>
+            </div>
+        </div>
+    </div>
+        <div class="bg-white px-4 py-1 rounded-md drop-shadow">
+        <h5 id="accordion-flush-heading-2">
+            <button
+                type="button"
+                class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3"
+                data-accordion-target="#accordion-flush-body-2"
+                aria-expanded="true"
+                aria-controls="accordion-flush-body-2"
+            >
+                <span>What is Data Village?</span>
+                <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+                >
+                <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5 5 1 1 5"
+                />
+                </svg>
+            </button>
+        </h5>
+        <div
+        id="accordion-flush-body-2"
+        class="hidden"
+        aria-labelledby="accordion-flush-heading-2"
+        >
+            <div class="py-3 border-gray-200 dark:border-gray-700">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">
+                Flowbite is an open-source library of interactive components built on
+                top of Tailwind CSS including buttons, dropdowns, modals, navbars, and
+                more.
+                </p>
+                <p class="text-gray-500 dark:text-gray-400">
+                Check out this guide to learn how to
+                <a
+                    href="/docs/getting-started/introduction/"
+                    class="text-blue-600 dark:text-blue-500 hover:underline"
+                    >get started</a
+                >
+                and start developing websites even faster with components on top of
+                Tailwind CSS.
+                </p>
+            </div>
+        </div>
+    </div>
+        <div class="bg-white px-4 py-1 rounded-md drop-shadow">
+        <h5 id="accordion-flush-heading-3">
+            <button
+                type="button"
+                class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3"
+                data-accordion-target="#accordion-flush-body-3"
+                aria-expanded="true"
+                aria-controls="accordion-flush-body-3"
+            >
+                <span>What is Data Village?</span>
+                <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+                >
+                <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5 5 1 1 5"
+                />
+                </svg>
+            </button>
+        </h5>
+        <div
+        id="accordion-flush-body-3"
+        class="hidden"
+        aria-labelledby="accordion-flush-heading-3"
+        >
+            <div class="py-3 border-gray-200 dark:border-gray-700">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">
+                Flowbite is an open-source library of interactive components built on
+                top of Tailwind CSS including buttons, dropdowns, modals, navbars, and
+                more.
+                </p>
+                <p class="text-gray-500 dark:text-gray-400">
+                Check out this guide to learn how to
+                <a
+                    href="/docs/getting-started/introduction/"
+                    class="text-blue-600 dark:text-blue-500 hover:underline"
+                    >get started</a
+                >
+                and start developing websites even faster with components on top of
+                Tailwind CSS.
+                </p>
+            </div>
+        </div>
+    </div>
+        <div class="bg-white px-4 py-1 rounded-md drop-shadow">
+        <h5 id="accordion-flush-heading-4">
+            <button
+                type="button"
+                class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3"
+                data-accordion-target="#accordion-flush-body-4"
+                aria-expanded="true"
+                aria-controls="accordion-flush-body-4"
+            >
+                <span>What is Data Village?</span>
+                <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+                >
+                <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5 5 1 1 5"
+                />
+                </svg>
+            </button>
+        </h5>
+        <div
+        id="accordion-flush-body-4"
+        class="hidden"
+        aria-labelledby="accordion-flush-heading-4"
+        >
+            <div class="py-3 border-gray-200 dark:border-gray-700">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">
+                Flowbite is an open-source library of interactive components built on
+                top of Tailwind CSS including buttons, dropdowns, modals, navbars, and
+                more.
+                </p>
+                <p class="text-gray-500 dark:text-gray-400">
+                Check out this guide to learn how to
+                <a
+                    href="/docs/getting-started/introduction/"
+                    class="text-blue-600 dark:text-blue-500 hover:underline"
+                    >get started</a
+                >
+                and start developing websites even faster with components on top of
+                Tailwind CSS.
+                </p>
+            </div>
+        </div>
     </div>
   </div>
 </div>
+</div>
 
-<!-- Swiper JS -->
+</div>
+{% endblock main %} {% block script %}
 <script src="{% static 'node_modules/swiper/swiper-bundle.min.js' %}"></script>
-<script src="{% static 'node_modules/sweetalert2/dist/sweetalert2.all.min.js' %}"></script>
-
-<script>
-  var toastMixin = Swal.mixin({
-    toast: true,
-    icon: 'success',
-    title: 'General Title',
-    animation: false,
-    position: 'top-right',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  });
-  // toastMixin.fire({
-  //     animation: true,
-  //     title: 'Signed in Successfully'
-  //   });
-</script>
-
-<!-- Initialize Swiper -->
+<script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
+<script src="{% static 'js/swipper.min.js' %}"></script>
+<script src="{% static 'js/home.js' %}"></script>
 <script>
   var swiper = new Swiper(".mySwiper", {
     spaceBetween: 0,
@@ -151,4 +762,4 @@
     },
   });
 </script>
-{% endblock main %}
+{% endblock script %}

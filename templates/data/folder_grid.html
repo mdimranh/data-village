@@ -1,0 +1,30 @@
+
+<div class="w-full flex justify-between pb-4 px-4">
+    <!-- <label for="simple-search" class="sr-only">Search</label> -->
+    <form class="relative w-full max-w-md">
+        <div class="absolute inset-y-0 right-4 flex items-center pl-3 pointer-events-none">
+            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+        </div>
+        <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search" required="">
+    </form>
+</div>
+<div class="flex gap-4 flex-wrap justify-start px-4">
+    {% for folder in folders %}
+    <div class="relative w-64 border border-slate-300 rounded-lg group hover:bg-blue-50 hover:border-blue-400 cursor-pointer">
+        <a class="flex h-full w-full p-2" {% if not parent %} href="/datahub/{{folder.id}}" {%else%} href="/datahub/{{folder.id}}" {% endif %}>
+            <div class="flex-col w-full relative items-center gap-3 rounded-lg">
+                <svg class="w-10 h-10 fill-[{{folder.color}}]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 21C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5H20C20.5523 5 21 5.44772 21 6V9H4V18.996L6 11H22.5L20.1894 20.2425C20.0781 20.6877 19.6781 21 19.2192 21H3Z" ></path></svg>
+                <h1 class="mt-3 font-bold text-slate-500">{{folder.name}}</h1>
+                <div class="flex w-full justify-between mt-1 text-sm text-slate-500 font-semibold">
+                    <h1><span class="font-bold">{{folder.sub_folder}}</span> Folder</h1>
+                    <h1><span class="font-bold">{{folder.size}}</span> {{folder.size_unit}}</h1>
+                </div>
+            </div>
+        </a>
+        <svg data-modal-target="add-folder" data-modal-toggle="add-folder" class="edit-button w-7 h-7 text-slate-500 absolute top-1 right-1 rounded-full hover:bg-slate-200 p-1 hidden group-hover:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.7574 2.99677L9.29145 10.4627L9.29886 14.7098L13.537 14.7024L21 7.23941V19.9968C21 20.5491 20.5523 20.9968 20 20.9968H4C3.44772 20.9968 3 20.5491 3 19.9968V3.99677C3 3.44448 3.44772 2.99677 4 2.99677H16.7574ZM20.4853 2.09727L21.8995 3.51149L12.7071 12.7039L11.2954 12.7063L11.2929 11.2897L20.4853 2.09727Z" fill="currentColor"></path></svg>
+        <svg hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-delete="/admin/folder?id={{folder.id}}" hx-confirm="" class="delete-button w-7 h-7 text-red-500 absolute top-8 right-1 rounded-full hover:bg-slate-200 p-1 hidden group-hover:block" hx-target="#folders" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8ZM7 5V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V5H22V7H2V5H7ZM9 4V5H15V4H9ZM9 12V18H11V12H9ZM13 12V18H15V12H13Z" fill="currentColor"></path></svg>
+        </div>
+    {% endfor %}
+</div>
