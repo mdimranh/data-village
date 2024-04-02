@@ -11,8 +11,10 @@ class AdminMidleware(MiddlewareMixin):
         path = request.path
         if path.startswith("/admin") and not path.startswith("/admin/login"):
             if not request.user.is_authenticated:
-                return redirect(reverse('login') + f"?redirect={request.path}")
+                return redirect(reverse("login") + f"?redirect={request.path}")
             else:
                 if not request.user.is_superuser and not request.user.is_staff:
-                    messages.error(request, "You haven't permission to access admin panel.")
-                    return redirect('home')
+                    messages.error(
+                        request, "You haven't permission to access admin panel."
+                    )
+                    return redirect("home")

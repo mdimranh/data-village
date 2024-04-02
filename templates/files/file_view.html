@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf_viewer.css">
+<style>
+.page {
+    z-index: 30;
+    margin-bottom: 15px;
+    margin: 0 auto; /* Add this line */
+    padding-bottom: 15px;
+}
+</style>
+{% endblock style %}
+
+{% block main %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.js"></script>
+
+
+
+<div class="p-4 container mx-auto flex h-full items-start" id="folders">
+    <div class="bg-white rounded drop-shadow w-full h-full overflow-y-auto relative z-40">
+        <nav class="sticky top-0 bg-white">
+            <div class="flex px-4 py-2 border-b border-slate-200" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+                    <li>
+                        <div class="flex items-center">
+                            <a href="/datahub" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                                <svg class="w-3.5 h-3.5 me-2.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                                </svg>  
+                                Datas
+                            </a>
+                        </div>
+                    </li>
+                    {% if file.sequence %}
+                    {% for item in file.sequence %}
+                    <li>
+                        <a href="/datahub/{{item.id}}" class="flex items-center">
+                            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                            </svg>
+                            <div class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                                <svg class="w-3.5 h-3.5 me-2.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 21C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5H20C20.5523 5 21 5.44772 21 6V9H4V18.996L6 11H22.5L20.1894 20.2425C20.0781 20.6877 19.6781 21 19.2192 21H3Z" ></path></svg>  
+                                {{item.name}}
+                            </div>
+                        </a>
+                    </li>
+                    {% endfor %}
+                    {% endif %}
+                </ol>
+            </div>
+            <div class="grid grid-cols-3 justify-center px-4 py-2 border-b border-slate-200 items-center bg-white" aria-label="Breadcrumb">
+                <div class="flex w-full justify-start gap-3 items-center col-span-1">
+                    <a href="/datahub/{{file.package.folder.id}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-5">
+                            <path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <img class="w-6 h-6" src="{% static 'img/svg/pdf.svg' %}" alt="" srcset="">
+                    <h4 class="truncate">{{file.package.name}}</h4>
+                </div>
+                <div class="flex w-full justify-center gap-2 items-center col-span-1">
+                    <svg id="zoom-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 cursor-pointer">
+                        <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Zm8.25-3.75a.75.75 0 0 1 .75.75v2.25h2.25a.75.75 0 0 1 0 1.5h-2.25v2.25a.75.75 0 0 1-1.5 0v-2.25H7.5a.75.75 0 0 1 0-1.5h2.25V7.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="zoom-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 cursor-pointer">
+                        <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Zm4.5 0a.75.75 0 0 1 .75-.75h6a.75.75 0 0 1 0 1.5h-6a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="zoom-reset" class="w-5 h-5 cursor-pointer" viewBox="0 0 32 32" id="i-zoom-reset" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                        <circle cx="14" cy="14" r="12" />
+                        <path d="M23 23 L30 30" />
+                        <path d="M9 12 L9 9 12 9 M16 9 L19 9 19 12 M9 16 L9 19 12 19 M19 16 L19 19 16 19" />
+                    </svg>
+                </div>
+                <div class="flex w-full justify-end gap-2 col-span-1">
+                    <svg data-dropdown-toggle="dropdownInformation" class="w-5 h-5 cursor-pointer" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.163 2.819C9 3.139 9 3.559 9 4.4V11H7.803c-.883 0-1.325 0-1.534.176a.75.75 0 0 0-.266.62c.017.274.322.593.931 1.232l4.198 4.401c.302.318.453.476.63.535a.749.749 0 0 0 .476 0c.177-.059.328-.217.63-.535l4.198-4.4c.61-.64.914-.96.93-1.233a.75.75 0 0 0-.265-.62C17.522 11 17.081 11 16.197 11H15V4.4c0-.84 0-1.26-.164-1.581a1.5 1.5 0 0 0-.655-.656C13.861 2 13.441 2 12.6 2h-1.2c-.84 0-1.26 0-1.581.163a1.5 1.5 0 0 0-.656.656zM5 21a1 1 0 0 0 1 1h12a1 1 0 1 0 0-2H6a1 1 0 0 0-1 1z" fill="currentColor"/>
+                    </svg>
+                    <!-- Dropdown menu -->
+                    <div id="dropdownInformation" class="z-10 hidden bg-white divide-y divide-gray-100 drop-shadow dark:bg-gray-700 dark:divide-gray-600">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
+                            {% for f in files %}
+                                <li>
+                                    <a href="{{f.file.url}}" class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white flex items-center gap-2" download>
+                                        <img class="w-6 h-6" src="{% static 'img/svg/pdf.svg' %}" alt="" srcset="">
+                                        <span class="uppercase">{{f.type}}</span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 cursor-pointer">
+                        <path fill-rule="evenodd" d="M15.75 4.5a3 3 0 1 1 .825 2.066l-8.421 4.679a3.002 3.002 0 0 1 0 1.51l8.421 4.679a3 3 0 1 1-.729 1.31l-8.421-4.678a3 3 0 1 1 0-4.132l8.421-4.679a3 3 0 0 1-.096-.755Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+        </nav>
+        <div class="flex z-30 justify-between bg-slate-100">
+            {% comment %} <div id="thumbs" class="w-48 bg-slate-200"></div> {% endcomment %}
+            <div class="p-4 bg-slate-100 w-full flex items-center justify-center">
+                <div id="pages"></div>
+            </div>
+            {% comment %} <div id="contexts" class="w-48 bg-slate-200"></div> {% endcomment %}
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" id="pdf-url" value="{{ file.file.url }}" />
+{% comment %} <button id="zoom-in">Zoom In</button> {% endcomment %}
+<div id="zoom-percent">60</div>
+{% comment %} <button id="zoom-out">Zoom Out</button>
+<button id="zoom-reset">Reset Zoom</button> {% endcomment %}
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.worker.js';
+
+var pdfUrl = document.querySelector("#pdf-url").value;
+
+var loadingTask = pdfjsLib.getDocument(pdfUrl);
+loadingTask.promise.then(function(pdf) {
+  console.log("the pdf has", pdf.numPages, "page(s).");
+  for (var i = 0; i < pdf.numPages; i++) {
+    (function(pageNum){
+      pdf.getPage(i+1).then(function(page) {
+        var viewport = page.getViewport(2.0);
+//        var pageNumDiv = document.createElement("div");
+//        pageNumDiv.className = "pageNumber";
+//        pageNumDiv.innerHTML = pageNum;
+        var canvas = document.createElement("canvas");
+        canvas.className = "page";
+//        canvas.title = "Page " + pageNum;
+//        document.querySelector("#pages").appendChild(pageNumDiv);
+        document.querySelector("#pages").appendChild(canvas);
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        page.render({
+          canvasContext: canvas.getContext('2d'),
+          viewport: viewport
+        }).promise.then(function(){
+          console.log('Page rendered');
+        });
+        page.getTextContent().then(function(text){
+            console.log(text);
+        });
+      });
+    })(i+1);
+  }
+});
+
+var curWidth = 100;
+function zoomIn(){
+    if (curWidth < 180) {
+        curWidth += 10;
+        var marginLeft = (100 - curWidth) / 2; // Calculate the new left margin
+        document.querySelector("#zoom-percent").innerHTML = curWidth;
+        document.querySelectorAll(".page").forEach(function(page){
+            page.style.width = curWidth + "%";
+            page.style.marginLeft = marginLeft + "%"; // Set the new left margin
+        });
+    }
+}
+function zoomOut(){
+    if (curWidth > 20) {
+        curWidth -= 10;
+        var marginLeft = (100 - curWidth) / 2; // Calculate the new left margin
+        document.querySelector("#zoom-percent").innerHTML = curWidth;
+        document.querySelectorAll(".page").forEach(function(page){
+            page.style.width = curWidth + "%";
+            page.style.marginLeft = marginLeft + "%"; // Set the new left margin
+        });
+    }
+}
+function zoomReset(){
+    curWidth = 100;
+    var marginLeft = (100 - curWidth) / 2; // Calculate the new left margin
+    document.querySelector("#zoom-percent").innerHTML = curWidth;
+    document.querySelectorAll(".page").forEach(function(page){
+      page.style.width = curWidth + "%";
+      page.style.marginLeft = marginLeft + "%"; // Set the new left margin
+    });
+}
+
+document.querySelector("#zoom-in").onclick = zoomIn;
+document.querySelector("#zoom-out").onclick = zoomOut;
+document.querySelector("#zoom-reset").onclick = zoomReset;
+window.onkeypress = function(e){
+    if (e.code == "Equal") {
+        zoomIn();
+    }
+    if (e.code == "Minus") {
+        zoomOut();
+    }
+};
+</script>
+{% endblock main %}
+ 

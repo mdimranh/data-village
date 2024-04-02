@@ -7,7 +7,7 @@ from django.db.models.signals import post_delete
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 
-from apps.data.models import File, Folder
+from apps.data.models import File, FilePackage, Folder
 
 
 def DataView(request, *args, **kwargs):
@@ -65,7 +65,7 @@ def SubFolder(request, fid, **kwargs):
             "dashboard/data/datas.html",
             {
                 "folders": Folder.objects.filter(parent__id=fid),
-                "files": File.objects.filter(folder__id=fid),
+                "files": FilePackage.objects.filter(folder__id=fid),
                 "colors": colors,
                 "sequence": folder.sequence,
                 "parent_id": fid,
@@ -125,7 +125,7 @@ def AddFile(request, id):
     if request.method == "POST" and request.htmx:
         data = request.POST
         errors = {}
-        file = request.FILES.get("file")
+        files = request.FILES.getlist("file")
         name = data.get("name")
         if name == "":
             errors["name"] = "This field is required"
@@ -140,11 +140,15 @@ def AddFile(request, id):
             return response
         folder = Folder.objects.filter(id=id).first()
         free = data.get("free") == "yes"
-        newfile = File(
-            name=name, file=file, permium=not free, folder=folder, size=file.size
-        )
-        newfile.save()
-        files = File.objects.filter(folder__id=id)
+        newPackage = FilePackage(name=name, premium=not free, folder=folder)
+        newPackage.save()
+        for file in files:
+            name, extension = os.path.splitext(file.name)
+            newfile = File(
+                file=file, size=file.size, type=extension, package=newPackage
+            )
+            newfile.save()
+        files = FilePackage.objects.filter(folder__id=id)
         folders = Folder.objects.filter(parent__isnull=True)
         return render(
             request,
@@ -167,7 +171,7 @@ def DeleteFile(request, **kwargs):
     if request.method == "DELETE":
         # time.sleep(5)
         id = request.GET.get("id")
-        file = File.objects.filter(
+        file = FilePackage.objects.filter(
             id=id
         ).first()  # Use first() to get the first object in the queryset
         if file is None:
@@ -180,7 +184,7 @@ def DeleteFile(request, **kwargs):
             context = {
                 "parent_id": folder.id,
             }
-            files = File.objects.filter(folder__id=folder.id)
+            files = FilePackage.objects.filter(folder__id=folder.id)
             if files:
                 context["files"] = files
             context["folders"] = Folder.objects.filter(parent__id=folder.id)

@@ -10,6 +10,8 @@ from django.views.generic.list import ListView
 from django_htmx.http import HttpResponseClientRedirect
 from user_sessions.models import Session
 
+from services.sendEmail import SendVerificationMail
+
 from .models import User
 
 g = GeoIP2()
@@ -148,6 +150,7 @@ class Signup(View):
         verify.save()
         body = f"Hi {full_name}, Your pemis verification code is {verify.phone_code}."
         # messaging = Messaging().send(body=body, to=phone)
+        SendVerificationMail(request, user_id=user.id, code=verify.email_code)
         secret = Crypto().encrypt({"phone": phone, "email": email}, True)
         redirect_url = reverse("verify", kwargs={"secret": secret})
         return HttpResponseClientRedirect(redirect_url)

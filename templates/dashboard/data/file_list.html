@@ -56,6 +56,7 @@
                       <tr>
                           <th scope="col" class="px-4 py-3">Name</th>
                           <th scope="col" class="px-4 py-3">Size</th>
+                          <th scope="col" class="px-4 py-3">Extensions</th>
                           <th scope="col" class="px-4 py-3">View / Download</th>
                           <th scope="col" class="px-4 py-3">Premium</th>
                           <th scope="col" class="px-4 py-3"></th>
@@ -68,8 +69,19 @@
                             <a href="">{{file.name}}</a>
                           </th>
                           <td class="px-4 py-3">{{ file.size|filesizeformat }}</td>
+                          <td class="px-4 py-3 uppercase">{{ file.extensions }}</td>
                           <td class="px-4 py-3">25 / 5</td>
-                          <td class="px-4 py-3">Premium</td>
+                          <td class="px-4 py-3">
+                          {% if file.premium %}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-500">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                          {% else %}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-500">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                          {% endif %}
+                          </td>
                           <td class="px-4 py-3 flex items-center justify-end gap-4">
                             <div class="cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

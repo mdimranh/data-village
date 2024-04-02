@@ -1,16 +1,16 @@
 {% for room in rooms %}
-<li
+<a href="/chat/{{room.roomid}}"
     class="flex gap-2 cursor-pointer {% if roomid == room.roomid %}bg-gray-100{% endif %} hover:bg-gray-200 px-2 py-1.5 rounded-md">
-    {% if partner.picture %}
-        <img class="w-14 h-14 rounded-full object-cover border border-gray-400" src="{{partner.picture.url}}" alt="">
+    {% if room.partner.picture %}
+        <img class="w-14 h-14 rounded-full object-cover border border-gray-400" src="{{room.partner.picture.url}}" alt="">
     {% else %}
         <div class="relative inline-flex items-center justify-center w-14 h-14 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 border border-gray-400">
-            <span class="text-xl text-gray-600 dark:text-gray-300">{{partner.avatar_name}}</span>
+            <span class="text-xl text-gray-600 dark:text-gray-300">{{room.partner.avatar_name}}</span>
         </div>
     {% endif %}
     <div class="flex flex-col justify-center">
         <p class="text-gray-700 font-bold text-base">{{room.partner.full_name}}</p>
         <p class="text-gray-500 text-sm font-normal">{{room.message.body|truncatechars:30}}</p>
     </div>
-</li>
+</a>
 {% endfor %}

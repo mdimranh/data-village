@@ -33,7 +33,7 @@
 <body hx-ext="ws" {% if request.user.is_authenticated %}ws-connect="/ws/user/{{request.user.id}}/connect"{% endif %}>
     {% include 'component/topnav.html' %}
 
-    <div class="absolute top-11 left-0 right-0 bottom-0 bg-gray-100 overflow-y-auto">
+    <div class="absolute top-11 left-0 right-0 bottom-0 bg-gray-100 overflow-y-auto main">
         <div class="h-[calc(100vh-44px)] flex flex-col justify-between">
             {% block main %}
             {% endblock main %}
@@ -43,7 +43,6 @@
 
     <script src="{% static 'node_modules/flowbite/dist/flowbite.min.js' %}"></script>
     <script src="{% static 'node_modules/apexcharts/dist/apexcharts.min.js' %}"></script>
-    <script src="{% static 'js/jquery.min.js' %}"></script>
 
 {% block script %}
     

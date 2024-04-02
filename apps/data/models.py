@@ -29,14 +29,47 @@ class Folder(models.Model):
     def sub_folder(self):
         return Folder.objects.filter(parent=self).count()
 
+    def total_file(self):
+        return FilePackage.objects.filter(folder=self).count()
+
     class Meta:
         ordering = ("-id",)
 
 
-class File(models.Model):
+class FilePackage(models.Model):
     name = models.CharField(max_length=255)
-    file = models.FileField(upload_to="media/files")
-    permium = models.BooleanField(default=False)
-    folder = models.ForeignKey(Folder, on_delete=models.CASCADE, related_name="file")
-    size = models.FloatField()
+    premium = models.BooleanField(default=False)
+    folder = models.ForeignKey(Folder, on_delete=models.CASCADE, related_name="folder")
     uploaded_at = models.DateTimeField(auto_now_add=True)
+    view = models.IntegerField(default=0)
+
+    def files(self):
+        return File.objects.filter(package__id=self.id)
+
+    def size(self):
+        files = self.files()
+        return sum([file.size for file in files])
+
+    def extensions(self):
+        files = self.files()
+        return ", ".join([file.type for file in files])
+
+    def sequence(self):
+        folder = Folder.objects.filter(id=self.folder.id).first()
+        return folder.sequence()
+
+    class Meta:
+        ordering = ["-id"]
+
+
+class File(models.Model):
+    file = models.FileField(upload_to="media/files")
+    size = models.FloatField()
+    type = models.CharField()
+    package = models.ForeignKey(
+        FilePackage, on_delete=models.CASCADE, related_name="file"
+    )
+
+    def sequence(self):
+        package = FilePackage.objects.filter(id=self.package.id).first()
+        return package.sequence()

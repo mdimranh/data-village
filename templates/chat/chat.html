@@ -2,26 +2,39 @@
 {% load static %}
 
 {% block style %}
-
+<style>
+.main {
+   overflow-y: hidden !important;
+}
+.x{{request.user.id}}-message {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+.x{{request.user.id}}-message p {
+    background-color: #1B64F2 !important;
+    color: #FFFFFF !important;
+    border-radius: 20px 20px 0 20px !important;
+}
+</style>
 {% endblock style %}
     
 {% block main %}
-
+{% if roomid %}
 <div class="">
-    <aside id="logo-sidebar" class="fixed top-12 left-0 z-40 w-80 h-screen border-r border-r-gray-200 shadow-sm" aria-label="Sidebar">
+    <aside id="logo-sidebar" class="fixed top-12 sm:left-0 -left-80 z-40 w-80 h-screen border-r border-r-gray-200 shadow-sm" aria-label="Sidebar">
         <div class="h-full px-2 py-4 overflow-y-auto bg-white dark:bg-gray-800">
-           <div class="flex mb-8">
+           <div class="flex mb-4">
                 <p class="text-gray-600 font-bold text-2xl">Chats</p>
            </div>
            <ul class="font-medium" id="rooms" hx-get="/rooms/{{roomid}}" hx-swap="innreHTML" hx-trigger="load, message from:body">
-                {% include 'chat/rooms.html' %}
                 {% include 'chat/rooms.html' %}
            </ul>
         </div>
     </aside>
      
     
-    <div class="sm:ml-80 h-[calc(100vh-44px)] flex flex-col relative"> <!--sm:mr-80 -->
+    <div class="sm:ml-80 h-[calc(100vh-44px)] flex flex-col relative" ws-connect="/ws/chat/{{roomid}}"> <!--sm:mr-80 -->
         <div class="absolute top-0 p-2 flex gap-3 flex-none h-auto bg-white z-30 w-full">
             {% if partner.picture %}
                 <img class="w-14 h-14 rounded-full object-cover" src="{{partner.picture.url}}" alt="">
@@ -32,11 +45,16 @@
             {% endif %}
             <div class="flex flex-col justify-center">
                 <p class="text-gray-600 font-bold text-xl">{{partner.full_name}}</p>
-                <p class="text-green-500">active</p>
+                {% if partner.online %}
+                    <p class="text-green-500">Online</p>
+                {% else %}
+                    <p class="text-red-500">Offline</p>
+                {% endif %}
             </div>
         </div>
-        <div id="messages"
-            class="flex flex-col-reverse w-full gap-2 absolute top-[72px] bottom-[63px] p-4 overflow-y-auto border-t border-t-gray-200">
+        <div id="messages" ws-connect="/ws/chat/{{request.user.id}}"
+            class="bg-slate-50 flex flex-col-reverse w-full gap-2 absolute top-[72px] bottom-[63px] p-4 overflow-y-auto border-t border-t-gray-200">
+            <div id="newmessages" class="flex flex-col gap-2"></div>
             {% for message in messages %}
             {% if message.sender.id == request.user.id %}
             <div class="flex w-full justify-end">
@@ -44,98 +62,87 @@
                 </p>
             </div>
             {% else %}
-            <p class="px-4 py-2 rounded-3xl max-w-2xl rounded-bl-none bg-gray-200 w-fit text-nowrap">{{message.body}}
-            </p>
+            <p class="px-4 py-2 rounded-3xl max-w-2xl rounded-bl-none bg-gray-200 w-fit text-nowrap">{{message.body}}</p>
             {% endif %}
             {% endfor %}
         </div>
-        <form class="flex items-center absolute bottom-0 px-4 gap-4 flex-none h-16 bg-white border-t border-t-gray-200 w-full">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="gray"
-                class="w-6 h-6 cursor-pointer">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="gray"
-                class="w-6 h-6 cursor-pointer">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-            </svg>
-            <input id="message"
+        <form ws-send class="flex items-center absolute bottom-0 px-4 gap-4 flex-none h-16 bg-white border-t border-t-gray-200 w-full">
+            <input id="message" name="message"
                 class="w-full border-transparent focus:border-transparent focus:ring-0 bg-gray-300 bg-opacity-30 rounded-md py-2"
                 type="text" placeholder="Write your message...">
-            <svg id="send-btn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-8 h-8 cursor-pointer ">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-            </svg>
+            <button>
+                <svg id="send-btn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-8 h-8 cursor-pointer ">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                </svg>
+            </button>
         </form>
+    </div>
+</div>
+<script>
+htmx.on("htmx:wsAfterMessage", function(e){
+    $("#message").val("")
+})
+htmx.on("htmx:wsBeforeMessage", (e) => {
+    fetch("/rooms/{{roomid}}")
+    .then(response => response.text())
+    .then(data => {
+        var roomsElement = document.getElementById("rooms");
+        roomsElement.innerHTML = data;
+        var messagesDiv = document.getElementById("messages");
+        messagesDiv.scrollTo({
+            top: messagesDiv.scrollHeight,
+            behavior: "smooth"
+        });
+    })
+    .catch(error => console.error('Error updating rooms:', error));
+});
+</script>
+{% else %}
+
+
+<div class="flex w-full justify-center my-5">
+
+    <div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div class="flex items-center justify-between mb-4">
+            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Select user to continue</h5>
+            {% comment %} <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+                View all
+            </a> {% endcomment %}
+    </div>
+    <div class="flow-root">
+            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                {% for user in users %}
+                    <li>
+                        <a href="/chat/{{user.id}}" class="flex items-center p-2 hover:bg-slate-100 cursor-pointer">
+                            <div class="flex-shrink-0">
+                                {% if user.picture %}
+                                    <img class="w-12 h-12 rounded-full object-cover border border-slate-300" src="{{user.picture.url}}" alt="Neil image">
+                                {% else %}
+                                    <div class="relative inline-flex items-center justify-center w-12 h-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 mr-3 border border-slate-300">
+                                        <span class="text-xl text-gray-600 dark:text-gray-300">{{user.avatar_name}}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="flex-1 min-w-0 ms-4">
+                                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                    {{user.full_name}}
+                                </p>
+                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                    {{user.email}}
+                                </p>
+                            </div>
+                            {% comment %} <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                $320
+                            </div> {% endcomment %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+    </div>
     </div>
 
 </div>
-
-<script src="{% static 'js/reconnecting-websocket.min.js' %}"></script>
-<script>
-    // Create WebSocket connection.
-    let uid = {{request.user.id}}
-    sendbtn = document.getElementById('send-btn');
-    rooms = document.getElementById('rooms');
-    const socket = new ReconnectingWebSocket("ws://localhost:8000/ws/chat/{{roomid}}");
-
-    // Connection opened
-    socket.addEventListener("open", (event) => {
-        console.log("Websocket connection opened.")
-        // socket.send("Hello Server!");
-    });
-
-    sendbtn.addEventListener("click", (event) => {
-        message = document.getElementById('message').value;
-        socket.send(JSON.stringify({
-            "message": message,
-            "cid": uid
-        }))
-        document.getElementById('message').value = ""
-        document.body.dispatchEvent(new Event('message'));
-        // can possible from backend only for render template not in socket response headers={'HX-Trigger': 'movieListChanged'}
-    })
-
-    // Listen for messages
-    socket.addEventListener("message", (event) => {
-        console.log(event.data)
-        try {
-            data = JSON.parse(event.data)
-            if (data.message){
-                document.body.dispatchEvent(new Event('message'));
-                meessage_sec = document.getElementById('mes-sec');
-                if (data.sender === uid){
-                    // Create a new div element with the specified structure and styles
-                    var newMessageElement = document.createElement("div");
-                    newMessageElement.className = "flex w-full justify-end";
-
-                    // Create a child paragraph element within the div
-                    var paragraphElement = document.createElement("p");
-                    paragraphElement.className = "px-4 py-2 rounded-3xl w-1/2 w-fit rounded-br-none bg-blue-600 text-white";
-                    paragraphElement.textContent = data.message; // Set the content
-
-                    // Append the paragraph element to the div
-                    newMessageElement.appendChild(paragraphElement);
-
-                    // Append the new div element to the `meessage_sec` element
-                    meessage_sec.appendChild(newMessageElement);
-
-                }
-                else {
-                    var newMessageElement = document.createElement("p");
-                    newMessageElement.textContent = data.message; // Set the content
-                    newMessageElement.classList.add("px-4", "py-2", "rounded-3xl", "rounded-bl-none", "bg-gray-200", "w-fit", "text-nowrap"); // Add classes for styling
-
-                    // Append the new DOM element to the `meessage_sec` element
-                    meessage_sec.appendChild(newMessageElement);
-                }
-            }
-        }
-        catch (e) {}
-    });
-
-</script>
-
+{% endif %}
 {% endblock main %}
