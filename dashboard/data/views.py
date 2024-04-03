@@ -87,7 +87,7 @@ def SubFolder(request, fid, **kwargs):
                 "dashboard/data/folders.html",
                 {
                     "folders": Folder.objects.filter(parent__id=fid),
-                    "files": File.objects.filter(folder__id=fid),
+                    "files": FilePackage.objects.filter(folder__id=fid),
                     "parent_id": fid,
                 },
             )

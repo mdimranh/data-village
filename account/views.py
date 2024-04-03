@@ -150,7 +150,7 @@ class Signup(View):
         verify.save()
         body = f"Hi {full_name}, Your pemis verification code is {verify.phone_code}."
         # messaging = Messaging().send(body=body, to=phone)
-        SendVerificationMail(request, user_id=user.id, code=verify.email_code)
+        # SendVerificationMail(request, user_id=user.id, code=verify.email_code)
         secret = Crypto().encrypt({"phone": phone, "email": email}, True)
         redirect_url = reverse("verify", kwargs={"secret": secret})
         return HttpResponseClientRedirect(redirect_url)

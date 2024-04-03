@@ -12,7 +12,8 @@
     "remixicon": "^4.0.1",
     "sweetalert2": "^11.7.32",
     "swiper": "^10.3.1",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.3",
+    "yaml": "^1.10.0"
   },
   "devDependencies": {
     "@shrutibalasa/tailwind-grid-auto-fit": "^1.1.0",

@@ -10,6 +10,32 @@
     margin: 0 auto; /* Add this line */
     padding-bottom: 15px;
 }
+/* Loader styles */
+.loader-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100; /* Ensure loader is on top of other elements */
+}
+.loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 </style>
 {% endblock style %}
 
@@ -57,7 +83,7 @@
                             <path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
                         </svg>
                     </a>
-                    <img class="w-6 h-6" src="{% static 'img/svg/pdf.svg' %}" alt="" srcset="">
+                    <img class="w-6 h-6" src="{% static 'img/SVG/pdf.svg' %}" alt="" srcset="">
                     <h4 class="truncate">{{file.package.name}}</h4>
                 </div>
                 <div class="flex w-full justify-center gap-2 items-center col-span-1">
@@ -72,6 +98,7 @@
                         <path d="M23 23 L30 30" />
                         <path d="M9 12 L9 9 12 9 M16 9 L19 9 19 12 M9 16 L9 19 12 19 M19 16 L19 19 16 19" />
                     </svg>
+                    <div id="zoom-percent">100</div>
                 </div>
                 <div class="flex w-full justify-end gap-2 col-span-1">
                     <svg data-dropdown-toggle="dropdownInformation" class="w-5 h-5 cursor-pointer" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -83,7 +110,7 @@
                             {% for f in files %}
                                 <li>
                                     <a href="{{f.file.url}}" class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white flex items-center gap-2" download>
-                                        <img class="w-6 h-6" src="{% static 'img/svg/pdf.svg' %}" alt="" srcset="">
+                                        <img class="w-6 h-6" src="{% static 'img/SVG/pdf.svg' %}" alt="" srcset="">
                                         <span class="uppercase">{{f.type}}</span>
                                     </a>
                                 </li>
@@ -99,6 +126,9 @@
         <div class="flex z-30 justify-between bg-slate-100">
             {% comment %} <div id="thumbs" class="w-48 bg-slate-200"></div> {% endcomment %}
             <div class="p-4 bg-slate-100 w-full flex items-center justify-center">
+                <div class="loader-overlay" id="loader-overlay">
+                    <div class="loader"></div>
+                </div>
                 <div id="pages"></div>
             </div>
             {% comment %} <div id="contexts" class="w-48 bg-slate-200"></div> {% endcomment %}
@@ -109,7 +139,6 @@
 
 <input type="hidden" id="pdf-url" value="{{ file.file.url }}" />
 {% comment %} <button id="zoom-in">Zoom In</button> {% endcomment %}
-<div id="zoom-percent">60</div>
 {% comment %} <button id="zoom-out">Zoom Out</button>
 <button id="zoom-reset">Reset Zoom</button> {% endcomment %}
 <script>
@@ -120,7 +149,7 @@ var pdfUrl = document.querySelector("#pdf-url").value;
 
 var loadingTask = pdfjsLib.getDocument(pdfUrl);
 loadingTask.promise.then(function(pdf) {
-  console.log("the pdf has", pdf.numPages, "page(s).");
+  document.getElementById('loader-overlay').style.display = 'none';
   for (var i = 0; i < pdf.numPages; i++) {
     (function(pageNum){
       pdf.getPage(i+1).then(function(page) {

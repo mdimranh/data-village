@@ -30,7 +30,7 @@ maxminddb==2.6.0
 multidict==6.0.5
 phonenumbers==8.13.33
 pillow==10.3.0
-psycopg2==2.9.9
+psycopg2-binary
 pyasn1==0.6.0
 pyasn1_modules==0.4.0
 pycparser==2.22
@@ -43,7 +43,6 @@ sqlparse==0.4.4
 sslcommerz-lib==1.0
 twilio==9.0.3
 Twisted==24.3.0
-twisted-iocpsupport==1.0.4
 txaio==23.1.1
 typing_extensions==4.10.0
 tzdata==2024.1
