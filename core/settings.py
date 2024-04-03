@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.humanize",
     "django_htmx",
-    "django_browser_reload",
     "corsheaders",
     # Local app
     "account",
@@ -60,7 +59,7 @@ INSTALLED_APPS = [
     "apps.contactus",
     "dashboard",
     "django_jsonform",
-    "ckeditor",
+    "django_ckeditor_5",
     # Third party libraries
     "phonenumber_field",
 ]

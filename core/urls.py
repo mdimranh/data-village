@@ -22,7 +22,6 @@ from django.urls import include, path
 
 urlpatterns = [
     path("management/", admin.site.urls),
-    path("__reload__/", include("django_browser_reload.urls")),
     path("", include("home.urls")),
     path("", include("apps.course.urls")),
     path("", include("apps.contactus.urls")),
