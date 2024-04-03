@@ -43,7 +43,7 @@ def data(request, type):
 def fileView(request, id):
     package = FilePackage.objects.filter(id=id).first()
     file = File.objects.filter(package__id=id, type=".pdf").first()
-    files = File.objects.filter(package__id=id).values("file", "type")
+    files = File.objects.filter(package__id=id)
     package.view += 1
     package.save()
     return render(request, "files/file_view.html", {"file": file, "files": files})
