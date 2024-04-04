@@ -78,11 +78,11 @@
             </div>
             <div class="grid grid-cols-3 justify-center px-4 py-2 border-b border-slate-200 items-center bg-white" aria-label="Breadcrumb">
                 <div class="flex w-full justify-start gap-3 items-center col-span-1">
-                    <a href="/datahub/{{file.package.folder.id}}">
+                    {% comment %} <a href="/datahub/{{file.package.folder.id}}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-5">
                             <path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
                         </svg>
-                    </a>
+                    </a> {% endcomment %}
                     <img class="w-6 h-6" src="{% static 'img/SVG/pdf.svg' %}" alt="" srcset="">
                     <h4 class="truncate">{{file.package.name}}</h4>
                 </div>

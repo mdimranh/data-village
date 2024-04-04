@@ -145,7 +145,7 @@ def AddFile(request, id):
         for file in files:
             name, extension = os.path.splitext(file.name)
             newfile = File(
-                file=file, size=file.size, type=extension, package=newPackage
+                file=file, size=file.size, type=extension, package=newPackage, name=name
             )
             newfile.save()
         files = FilePackage.objects.filter(folder__id=id)
@@ -156,6 +156,77 @@ def AddFile(request, id):
             {"files": files, "parent_id": id},
         )
 
+
+def FileDetails(request, id):
+    if request.method == "GET":
+        file = FilePackage.objects.filter(id=id).first()
+        return render(
+            request,
+            "dashboard/data/forms/edit-file-inputs.html",
+            {
+                "file": file
+            }
+        )
+    if request.method == 'DELETE':
+        file = File.objects.filter(id=id).first()
+        if file:
+            file.delete()
+            return HttpResponse("")
+    if request.method == 'POST':
+        data = request.POST
+        print(data)
+        package = FilePackage.objects.filter(id=id).first()
+        files = request.FILES.getlist("file")
+        name = data.get("name")
+        if name:
+            package.name = name
+        free = data.get("free") == "yes"
+        package.premium = not free
+        package.save()
+        for file in files:
+            name, extension = os.path.splitext(file.name)
+            newfile = File(
+                file=file, size=file.size, type=extension, package=package, name=name
+            )
+            newfile.save()
+        return render(
+            request,
+            "dashboard/data/folders.html",
+            {"files": FilePackage.objects.filter(folder=package.folder), "parent_id": package.folder.id},
+        )
+
+def FolderDetails(request, id):
+    if request.method == "GET":
+        folder = Folder.objects.filter(id=id).first()
+        return render(
+            request,
+            "dashboard/data/forms/edit-folder-inputs.html",
+            {
+                "folder": folder
+            }
+        )
+    if request.method == 'POST':
+        data = request.POST
+        folder = Folder.objects.filter(id=id).first()
+        name = data.get("name")
+        if name:
+            folder.name = name
+        free = data.get("free") == "yes"
+        folder.premium = not free
+        folder.save()
+        context = {}
+        if folder.parent:
+            context['folders'] = Folder.objects.filter(parent__id=folder.parent.id)
+            context['parent_id'] = folder.parent.id
+        else:
+            context['folders'] = Folder.objects.filter(parent__isnull=True)
+            context['files'] = []
+            context['parent_id'] = None
+        return render(
+            request,
+            "dashboard/data/folders.html",
+            context
+        )
 
 def DeleteFile(request, **kwargs):
     colors = [

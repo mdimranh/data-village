@@ -22,9 +22,9 @@
     </form>
 </div>
 {% endif %}
-<div class="flex gap-4 flex-wrap justify-start px-4">
+<div class="flex gap-4 flex-grow flex-wrap px-4 justify-start">
     {% for folder in folders %}
-    <div class="folder relative w-64 border border-slate-300 rounded-lg group hover:bg-blue-50 hover:border-blue-400 cursor-pointer">
+    <div class="folder relative min-w-min border border-slate-300 rounded-lg group hover:bg-blue-50 hover:border-blue-400 cursor-pointer">
         <a class="flex h-full w-full p-2" {% if not parent %} href="/datahub/{{folder.id}}" {%else%} href="/datahub/{{folder.id}}" {% endif %}>
             <div class="flex-col w-full relative items-center gap-3 rounded-lg">
                 <svg class="w-10 h-10 fill-[{{folder.color}}]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 21C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5H20C20.5523 5 21 5.44772 21 6V9H4V18.996L6 11H22.5L20.1894 20.2425C20.0781 20.6877 19.6781 21 19.2192 21H3Z" ></path></svg>
@@ -36,8 +36,6 @@
                 </div>
             </div>
         </a>
-        <svg data-modal-target="add-folder" data-modal-toggle="add-folder" class="edit-button w-7 h-7 text-slate-500 absolute top-1 right-1 rounded-full hover:bg-slate-200 p-1 hidden group-hover:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.7574 2.99677L9.29145 10.4627L9.29886 14.7098L13.537 14.7024L21 7.23941V19.9968C21 20.5491 20.5523 20.9968 20 20.9968H4C3.44772 20.9968 3 20.5491 3 19.9968V3.99677C3 3.44448 3.44772 2.99677 4 2.99677H16.7574ZM20.4853 2.09727L21.8995 3.51149L12.7071 12.7039L11.2954 12.7063L11.2929 11.2897L20.4853 2.09727Z" fill="currentColor"></path></svg>
-        <svg hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-delete="/admin/folder?id={{folder.id}}" hx-confirm="" class="delete-button w-7 h-7 text-red-500 absolute top-8 right-1 rounded-full hover:bg-slate-200 p-1 hidden group-hover:block" hx-target="#folders" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8ZM7 5V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V5H22V7H2V5H7ZM9 4V5H15V4H9ZM9 12V18H11V12H9ZM13 12V18H15V12H13Z" fill="currentColor"></path></svg>
     </div>
     {% endfor %}
 </div>

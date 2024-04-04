@@ -4,12 +4,12 @@
     class="max-w-xl {% if login %}hidden{% endif %} w-full px-8 py-12 border border-gray-300 bg-white shadow-md rounded-lg"
     method="post">
     {% csrf_token %}
-    <a href="https://flowbite.com/" class="flex items-center mb-5">
-        <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="Flowbite Logo" />
-        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+    <a href="/" class="flex items-center mb-5">
+        <img src="{% static 'img/logo-full.png' %}" class="h-8 mr-3" alt="data village Logo" />
+        {% comment %} <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Data Village</span> {% endcomment %}
     </a>
     <h1 class="font-bold">WELCOME BACK</h1>
-    <h3 class="mb-6">Start your website in seconds. Don't have an account? <span id="login-btn"
+    <h3 class="mb-6">Start your journy in seconds. Have your account? <span id="login-btn"
             class="cursor-pointer font-bold text-lime-700">Login.</span>
     </h3>
     <div class="mb-6">

@@ -132,5 +132,10 @@
     pro_btn.addEventListener("click", function(e) {
         document.getElementById('settings-tab').click();
     })
+
+    if (window.location.href.includes("#settings")) {
+        document.getElementById('settings-tab').click();
+    }
+
 </script>
 {% endblock main %}

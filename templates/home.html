@@ -7,6 +7,7 @@
   .swiper {
     width: 100%;
     height: 100%;
+    max-width: 800px;
     max-height: 500px;
   }
 
@@ -22,7 +23,7 @@
   .swiper-slide img {
     display: block;
     width: 100%;
-    height: 100%;
+    height: auto;
     max-height: 600px;
     object-fit: cover;
   }
@@ -50,42 +51,39 @@
     id="header"
     class="header py-28 text-center md:pt-36 lg:text-left xl:pt-20 xl:pb-32 flex w-full justify-center"
   >
-    <div class="max-w-screen-2xl px-4 sm:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8 flex">
-      <div class="mb-16 lg:mt-32 xl:mt-40 xl:mr-12">
-        <h1 class="h1-large mb-5">Team management mobile application</h1>
-        <p class="p-large mb-8">
-          Start getting things done together with your team based on Pavo's
-          revolutionary team management features
+    <div class="max-w-screen-xl px-4 sm:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8 items-center">
+      <div>
+        <p class="font-bold lg:text-2xl text-xl mb-3 text-purple-800">DATA VILLAGE - EMPOWERING WITH DATA</h3>
+        <p class="font-bold lg:text-4xl text-2xl mb-5 text-slate-800">
+          BANGLADESH'S FIRST DATA WEB PORTAL FOR ALL INDUSTRY AND ORGANIZATION
         </p>
-        <a class="btn-solid-lg" href="#your-link"
-          ><i class="fab fa-apple"></i>Download</a
-        >
-        <a class="btn-solid-lg secondary" href="#your-link"
-          ><i class="fab fa-google-play"></i>Download</a
-        >
-      </div>
-      {% comment %} <div class="xl:text-right">
-        <img
-          class="inline"
-          src="{% static 'img/images/header-smartphone.png' %}"
-          alt="alternative"
-        />
-      </div> {% endcomment %}
-        <div class="flex">
-            <div class="swiper mySwiper rounded-2xl">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                    <img src="{% static 'img/course1.jpg' %}" alt="">
-                    </div>
-                    <div class="swiper-slide">
-                    <img src="{% static 'img/course2.jpg' %}" alt="">
-                    </div>
-                </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination"></div>
-            </div>
+        <p class="text-lg text-slate-600">
+          We have 1+ million data for Bangladesh’s different sectors. You can use this open-source data for research or your organization.
+        </p>
+        <div class="flex gap-4 w-full lg:justify-start mt-4 lg:text-xl text-md justify-center">
+          <a href="/datahub" class="border border-slate-300 px-4 py-2 rounded-lg bg-teal-500 hover:bg-teal-700 text-white">Find Data</a>
+          <a href="/contactus" class="border border-slate-300 px-4 py-2 rounded-lg bg-teal-500 hover:bg-teal-700 text-white">Contact US</a>
         </div>
+      </div>
+      {% comment %} <div class="flex">
+        <div class="swiper mySwiper rounded-2xl md:w-5/6">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <img src="{% static 'img/slider/1.png' %}" alt="">
+                </div>
+                <div class="swiper-slide">
+                  <img src="{% static 'img/slider/2.png' %}" alt="">
+                </div>
+                <div class="swiper-slide">
+                  <img src="{% static 'img/slider/3.png' %}" alt="">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+      </div> {% endcomment %}
+      <div class="xl:text-right">
+          <img class="inline mt-8 lg:mt-0" src="{% static 'img/slider/4.png' %}" alt="alternative" />
+      </div>
     </div>
     <!-- end of container -->
   </header>
@@ -96,9 +94,7 @@
   <div class="pt-4 pb-14 text-center">
     <div class="container px-4 sm:px-8 xl:px-4">
       <p class="mb-4 text-gray-800 text-3xl leading-10 lg:max-w-5xl lg:mx-auto">
-        Team management mobile apps don’t get better than Pavo. It's probably
-        the best app in the world for this purpose. Don’t hesitate to give it a
-        try today and you will fall in love with it
+        Data Village, A dynamic ecosystem fostering innovation and collaboration among data enthusiasts, businesses, researchers, and decision-makers.
       </p>
     </div>
     <!-- end of container -->
@@ -117,10 +113,9 @@
           />
         </div>
         <div class="card-body">
-          <h5 class="card-title">Platform Integration</h5>
+          <h5 class="card-title">Unparalleled Data Variety</h5>
           <p class="mb-4">
-            You sales force can use the app on any smartphone platform without
-            compatibility issues
+            Your go-to for diverse datasets from finance, healthcare, agriculture etc.
           </p>
         </div>
       </div>
@@ -135,10 +130,9 @@
           />
         </div>
         <div class="card-body">
-          <h5 class="card-title">Easy On Resources</h5>
+          <h5 class="card-title">Empowering Insights</h5>
           <p class="mb-4">
-            Works smoothly even on older generation hardware due to our
-            optimization efforts
+            Access tools to transform data into actionable insights for informed decision-making effortlessly.
           </p>
         </div>
       </div>
@@ -153,10 +147,9 @@
           />
         </div>
         <div class="card-body">
-          <h5 class="card-title">Great Performance</h5>
+          <h5 class="card-title">Collaborative Community</h5>
           <p class="mb-4">
-            Optimized code and innovative technology insure no delays and
-            ultra-fast responsiveness
+            Collaborate via forums, groups, and projects to harness collective intelligence for global challenges.
           </p>
         </div>
       </div>
@@ -171,10 +164,9 @@
           />
         </div>
         <div class="card-body">
-          <h5 class="card-title">Multiple Languages</h5>
+          <h5 class="card-title">Innovation and Progress</h5>
           <p class="mb-4">
-            Choose from one of the 40 languages that come pre-installed and
-            start selling smarter
+            We prioritize continuous innovation, updating with the latest tech for data advancement.
           </p>
         </div>
       </div>
@@ -189,10 +181,9 @@
           />
         </div>
         <div class="card-body">
-          <h5 class="card-title">Free Updates</h5>
+          <h5 class="card-title">Build the Future</h5>
           <p class="mb-4">
-            Don't worry about future costs, pay once and receive all future
-            updates at no extra cost
+            Let's transform data into knowledge and shape a brighter future for all.
           </p>
         </div>
       </div>
@@ -209,8 +200,7 @@
         <div class="card-body">
           <h5 class="card-title">Community Support</h5>
           <p class="mb-4">
-            Register the app and get acces to knowledge and ideas from the Pavo
-            online community
+            Whether you're a data enthusiast, a business owner, or a researcher, Welcome to our community.
           </p>
         </div>
       </div>
@@ -222,19 +212,13 @@
   <!-- end of features -->
 
   <!-- Details 1 -->
-  <div id="details" class="pt-12 pb-16 lg:pt-16">
-    <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-12 lg:gap-x-12">
+  <div id="details" class="pt-6 pb-8 lg:pt-8">
+    <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-12 lg:gap-x-12 items-center justify-center">
       <div class="lg:col-span-5">
         <div class="mb-16 lg:mb-0 xl:mt-16">
-          <h5 class="mb-6">Results driven ground breaking technology</h5>
+          <h5 class="mb-6 text-4xl">Why Choose Us?</h5>
           <p class="mb-4">
-            Based on our team's extensive experience in developing line of
-            business applications and constructive customer feedback we reached
-            a new level of revenue.
-          </p>
-          <p class="mb-4">
-            We enjoy helping small and medium sized tech businesses take a shot
-            at established Fortune 500 companies
+            Choose Data Village as your organization's data portal for unparalleled access to comprehensive datasets spanning various sectors in Bangladesh. Our platform offers a diverse range of data crucial for research and organizational development. With the convenience of accessing Bangladeshi sector-specific data in one centralized hub, Data Village empowers your organization with the insights needed to make informed decisions and drive success.
           </p>
         </div>
       </div>
@@ -243,7 +227,7 @@
         <div class="xl:ml-14">
           <img
             class="inline"
-            src="{% static 'img/images/details-1.jpg' %}"
+            src="{% static 'img/slider/5.png' %}"
             alt="alternative"
           />
         </div>
@@ -255,13 +239,13 @@
   <!-- end of details 1 -->
 
   <!-- Details 2 -->
-  <div class="py-24">
-    <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-12 lg:gap-x-12">
+  <div class="py-10">
+    <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-12 lg:gap-x-12 items-center justify-center">
       <div class="lg:col-span-7">
         <div class="mb-12 lg:mb-0 xl:mr-14">
           <img
             class="inline"
-            src="{% static 'img/images/details-2.jpg' %}"
+            src="{% static 'img/slider/6.png' %}"
             alt="alternative"
           />
         </div>
@@ -269,27 +253,30 @@
       <!-- end of col -->
       <div class="lg:col-span-5">
         <div class="xl:mt-12">
-          <h5 class="mb-6">Instant results for the marketing department</h5>
-          <ul class="list mb-7 space-y-2">
-            <li class="flex">
-              <i class="fas fa-chevron-right"></i>
-              <div>Features that will help you and your marketers</div>
+          <h5 class="mb-6 text-4xl">How to use It?</h5>
+          <span class="font-bold text-xl">To utilize our platform efficiently, follow these simple steps:</span>
+          <ol class="list mb-7 space-y-2 list-decimal ml-5 mt-5">
+            <li>
+              <div><span class="font-semibold">Sign Up or Login:</span> Create an account on our platform or log in if you're an existing user to gain access to our services.</div>
             </li>
-            <li class="flex">
-              <i class="fas fa-chevron-right"></i>
-              <div>Smooth learning curve due to the knowledge base</div>
+            <li>
+              <div><span class="font-semibold">Choose Your Suitable Package:</span> Browse through our package options and select the one that best fits your needs and requirements.</div>
             </li>
-            <li class="flex">
-              <i class="fas fa-chevron-right"></i>
-              <div>Ready out-of-the-box with minor setup settings</div>
+            <li>
+              <div><span class="font-semibold">Payment:</span> Complete the payment process to subscribe to your chosen package securely. We offer various payment methods for your convenience.</div>
             </li>
-          </ul>
-          <a
+            <li>
+              <div><span class="font-semibold">Access Our Data:</span> Once your payment is confirmed, you'll gain unrestricted access to all of our datasets. Explore and utilize the wealth of information available to you for research, analysis, or organizational purposes.</div>
+            </li>
+          </ol>
+
+          Our intuitive platform interface ensures a seamless experience, allowing you to harness the power of data effectively for your endeavors.
+          {% comment %} <a
             class="btn-solid-reg popup-with-move-anim mr-1.5"
             href="#details-lightbox"
             >Lightbox</a
           >
-          <a class="btn-outline-reg" href="article.html">Details</a>
+          <a class="btn-outline-reg" href="article.html">Details</a> {% endcomment %}
         </div>
       </div>
       <!-- end of col -->
@@ -298,7 +285,7 @@
   </div>
   <!-- end of details 2 -->
 
-  <!-- Details 3 -->
+  {% comment %} <!-- Details 3 -->
   <div class="pt-16 pb-12">
     <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-12 lg:gap-x-12">
       <div class="lg:col-span-5">
@@ -329,7 +316,7 @@
     </div>
     <!-- end of container -->
   </div>
-  <!-- end of details 3 -->
+  <!-- end of details 3 --> {% endcomment %}
 
   <!-- Statistics -->
   <div class="counter bg-gray">
@@ -556,25 +543,11 @@
         aria-labelledby="accordion-flush-heading-1"
         >
             <div class="py-3 border-gray-200 dark:border-gray-700">
-                <p class="mb-2 text-gray-500 dark:text-gray-400">
-                Flowbite is an open-source library of interactive components built on
-                top of Tailwind CSS including buttons, dropdowns, modals, navbars, and
-                more.
-                </p>
-                <p class="text-gray-500 dark:text-gray-400">
-                Check out this guide to learn how to
-                <a
-                    href="/docs/getting-started/introduction/"
-                    class="text-blue-600 dark:text-blue-500 hover:underline"
-                    >get started</a
-                >
-                and start developing websites even faster with components on top of
-                Tailwind CSS.
-                </p>
+              Data Village is a comprehensive platform designed to facilitate data management, analysis, and utilization for businesses and organizations. It provides a centralized hub where data from various sources can be collected, stored, processed, and analyzed to derive valuable insights and drive informed decision-making.
             </div>
         </div>
     </div>
-        <div class="bg-white px-4 py-1 rounded-md drop-shadow">
+    <div class="bg-white px-4 py-1 rounded-md drop-shadow">
         <h5 id="accordion-flush-heading-2">
             <button
                 type="button"
@@ -583,7 +556,7 @@
                 aria-expanded="true"
                 aria-controls="accordion-flush-body-2"
             >
-                <span>What is Data Village?</span>
+                <span>How does Data Village help businesses?</span>
                 <svg
                 data-accordion-icon
                 class="w-3 h-3 rotate-180 shrink-0"
@@ -608,25 +581,11 @@
         aria-labelledby="accordion-flush-heading-2"
         >
             <div class="py-3 border-gray-200 dark:border-gray-700">
-                <p class="mb-2 text-gray-500 dark:text-gray-400">
-                Flowbite is an open-source library of interactive components built on
-                top of Tailwind CSS including buttons, dropdowns, modals, navbars, and
-                more.
-                </p>
-                <p class="text-gray-500 dark:text-gray-400">
-                Check out this guide to learn how to
-                <a
-                    href="/docs/getting-started/introduction/"
-                    class="text-blue-600 dark:text-blue-500 hover:underline"
-                    >get started</a
-                >
-                and start developing websites even faster with components on top of
-                Tailwind CSS.
-                </p>
+              Data Village empowers businesses by enabling them to harness the power of their data effectively. It offers tools for data collection, storage, integration, analysis, and visualization, allowing organizations to gain deeper insights into their operations, customers, and market trends. By leveraging these insights, businesses can optimize processes, improve customer experiences, and identify new opportunities for growth.
             </div>
         </div>
     </div>
-        <div class="bg-white px-4 py-1 rounded-md drop-shadow">
+    <div class="bg-white px-4 py-1 rounded-md drop-shadow">
         <h5 id="accordion-flush-heading-3">
             <button
                 type="button"
@@ -635,7 +594,7 @@
                 aria-expanded="true"
                 aria-controls="accordion-flush-body-3"
             >
-                <span>What is Data Village?</span>
+                <span>What features does Data Village offer?</span>
                 <svg
                 data-accordion-icon
                 class="w-3 h-3 rotate-180 shrink-0"
@@ -660,25 +619,31 @@
         aria-labelledby="accordion-flush-heading-3"
         >
             <div class="py-3 border-gray-200 dark:border-gray-700">
-                <p class="mb-2 text-gray-500 dark:text-gray-400">
-                Flowbite is an open-source library of interactive components built on
-                top of Tailwind CSS including buttons, dropdowns, modals, navbars, and
-                more.
-                </p>
-                <p class="text-gray-500 dark:text-gray-400">
-                Check out this guide to learn how to
-                <a
-                    href="/docs/getting-started/introduction/"
-                    class="text-blue-600 dark:text-blue-500 hover:underline"
-                    >get started</a
-                >
-                and start developing websites even faster with components on top of
-                Tailwind CSS.
-                </p>
+            <span class="font-bold">Data Village offers a wide range of features, including:</span>
+              <ul class="list-disc ml-5">
+                <li>
+                  <span class="font-semibold">Data Integration: </span>Ability to consolidate data from various sources such as databases, spreadsheets, APIs, and more.
+                </li>
+                <li>
+                  <span class="font-semibold">Data Storage: </span>Secure storage solutions with options for cloud-based or on-premises storage.
+                </li>
+                <li>
+                  <span class="font-semibold">Data Analysis: </span>Advanced analytics tools for exploring data, generating reports, and uncovering patterns and trends.
+                </li>
+                <li>
+                  <span class="font-semibold">Data Visualization: </span>Intuitive visualization tools for creating interactive charts, graphs, and dashboards.
+                </li>
+                <li>
+                  <span class="font-semibold">Data Security: </span>Robust security measures to ensure the confidentiality, integrity, and availability of data.
+                </li>
+                <li>
+                  <span class="font-semibold">Collaboration: </span>Features for sharing data, insights, and reports with team members and stakeholders.
+                </li>
+              </ul>
             </div>
         </div>
     </div>
-        <div class="bg-white px-4 py-1 rounded-md drop-shadow">
+    <div class="bg-white px-4 py-1 rounded-md drop-shadow">
         <h5 id="accordion-flush-heading-4">
             <button
                 type="button"
@@ -687,7 +652,7 @@
                 aria-expanded="true"
                 aria-controls="accordion-flush-body-4"
             >
-                <span>What is Data Village?</span>
+                <span>Is Data Village suitable for small businesses?</span>
                 <svg
                 data-accordion-icon
                 class="w-3 h-3 rotate-180 shrink-0"
@@ -713,19 +678,247 @@
         >
             <div class="py-3 border-gray-200 dark:border-gray-700">
                 <p class="mb-2 text-gray-500 dark:text-gray-400">
-                Flowbite is an open-source library of interactive components built on
-                top of Tailwind CSS including buttons, dropdowns, modals, navbars, and
-                more.
+                Yes, Data Village is suitable for businesses of all sizes, including small and medium-sized enterprises (SMEs). It offers scalable solutions that can accommodate the needs and budgets of small businesses while providing the flexibility to scale up as the business grows.
                 </p>
-                <p class="text-gray-500 dark:text-gray-400">
-                Check out this guide to learn how to
-                <a
-                    href="/docs/getting-started/introduction/"
-                    class="text-blue-600 dark:text-blue-500 hover:underline"
-                    >get started</a
+            </div>
+        </div>
+    </div>
+    <div class="bg-white px-4 py-1 rounded-md drop-shadow">
+        <h5 id="accordion-flush-heading-5">
+            <button
+                type="button"
+                class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3"
+                data-accordion-target="#accordion-flush-body-5"
+                aria-expanded="true"
+                aria-controls="accordion-flush-body-5"
+            >
+                <span>Can Data Village handle big data?</span>
+                <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
                 >
-                and start developing websites even faster with components on top of
-                Tailwind CSS.
+                <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5 5 1 1 5"
+                />
+                </svg>
+            </button>
+        </h5>
+        <div
+        id="accordion-flush-body-5"
+        class="hidden"
+        aria-labelledby="accordion-flush-heading-5"
+        >
+            <div class="py-3 border-gray-200 dark:border-gray-700">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">
+                Yes, Data Village is designed to handle large volumes of data commonly referred to as "big data." It offers scalable storage and processing capabilities that allow organizations to manage and analyze massive datasets efficiently.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white px-4 py-1 rounded-md drop-shadow">
+        <h5 id="accordion-flush-heading-6">
+            <button
+                type="button"
+                class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3"
+                data-accordion-target="#accordion-flush-body-6"
+                aria-expanded="true"
+                aria-controls="accordion-flush-body-6"
+            >
+                <span>Is Data Village easy to use?</span>
+                <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+                >
+                <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5 5 1 1 5"
+                />
+                </svg>
+            </button>
+        </h5>
+        <div
+        id="accordion-flush-body-6"
+        class="hidden"
+        aria-labelledby="accordion-flush-heading-6"
+        >
+            <div class="py-3 border-gray-200 dark:border-gray-700">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">
+                  Yes, Data Village is designed with user-friendliness in mind. It offers intuitive interfaces, drag-and-drop functionality, and customizable workflows to make data management and analysis accessible to users with varying levels of technical expertise.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white px-4 py-1 rounded-md drop-shadow">
+        <h5 id="accordion-flush-heading-7">
+            <button
+                type="button"
+                class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3"
+                data-accordion-target="#accordion-flush-body-7"
+                aria-expanded="true"
+                aria-controls="accordion-flush-body-7"
+            >
+                <span>Can Data Village integrate with other software systems?</span>
+                <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+                >
+                <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5 5 1 1 5"
+                />
+                </svg>
+            </button>
+        </h5>
+        <div
+        id="accordion-flush-body-7"
+        class="hidden"
+        aria-labelledby="accordion-flush-heading-7"
+        >
+            <div class="py-3 border-gray-200 dark:border-gray-700">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">
+                  Yes, Data Village supports integration with a wide range of software systems, including CRM platforms, ERP systems, marketing automation tools, and more. This interoperability allows organizations to leverage existing investments in software infrastructure and streamline their data management processes.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white px-4 py-1 rounded-md drop-shadow">
+        <h5 id="accordion-flush-heading-8">
+            <button
+                type="button"
+                class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3"
+                data-accordion-target="#accordion-flush-body-8"
+                aria-expanded="true"
+                aria-controls="accordion-flush-body-8"
+            >
+                <span>How does Data Village ensure data security and compliance?</span>
+                <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+                >
+                <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5 5 1 1 5"
+                />
+                </svg>
+            </button>
+        </h5>
+        <div
+        id="accordion-flush-body-8"
+        class="hidden"
+        aria-labelledby="accordion-flush-heading-8"
+        >
+            <div class="py-3 border-gray-200 dark:border-gray-700">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">
+                  Data Village employs industry-standard security measures, including encryption, access controls, and regular security audits, to protect data from unauthorized access, tampering, or loss. Additionally, it complies with relevant data protection regulations such as GDPR, HIPAA, and CCPA to ensure that organizations remain compliant with legal and regulatory requirements.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white px-4 py-1 rounded-md drop-shadow">
+        <h5 id="accordion-flush-heading-9">
+            <button
+                type="button"
+                class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3"
+                data-accordion-target="#accordion-flush-body-9"
+                aria-expanded="true"
+                aria-controls="accordion-flush-body-9"
+            >
+                <span>Can Data Village be customized to meet specific business needs?</span>
+                <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+                >
+                <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5 5 1 1 5"
+                />
+                </svg>
+            </button>
+        </h5>
+        <div
+        id="accordion-flush-body-9"
+        class="hidden"
+        aria-labelledby="accordion-flush-heading-9"
+        >
+            <div class="py-3 border-gray-200 dark:border-gray-700">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">
+                  Yes, Data Village offers customization options that allow organizations to tailor the platform to their specific business needs and requirements. This includes custom data schemas, workflows, reports, and dashboards that align with the organization's unique objectives and processes.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white px-4 py-1 rounded-md drop-shadow">
+        <h5 id="accordion-flush-heading-10">
+            <button
+                type="button"
+                class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3"
+                data-accordion-target="#accordion-flush-body-10"
+                aria-expanded="true"
+                aria-controls="accordion-flush-body-10"
+            >
+                <span>How can I get started with Data Village?</span>
+                <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+                >
+                <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5 5 1 1 5"
+                />
+                </svg>
+            </button>
+        </h5>
+        <div
+        id="accordion-flush-body-10"
+        class="hidden"
+        aria-labelledby="accordion-flush-heading-10"
+        >
+            <div class="py-3 border-gray-200 dark:border-gray-700">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">
+                  To get started with Data Village, you can sign up for a free trial or schedule a demo with one of our representatives to learn more about how Data Village can benefit your organization. Our team will work with you to assess your needs and recommend the appropriate solutions to help you unlock the full potential of your data.
                 </p>
             </div>
         </div>
@@ -739,7 +932,8 @@
 <script src="{% static 'node_modules/swiper/swiper-bundle.min.js' %}"></script>
 <script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
 <script src="{% static 'js/swipper.min.js' %}"></script>
-<script src="{% static 'js/home.js' %}"></script>
+<script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
+{% comment %} <script src="{% static 'js/home.js' %}"></script> {% endcomment %}
 <script>
   var swiper = new Swiper(".mySwiper", {
     spaceBetween: 0,
@@ -755,11 +949,40 @@
       renderBullet: function (index, className) {
           return '<span class="' + className + '">' + (index + 1) + "</span>";
         },
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
+    }
+  });
+
+  var a = 0;
+  $(window).scroll(function () {
+    if ($("#counter").length) {
+      // checking if CountTo section exists in the page, if not it will not run the script and avoid errors
+      var oTop = $("#counter").offset().top - window.innerHeight;
+      if (a == 0 && $(window).scrollTop() > oTop) {
+        $(".counter-value").each(function () {
+          var $this = $(this),
+            countTo = $this.attr("data-count");
+          $({
+            countNum: $this.text(),
+          }).animate(
+            {
+              countNum: countTo,
+            },
+            {
+              duration: 2000,
+              easing: "swing",
+              step: function () {
+                $this.text(Math.floor(this.countNum));
+              },
+              complete: function () {
+                $this.text(this.countNum);
+                alert('finished');
+              },
+            }
+          );
+        });
+        a = 1;
+      }
+    }
   });
 </script>
 {% endblock script %}

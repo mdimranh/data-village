@@ -46,6 +46,15 @@ class FilePackage(models.Model):
     def files(self):
         return File.objects.filter(package__id=self.id)
 
+    def pdf(self):
+        return File.objects.filter(package__id=self.id, type=".pdf").first()
+
+    def xlsx(self):
+        return File.objects.filter(package__id=self.id, type=".xlsx").first()
+
+    def xls(self):
+        return File.objects.filter(package__id=self.id, type=".xls").first()
+
     def size(self):
         files = self.files()
         return sum([file.size for file in files])
@@ -64,6 +73,7 @@ class FilePackage(models.Model):
 
 class File(models.Model):
     file = models.FileField(upload_to="media/files")
+    name = models.CharField(blank=True, null=True)
     size = models.FloatField()
     type = models.CharField()
     package = models.ForeignKey(

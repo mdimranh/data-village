@@ -365,7 +365,7 @@ class UserList(ListView):
 
     def get_queryset(self):
         return (
-            User.objects.all().exclude(id=self.request.user.id).exclude(is_admin=True)
+            User.objects.filter(is_active=True, is_superuser=False).exclude(id=self.request.user.id)
         )
 
 
@@ -378,15 +378,13 @@ class UserSearch(ListView):
         keyword = self.request.GET.get("keyword", "")
         if keyword == "":
             queryset = (
-                User.objects.all()
+                User.objects.filter(is_active=True, is_superuser=False)
                 .exclude(id=self.request.user.id)
-                .exclude(is_admin=True)
             )
         else:
             queryset = (
-                User.objects.filter(full_name__icontains=keyword)
+                User.objects.filter(full_name__icontains=keyword, is_active=True, is_superuser=False)
                 .exclude(id=self.request.user.id)
-                .exclude(is_admin=True)
             )
         return queryset
 

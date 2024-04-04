@@ -1,4 +1,10 @@
-{% extends 'base.html' %} {% load static %} {% block main %}
+{% extends 'base.html' %} {% load static %} 
+
+{% block title %}
+| Courses
+{% endblock title %}
+
+{% block main %}
 
 <div class="flex justify-start h-full">
   <div class="px-3 py-4 w-fit bg-white dark:bg-gray-800 h-full border-r border-slate-200">
@@ -98,7 +104,7 @@
         <a href="#">
           <img
             class="rounded-t-lg"
-            src="{{course.thumbnail}}"
+            src="{{course.thumbnail.url}}"
             alt="product image"
           />
         </a>

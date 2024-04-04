@@ -2,7 +2,7 @@ from django.shortcuts import redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from sslcommerz_lib import SSLCOMMERZ
-
+from django.contrib.auth.decorators import login_required
 from account.models import User
 from apps.membership.models import Membership, Pricing
 
@@ -14,7 +14,7 @@ settings = {
     "issandbox": True,
 }
 
-
+@login_required(login_url="/login")
 def PaymentView(request, id):
     pricing = Pricing.objects.get(id=id)
     tid = (
@@ -29,10 +29,10 @@ def PaymentView(request, id):
     post_body["currency"] = "BDT"
     post_body["tran_id"] = tid
     post_body["success_url"] = (
-        f"http://localhost:8000/payment/success/{request.user.id}/{pricing.id}"
+        f"http://{request.get_host()}/payment/success/{request.user.id}/{pricing.id}"
     )
-    post_body["fail_url"] = "http://localhost:8000/payment/fail"
-    post_body["cancel_url"] = "http://localhost:8000/payment/cancel"
+    post_body["fail_url"] = "http://{request.get_host()}/payment/fail"
+    post_body["cancel_url"] = "http://{request.get_host()}/payment/cancel"
     post_body["emi_option"] = 0
     post_body["cus_name"] = request.user.full_name
     post_body["cus_email"] = request.user.email
@@ -74,7 +74,7 @@ def PaymentSuccess(request, uid, pid):
     membership = Membership(payment=payment, user=user, pricing=pricing)
     membership.save()
 
-    return redirect("/")
+    return redirect("home")
 
 
 @csrf_exempt

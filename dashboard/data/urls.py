@@ -8,4 +8,6 @@ urlpatterns = [
     path("folder", DeleteFolder, name="delete-folder"),
     path("file", DeleteFile, name="delete-file"),
     path("folder/<int:id>/file", AddFile, name="add-file"),
+    path("folder/<int:id>", FolderDetails),
+    path("file/<int:id>", FileDetails, name="file-details"),
 ]
