@@ -118,7 +118,7 @@ class ConnectionConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def change_status(self, online=False):
         self.user.online = online
-        self.user.save()
+        # self.user.save()
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)

@@ -51,10 +51,11 @@
         for (var i = 0; i < inputFields.length; i++) {
             var input = inputFields[i];
             var iti = window.intlTelInput(input, {
-                autoHideDialCode: false,
+                //autoHideDialCode: false,
                 autoPlaceholder: "aggressive",
                 initialCountry: "BD",
-                separateDialCode: true,
+                //separateDialCode: true,
+                //showSelectedDialCode: false,
                 onlyCountries: ["BD"],
                 customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
                     return '' + selectedCountryPlaceholder.replace(/[0-9]/g, 'X');

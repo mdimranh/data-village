@@ -110,7 +110,19 @@
                             {% for f in files %}
                                 <li>
                                     <a href="{{f.file.url}}" class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white flex items-center gap-2" download>
+                                    {% if f.type == ".pdf" %}
                                         <img class="w-6 h-6" src="{% static 'img/SVG/pdf.svg' %}" alt="" srcset="">
+                                    {% elif f.type == ".xlsx" %}
+                                        <img class="w-6 h-6" src="{% static 'img/SVG/excel.svg' %}" alt="" srcset="">
+                                    {% elif f.type == ".xls" %}
+                                        <img class="w-6 h-6" src="{% static 'img/SVG/excel.svg' %}" alt="" srcset="">
+                                    {% elif f.type == ".ppt" %}
+                                        <img class="w-6 h-6" src="{% static 'img/SVG/ppt.svg' %}" alt="" srcset="">
+                                    {% elif f.type == ".pptx" %}
+                                        <img class="w-6 h-6" src="{% static 'img/SVG/ppt.svg' %}" alt="" srcset="">
+                                    {% else %}
+                                        <img class="w-6 h-6" src="{% static 'img/SVG/document.svg' %}" alt="" srcset="">
+                                    {% endif %}
                                         <span class="uppercase">{{f.type}}</span>
                                     </a>
                                 </li>

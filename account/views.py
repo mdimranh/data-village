@@ -314,8 +314,24 @@ def check_expired(session):
     return session
 
 
-@login_required
+@login_required(login_url="/login")
 def UserProfile(request):
+    if request.method == "POST":
+        user = User.objects.get(id=request.user.id)
+        if request.FILES:
+            user.picture = request.FILES['picture']
+            user.save()
+            request.user = user
+            return render(request, "profile/picture.html")
+        name = request.POST.get("full_name")
+        gender = request.POST.get("gender")
+
+        user.full_name = name
+        user.gender = gender
+        user.save()
+
+        return HttpResponseClientRedirect(reverse("profile"))
+            
     sessions = Session.objects.filter(user=request.user).exclude(
         session_key=request.session._SessionBase__session_key
     )
@@ -325,7 +341,6 @@ def UserProfile(request):
     ).first()
     context = {"sessions": sessions, "current": current}
     return render(request, "profile/profile.html", context=context)
-
 
 @login_required
 def removeSessions(request, key):

@@ -55,6 +55,13 @@ class FilePackage(models.Model):
     def xls(self):
         return File.objects.filter(package__id=self.id, type=".xls").first()
 
+    def ppt(self):
+        ppt = File.objects.filter(package__id=self.id, type=".ppt").first()
+        if ppt:
+            return ppt
+        pptx = File.objects.filter(package__id=self.id, type=".pptx").first()
+        return pptx
+
     def size(self):
         files = self.files()
         return sum([file.size for file in files])
@@ -83,3 +90,6 @@ class File(models.Model):
     def sequence(self):
         package = FilePackage.objects.filter(id=self.package.id).first()
         return package.sequence()
+
+    def __str__(self):
+        return self.name if self.name else self.package.name

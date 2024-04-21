@@ -63,7 +63,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = PhoneNumberField(unique=True, region="BD")
     full_name = models.CharField(max_length=255, blank=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default="male")
-    picture = models.ImageField(upload_to="user", blank=True, null=True)
+    picture = models.FileField(upload_to="user", blank=True, null=True)
     date_joined = models.DateTimeField(_("date joined"), auto_now=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -89,31 +89,24 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.full_name
 
     def avatar_name(self):
-        # Remove extra spaces
-        cleaned_text = " ".join(self.full_name.split())
+        if self.full_name:
+            # Remove extra spaces
+            cleaned_text = " ".join(self.full_name.split())
 
-        # Split the cleaned text into words
-        words = cleaned_text.split()
+            # Split the cleaned text into words
+            words = cleaned_text.split()
 
-        # Take the first letter of the first three words
-        if len(words) > 1:
-            first_letters = "".join(word[0] for word in words[:2])
-        else:
-            first_letters = words[0][:2]
+            # Take the first letter of the first three words
+            if len(words) > 1:
+                first_letters = "".join(word[0] for word in words[:2])
+            else:
+                first_letters = words[0][:2]
 
-        return first_letters.upper()
+            return first_letters.upper()
+        return "UU"
 
     class Meta:
         ordering = ["-id"]
-
-    # def email_user(self, subject, message, from_email=None):
-    #     send_mail(subject, message, from_email, [self.email])
-
-
-# @receiver(post_delete, sender=User)
-# def delete_file(sender, instance, created, **kwargs):
-#     if instance.picture:
-#         instance.picture.delete(False)
 
 
 def GenerateCode(l=6):

@@ -3,14 +3,15 @@
 {% load humanize %}
 
 <div class="hidden flex flex-col gap-4" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-    <div class="rounded-lg bg-white shadow-md dark:bg-gray-800 border border-gray-200">
+    <form class="rounded-lg bg-white shadow-md dark:bg-gray-800 border border-gray-200">
+        {% csrf_token %}
         <div class="flex justify-between border-b border-b-gray-200 px-4 py-2">
             <h1 class="font-bold text-gray-500 text-lg">Settings</h1>
         </div>
         <div class="flex flex-col gap-4 px-4 py-2 mb-2">
             <div class="grid grid-cols-12 mt-3">
                 <div class="col-span-4 text-sm font-bold text-gray-400">Name</div>
-                <input type="text" id="first_name" class="col-span-8 w-full bg-gray-100 border-transparent p-2 rounded" value="{{request.user.full_name}}" required>
+                <input type="text" id="first_name" class="col-span-8 w-full bg-gray-100 border-transparent p-2 rounded" value="{{request.user.full_name}}" name="full_name" required>
             </div>
             <div class="grid grid-cols-12">
                 <div class="col-span-4 text-sm font-bold text-gray-400">Email</div>
@@ -49,23 +50,13 @@
                             </div>
                         </label>
                     </li>
-                    <li>
-                        <input type="radio" id="others" name="gender" value="others" class="hidden peer" {% if request.user.gender == "others" %}
-                            checked
-                        {% endif %}>
-                        <label for="others" class="inline-flex items-center justify-center w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-lime-600 peer-checked:bg-green-50 peer-checked:text-green-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                            <div class="block">
-                                <div class="w-full">Others</div>
-                            </div>
-                        </label>
-                    </li>
                 </ul>
             </div>
         </div>
         <div class="flex w-full justify-end gap-2 px-4 py-2 border-t border-t-gray-200">
-            <button class="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-600">Save Change</button>
+            <button class="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-600" hx-post="/user/profile" hx-target="#profile-section" hx-swap="outerHTML">Save Change</button>
         </div>
-    </div>
+    </form>
 
     <div class="rounded-lg bg-white shadow-md dark:bg-gray-800 border border-gray-200">
         <div class="flex justify-between border-b border-b-gray-200 px-4 py-2">
@@ -153,7 +144,7 @@
         </div>
     </div>
 
-    <div class="rounded-lg bg-white shadow-md dark:bg-gray-800 border border-gray-200">
+    <div class="hidden rounded-lg bg-white shadow-md dark:bg-gray-800 border border-gray-200">
         <div class="flex justify-between border-b border-b-gray-200 px-4 py-2">
             <h1 class="font-bold text-gray-500 text-lg">Deactivate Account</h1>
         </div>

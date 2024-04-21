@@ -6,10 +6,10 @@
     </div>
     <input type="hidden" name="folder" value="{{parent_id}}">
     <div class="flex flex-col items-start justify-center w-full mb-4 mt-2">
-        <label for="file-input-pdf">{{file.pdf.name}}</label>
+        <label for="file-input-pdf">{{file.pdf}}</label>
         <input title="{{file.pdf.name}}"  accept=".pdf" type="file" name="file" id="file-input-pdf" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Only PDF File Accepted</p>
-    </div> 
+    </div>
     <div class="flex flex-col items-start justify-center w-full mb-4">
         {% if file.xlsx.name %}
             <div class="flex w-full justify-between items-center my-1" id="xlsx-file-label">
@@ -33,6 +33,18 @@
         {% endif %}
         <input placeholder="{{file.xls.name}}"  accept=".xls" type="file" name="file" id="file-input-xls" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Only EXCEL File Accepted.</p>
+    </div>
+    <div class="flex flex-col items-start justify-center w-full mb-4">
+        {% if file.ppt.name %}
+            <div class="flex w-full justify-between items-center my-1" id="ppt-file-label">
+                <label for="file-input-ppt">{{file.ppt.name}}</label>
+                <svg hx-delete="/admin/file/{{file.ppt.id}}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-target="#ppt-file-label" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-red-500 cursor-pointer">
+                    <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
+                </svg>
+            </div>
+        {% endif %}
+        <input placeholder="{{file.ppt.name}}"  accept=".ppt,.pptx" type="file" name="file" id="file-input-ppt" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Only PowerPoint File Accepted.</p>
     </div>
     <ul class="grid w-full gap-6 md:grid-cols-2 mb-2 mt-2">
         <li>

@@ -9,17 +9,11 @@
 </style>
 {% endblock style %}
 {% block main %}
-<div class="p-4 container mx-auto max-w-6xl">
+<div class="p-4 container mx-auto max-w-6xl" id="profile-section">
     <div class="bg-white px-4 pt-4 rounded-md shadow-md border border-gray-200 gap-4">
         <div class="flex justify-between">
             <div class="flex justify-start gap-4">
-                {% if request.user.picture %}
-                    <img class="w-40 h-40 object-cover rounded-md" src="{{request.user.picture.url}}" alt="">
-                {% else %}
-                    <div class="relative inline-flex items-center justify-center w-40 h-40 overflow-hidden bg-gray-100 rounded-md dark:bg-gray-600">
-                        <span class="font-extrabold text-6xl text-gray-600 dark:text-gray-300">{{request.user.avatar_name}}</span>
-                    </div>
-                {% endif %}
+                {% include "profile/picture.html" %}
                 <div>
                     <div class="flex flex-col justify-between h-full">
                         <div>
@@ -46,11 +40,11 @@
                         </div>
                         <div class="flex gap-4">
                             <div class="border border-dashed border-gray-300 px-4 py-1 w-28 rounded-md">
-                                <p class="font-bold text-xl text-gray-600">5</p>
+                                <p class="font-bold text-xl text-gray-600">0</p>
                                 <p class="text-gray-500">Course</p>
                             </div>
                             <div class="border border-dashed border-gray-300 px-4 py-1 w-28 rounded-md">
-                                <p class="font-bold text-xl text-gray-600">25</p>
+                                <p class="font-bold text-xl text-gray-600">0</p>
                                 <p class="text-gray-500">Download</p>
                             </div>
                         </div>
@@ -136,6 +130,5 @@
     if (window.location.href.includes("#settings")) {
         document.getElementById('settings-tab').click();
     }
-
 </script>
 {% endblock main %}
