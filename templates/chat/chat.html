@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<style>
+.main {
+   overflow-y: hidden !important;
+}
+.x{{request.user.id}}-message {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+.x{{request.user.id}}-message p {
+    background-color: #1B64F2 !important;
+    color: #FFFFFF !important;
+    border-radius: 20px 20px 0 20px !important;
+}
+</style>
+{% endblock style %}
+    
+{% block main %}
+{% if roomid %}
+<div class="">
+    <aside id="logo-sidebar" class="fixed top-12 sm:left-0 -left-80 z-40 w-80 h-screen border-r border-r-gray-200 shadow-sm" aria-label="Sidebar">
+        <div class="h-full px-2 py-4 overflow-y-auto bg-white dark:bg-gray-800">
+           <div class="flex mb-4">
+                <p class="text-gray-600 font-bold text-2xl">Chats</p>
+           </div>
+           <ul class="font-medium" id="rooms" hx-get="/rooms/{{roomid}}" hx-swap="innreHTML" hx-trigger="load, message from:body">
+                {% include 'chat/rooms.html' %}
+           </ul>
+        </div>
+    </aside>
+     
+    
+    <div class="sm:ml-80 h-[calc(100vh-44px)] flex flex-col relative" ws-connect="/ws/chat/{{roomid}}"> <!--sm:mr-80 -->
+        <div class="absolute top-0 p-2 flex gap-3 flex-none h-auto bg-white z-30 w-full">
+            {% if partner.picture %}
+                <img class="w-14 h-14 rounded-full object-cover" src="{{partner.picture.url}}" alt="">
+            {% else %}
+                <div class="relative inline-flex items-center justify-center w-14 h-14 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                    <span class="text-xl text-gray-600 dark:text-gray-300">{{partner.avatar_name}}</span>
+                </div>
+            {% endif %}
+            <div class="flex flex-col justify-center">
+                <p class="text-gray-600 font-bold text-xl">{{partner.full_name}}</p>
+                {% if partner.online %}
+                    <p class="text-green-500">Online</p>
+                {% else %}
+                    <p class="text-red-500">Offline</p>
+                {% endif %}
+            </div>
+        </div>
+        <div id="messages" ws-connect="/ws/chat/{{request.user.id}}"
+            class="bg-slate-50 flex flex-col-reverse w-full gap-2 absolute top-[72px] bottom-[63px] p-4 overflow-y-auto border-t border-t-gray-200">
+            <div id="newmessages" class="flex flex-col gap-2"></div>
+            {% for message in messages %}
+            {% if message.sender.id == request.user.id %}
+            <div class="flex w-full justify-end">
+                <p class="px-4 py-2 rounded-3xl max-w-2xl w-fit rounded-br-none bg-blue-600 text-white">{{message.body}}
+                </p>
+            </div>
+            {% else %}
+            <p class="px-4 py-2 rounded-3xl max-w-2xl rounded-bl-none bg-gray-200 w-fit text-nowrap">{{message.body}}</p>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <form ws-send class="flex items-center absolute bottom-0 px-4 gap-4 flex-none h-16 bg-white border-t border-t-gray-200 w-full">
+            <input id="message" name="message"
+                class="w-full border-transparent focus:border-transparent focus:ring-0 bg-gray-300 bg-opacity-30 rounded-md py-2"
+                type="text" placeholder="Write your message...">
+            <button>
+                <svg id="send-btn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-8 h-8 cursor-pointer ">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                </svg>
+            </button>
+        </form>
+    </div>
+</div>
+<script>
+htmx.on("htmx:wsAfterMessage", function(e){
+    $("#message").val("")
+})
+htmx.on("htmx:wsBeforeMessage", (e) => {
+    fetch("/rooms/{{roomid}}")
+    .then(response => response.text())
+    .then(data => {
+        var roomsElement = document.getElementById("rooms");
+        roomsElement.innerHTML = data;
+        var messagesDiv = document.getElementById("messages");
+        messagesDiv.scrollTo({
+            top: messagesDiv.scrollHeight,
+            behavior: "smooth"
+        });
+    })
+    .catch(error => console.error('Error updating rooms:', error));
+});
+</script>
+{% else %}
+
+
+<div class="flex w-full justify-center my-5">
+
+    <div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div class="flex items-center justify-between mb-4">
+            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Select user to continue</h5>
+            {% comment %} <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+                View all
+            </a> {% endcomment %}
+    </div>
+    <div class="flow-root">
+            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                {% for user in users %}
+                    <li>
+                        <a href="/chat/{{user.id}}" class="flex items-center p-2 hover:bg-slate-100 cursor-pointer">
+                            <div class="flex-shrink-0">
+                                {% if user.picture %}
+                                    <img class="w-12 h-12 rounded-full object-cover border border-slate-300" src="{{user.picture.url}}" alt="Neil image">
+                                {% else %}
+                                    <div class="relative inline-flex items-center justify-center w-12 h-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 mr-3 border border-slate-300">
+                                        <span class="text-xl text-gray-600 dark:text-gray-300">{{user.avatar_name}}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="flex-1 min-w-0 ms-4">
+                                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                    {{user.full_name}}
+                                </p>
+                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                    {{user.email}}
+                                </p>
+                            </div>
+                            {% comment %} <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                $320
+                            </div> {% endcomment %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+    </div>
+    </div>
+
+</div>
+{% endif %}
+{% endblock main %}

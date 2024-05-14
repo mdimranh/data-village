@@ -1,0 +1,168 @@
+{% load static %}
+{% load user_sessions %}
+{% load humanize %}
+
+<div class="hidden flex flex-col gap-4" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+    <form class="rounded-lg bg-white shadow-md dark:bg-gray-800 border border-gray-200">
+        {% csrf_token %}
+        <div class="flex justify-between border-b border-b-gray-200 px-4 py-2">
+            <h1 class="font-bold text-gray-500 text-lg">Settings</h1>
+        </div>
+        <div class="flex flex-col gap-4 px-4 py-2 mb-2">
+            <div class="grid grid-cols-12 mt-3">
+                <div class="col-span-4 text-sm font-bold text-gray-400">Name</div>
+                <input type="text" id="first_name" class="col-span-8 w-full bg-gray-100 border-transparent p-2 rounded" value="{{request.user.full_name}}" name="full_name" required>
+            </div>
+            <div class="grid grid-cols-12">
+                <div class="col-span-4 text-sm font-bold text-gray-400">Email</div>
+                <div type="email" id="first_name" class="col-span-8 w-full bg-gray-100 border-transparent p-2 rounded text-gray-500">{{request.user.email}}</div>
+            </div>
+            <div class="grid grid-cols-12">
+                <div class="col-span-4 text-sm font-bold text-gray-400">Contact Phone</div>
+                <div class="col-span-8">
+                    <div type="text" name="phone" id="phone" 
+                    value="{{ request.user.phone }}"
+                    class="bg-gray-100 border-transparent border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Phone">{{ request.user.phone }}</div>
+                </div>
+            </div>
+            <div class="grid grid-cols-12">
+                <div class="col-span-4 text-sm font-bold text-gray-400">Gender</div>
+                <ul class="col-span-8 grid gap-6 md:grid-cols-3 max-w-xs">
+                    <li>
+                        <input type="radio" id="male" name="gender" value="male" class="hidden peer" 
+                        {% if request.user.gender == 'male' %}
+                            checked
+                        {% endif %} required>
+                        <label for="male" class="inline-flex items-center justify-center w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-lime-600 peer-checked:bg-green-50 peer-checked:text-green-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
+                            <div class="block">
+                                <div class="w-full">Male</div>
+                            </div>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" id="female" name="gender" value="female" class="hidden peer" {% if request.user.gender == 'female' %}
+                            checked
+                        {% endif %}>
+                        <label for="female" class="inline-flex items-center justify-center w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-lime-600 peer-checked:bg-green-50 peer-checked:text-green-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <div class="block">
+                                <div class="w-full">Female</div>
+                            </div>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="flex w-full justify-end gap-2 px-4 py-2 border-t border-t-gray-200">
+            <button class="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-600" hx-post="/user/profile" hx-target="#profile-section" hx-swap="outerHTML">Save Change</button>
+        </div>
+    </form>
+
+    <div class="rounded-lg bg-white shadow-md dark:bg-gray-800 border border-gray-200">
+        <div class="flex justify-between border-b border-b-gray-200 px-4 py-2">
+            <h1 class="font-bold text-gray-500 text-lg">Login Sessions</h1>
+            <button hx-get="/user/session/signout/all" hx-target="#sessions" class="bg-blue-100 hover:bg-blue-500 hover:text-white text-sm px-4 py-2 cursor-pointer rounded-md">Sign out all sessions</h1>
+        </div>
+        <div id="sessions" class="flex items-center justify-between py-4 bg-white dark:bg-gray-900 px-4 rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-500 uppercase border-b border-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="py-3">
+                            Location
+                        </th>
+                        <th scope="col" class="py-3">
+                            Device
+                        </th>
+                        <th scope="col" class="py-3">
+                            Ip Address
+                        </th>
+                        <th scope="col" class="py-3">
+                            Time
+                        </th>
+                        <th scope="col" class="py-3">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="flex items-center py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                            <div class="">
+                                {% if current.ip|location == None %}
+                                    <div class="text-base font-semibold">Local</div>
+                                {% else %}
+                                    <div class="text-base font-semibold">{{current.ip|location}}</div>
+                                {% endif %}
+                            </div>  
+                        </th>
+                        <td class="py-4">
+                            {{current.user_agent|device}}
+                        </td>
+                        <td class="py-4">
+                            {{current.ip}}
+                            <!-- {{request.session.expire_date}} -->
+                        </td>
+                        <td class="py-4">
+                            <p>{{current.last_activity|timesince}} ago</p>
+                        </td>
+                        <td class="py-4">
+                            <p class="font-medium dark:text-blue-500 py-1 text-lime-500">Current Session</p>
+                        </td>
+                    </tr>
+                    {% for session in sessions  %}
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="flex items-center py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                                <div class="">
+                                    {% if session.ip|location == None %}
+                                        <div class="text-base font-semibold">Local</div>
+                                    {% else %}
+                                        <div class="text-base font-semibold">{{session.ip|location}}</div>
+                                    {% endif %}
+                                </div>  
+                            </th>
+                            <td class="py-4">
+                                {{session.user_agent|device}}
+                            </td>
+                            <td class="py-4">
+                                {{session.ip}}
+                                <!-- {{request.session.expire_date}} -->
+                            </td>
+                            <td class="py-4">
+                                <p>{{ session.last_activity|timesince }} ago</p>
+                            </td>
+                            <td class="py-4">
+                                {% if session.expired %}
+                                    <p class="font-medium dark:text-blue-500">Expired</p>
+                                {% else %}
+                                    <button hx-get="/user/session/signout/{{session.session_key}}" hx-target="#sessions" class="font-medium text-blue-500 dark:text-blue-500">Sign out</button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="hidden rounded-lg bg-white shadow-md dark:bg-gray-800 border border-gray-200">
+        <div class="flex justify-between border-b border-b-gray-200 px-4 py-2">
+            <h1 class="font-bold text-gray-500 text-lg">Deactivate Account</h1>
+        </div>
+        <div class="p-4">
+            <div>
+                <div class="flex flex-col gap-2 border rounded-md border-dashed border-yellow-400 bg-yellow-50 p-4">
+                    <h1 class="text-xl font-bold text-gray-600">You Are Deactivating Your Account</h1>
+                    <p>For extra security, this requires you to confirm your email or phone number when you reset yousignr password.</p>
+                </div>
+                <div class="flex items-center mt-4 mb-2">
+                    <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I confirm my account deactivation</label>
+                </div>         
+            </div>
+        </div>
+        <div class="flex w-full justify-end gap-2 px-4 py-2 border-t border-t-gray-200">
+            <button class="bg-red-600 px-4 py-2 rounded-md text-white hover:bg-red-700">Deactivate Account</button>
+        </div>
+    </div>
+        
+</div>

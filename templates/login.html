@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+<style>
+    .iti {
+        width: 100%;
+    }
+</style>
+{% endblock style %}
+
+{% block main %}
+<span class="flex xl:gap-4 flex-wrap w-full justify-center xl:justify-center items-center mb-3 mt-4">
+    {% include "component/forms/login.html" %}
+    {% include "component/forms/signup.html" %}
+    <img class="max-w-xl xl:w-auto w-0" src="{% static 'img/svg/login.svg' %}" alt="">
+</span>
+{% endblock main %}

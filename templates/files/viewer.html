@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block main %}
+{% comment %} <aside id="separator-sidebar"
+    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 border-r border-r-gray-200"
+    aria-label="Sidebar">
+    <div class="h-full flex flex-col px-3 py-4 mt-12 overflow-y-auto bg-white dark:bg-gray-800">
+        <a href="/datas/xlsx" class="px-4 py-1.5 rounded-md hover:bg-gray-200 cursor-pointer">Education</a>
+        <a href="/datas/pdf" class="px-4 py-1.5 rounded-md hover:bg-gray-200 cursor-pointer">Sports</span>
+    </div>
+</aside> {% endcomment %}
+
+<div>
+    
+    {% if xlsx %}
+        <div id="excel-view"></div>
+    {% else %}
+        <iframe src="https://docs.google.com/viewerng/viewer?url=http://infolab.stanford.edu/pub/papers/google.pdf&embedded=true" frameborder="0" height="865px" width="100%">
+        </iframe>
+    {% endif %}
+</div>
+
+{% endblock main %}
+
+
+{% block script %}
+<link rel="stylesheet" href="https://unpkg.com/excel-viewer@1.0.0/dist/excel/xspreadsheet.css">
+<script src="https://unpkg.com/excel-viewer@1.0.0/dist/excel/xspreadsheet.js"></script>
+<script src="https://unpkg.com/excel-viewer@1.0.0/dist/excel/xlsx.full.min.js"></script>
+<script src="https://unpkg.com/excel-viewer@1.0.0/dist/excel-viewer.js"></script>
+<script>
+    new ExcelViewer("#excel-view", "{% static 'files/data.xlsx' %}", {
+        themeBtn: false,
+        lang: "en"
+    });
+</script>
+{% endblock script %}

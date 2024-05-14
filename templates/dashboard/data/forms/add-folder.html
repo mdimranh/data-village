@@ -1,0 +1,10 @@
+
+<form class="space-y-4" {% if not parent_id %}hx-post="/admin/data"{% else %}hx-post="/admin/data/{{parent_id}}"{% endif %}>
+    {% csrf_token %}
+    {% include "dashboard/data/forms/folder-inputs.html" %}
+    <div class="p-2 text-center">
+        <button {% if not parent_id %}hx-post="/admin/data"{% else %}hx-post="/admin/data/{{parent_id}}"{% endif %} hx-target="#folders" type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 w-full">
+            Add Folder
+        </button>
+    </div>
+</form>
