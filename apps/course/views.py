@@ -13,4 +13,4 @@ class CourseList(ListView):
 
 class CourseDetails(DetailView):
     model = Course
-    template_name = "course-details.html"
+    template_name = "course.html"

@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 
 from account.models import User, Verify
-from dashboard.models import Privacy, RefundPolicy
+from dashboard.models import Privacy, RefundPolicy, TermsCondition
 from utils.verify import Messaging
 
 
@@ -42,3 +42,8 @@ def RefundPolicyView(request):
     privacy = RefundPolicy.objects.first()
     context = {"privacy": privacy}
     return render(request, "refund_policy.html", context)
+
+def TermsConditonsView(request):
+    terms = TermsCondition.objects.first()
+    context = {"terms": terms}
+    return render(request, "terms-condition.html", context)

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'packages/ckeditor5/sample/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'packages/ckeditor5/sample/tailwind-reset.css' %}">
+{% endblock style %}
+
+{% block main %}
+<div class="p-4 bg-gray-100 flex justify-center w-full">
+    <div class="max-w-5xl mx-auto bg-white p-8 prose">
+        {{terms.body|safe}}
+    </div>
+</div>
+<script src="{% static 'packages/ckeditor5/build/ckeditor.js' %}"></script>
+{% endblock main %}

@@ -4,6 +4,9 @@ from .views import *
 
 urlpatterns = [
     path("login", Login.as_view(), name="login"),
+    path("forgot", ForgotPass.as_view(), name="forgot-pass"),
+    path("reset/verify", VerifyResetCode.as_view(), name="forgot-pass"),
+    path("setpass", setPass.as_view(), name="forgot-pass"),
     path("signup", Signup.as_view(), name="signup"),
     path("logout", logout_view, name="logout"),
     path("phone/verify/<secret>", PhoneVerify.as_view(), name="phone-verify"),

@@ -20,6 +20,19 @@
         })
     </script>
 
+    <style>
+        .htmx-indicator{
+            display:none;
+            background-color: rgba(60, 60, 60, 0.5);
+        }
+        .htmx-request .htmx-indicator{
+            display: flex;
+        }
+        .htmx-request.htmx-indicator{
+            display: flex;
+        }
+    </style>
+
     {% block style %}
 
     {% endblock style %}

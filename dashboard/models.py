@@ -10,3 +10,7 @@ class Privacy(models.Model):
 class RefundPolicy(models.Model):
     # body = models.TextField()
     body = RichTextField()
+
+class TermsCondition(models.Model):
+    # body = models.TextField()
+    body = RichTextField()

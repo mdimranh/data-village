@@ -129,6 +129,7 @@ class Verify(models.Model):
     email_code = models.CharField(max_length=10, default=GenerateCode)
     email_code_expired = models.DateTimeField(default=CodeExpire)
     email_verified = models.BooleanField(default=False)
+    for_reset_pass = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.email

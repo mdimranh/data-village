@@ -99,6 +99,85 @@ class Crypto:
             return json.loads(data)
         return data
 
+class ForgotPass(View):
+    def mask_phone(self, phone):
+        if len(phone) < 4:
+            return phone
+        else:
+            return "*" * (len(phone) - 4) + phone[-4:]
+
+    def post(self, request):
+        error = {}
+        phone = request.POST.get("full_phone")
+        if not phone:
+            error.update({"passwphoneord": "This field is required."})
+        user = User.objects.filter(phone=phone).first()
+        if user is None:
+            return render(
+                request,
+                "component/forms/forgot.html",
+                {
+                    "errors": {"message": "User not found with this phone."},
+                    **request.POST.dict()
+                },
+            )
+        verify = Verify(user=user, for_reset_pass=True)
+        verify.save()
+        body = f"Hi {user.full_name}, Your verification code for reset password is {verify.phone_code}."
+        messaging = Messaging().send(body=body, to=phone)
+        # SendVerificationMail(request, user_id=user.id, code=verify.email_code)
+        return render(
+            request,
+            "component/forms/verify-otp.html",
+            {
+                "mask_phone": self.mask_phone(phone),
+                "phone": phone
+            }
+        )
+
+class VerifyResetCode(View):
+    def post(self, request):
+        error = {}
+        phone = request.POST.get("phone")
+        user = User.objects.filter(phone=phone).first()
+        otp = ""
+        for i in range(1, 7):
+            otp += request.POST.get(f"d{i}", "")
+        verify = Verify.objects.filter(user=user, for_reset_pass=True, phone_verified = False, phone_code=otp).first()
+        if verify is None:
+            return render(
+                request,
+                "component/forms/verify-otp.html",
+                {
+                    "errors": {"message": "Invalid code."}
+                }
+            )
+        verify.phone_verified = True
+        verify.save()
+        return render(
+            request,
+            "component/forms/set-pass.html",
+            {
+                "secret": Crypto().encrypt({"user": user.id}, True)
+            }
+        )
+
+class setPass(View):
+    def post(self, request):
+        error = {}
+        password = request.POST.get("password")
+        if not password or password == "":
+            return render(
+                request,
+                "component/forms/set-pass.html",
+                error
+            )
+        secret = request.POST.get("secret")
+        user_id = Crypto().decrypt(secret, True).get("user")
+        user = User.objects.filter(id=user_id).first()
+        user.set_password(password)
+        user.save()
+        return HttpResponseClientRedirect(reverse("login"))
 
 class Signup(View):
     def get(self, request):

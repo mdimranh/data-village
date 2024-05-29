@@ -1,41 +1,29 @@
 {% load static %}
 
-<form autocomplete="off" id="login-form" hx-post="{% if request.path == '/signup'  %}/login{% else %}{{request.get_full_path}}{% endif %}" hx-target="#login-form"  hx-swap="outerHTML" hx-indicator="#loader"
-    class="{% if not login %}hidden{% endif %}
-            max-w-xl w-full px-8 py-12 border border-gray-300 bg-white shadow-md rounded-lg" method="post">
+<form autocomplete="off" id="forgot-form" hx-post="/forgot" hx-target="#forgot-form"  hx-swap="outerHTML"
+    class="{% if request.path != '/forgot' %}hidden{% endif %}  max-w-xl w-full px-8 py-12 border border-gray-300 bg-white shadow-md rounded-lg" method="post">
     {% csrf_token %}
     <a href="/" class="flex items-center mb-5">
         <img src="{% static 'img/logo-full.png' %}" class="h-8 mr-3" alt="data village Logo" />
         {% comment %} <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Data Village</span> {% endcomment %}
     </a>
-    <h1 class="font-bold">WELCOME BACK</h1>
-    <h3 class="mb-6">Start your journy in seconds. Don't have an account? <span id="signup-btn"
-            class="cursor-pointer font-bold text-lime-700">Sign up.</span>
+    <h1 class="font-bold uppercase">Forgot Your Password</h1>
+    <h3 class="mb-6">Remembered your Password! Go to <span id="back-login-btn"
+            class="cursor-pointer font-bold text-lime-700">Login.</span>
     </h3>
     <div class="mb-6">
         <label for="phone" class="block mb-2 w-full text-sm font-medium text-gray-900 dark:text-white">Your
             Phone</label>
-        <input for="login_full_phone" type="text" name="phone" id="phone" {% if phone %}
+        <input for="forgot_full_phone" type="text" name="phone" id="phone" {% if phone %}
             value="{{ phone }}" {% endif %}
             class="bg-gray-50 border {% if errors.identity %}border-red-700{% endif %} border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Phone">
-        {% if errors.identity %}<span class="text-red-700 text-sm">{{errors.identity}}</span>{% endif %}
-        <input type="hidden" name="full_phone" id="login_full_phone" value="{{full_phone}}">
+        {% if errors.phone %}<span class="text-red-700 text-sm">{{errors.phone}}</span>{% endif %}
+        <input type="hidden" name="full_phone" id="forgot_full_phone" value="{{full_phone}}">
     </div>
-    <div class="mb-3">
-        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
-            password</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" {% if password %}
-            autocomplete="password" value="{{ password }}" {% endif %} class=" {% if errors.password %}border-red-700{% endif %} bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-            focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
-            dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        {% if errors.password %}<span class="text-red-700 text-sm">{{errors.password}}</span>{% endif %}
-    </div>
-    <div class="flex w-full justify-end text-green-600 font-bold text-sm cursor-pointer" id="forgot-btn">Forgot Password ?</div>
     {% if errors.message %}
         <h1 class='text-red-600'>{{errors.message}}</h1>
     {% endif %}
-    <span id="login-error"></span>
     <div class="relative w-full mt-4">
         <div role="status" id="loader" class="htmx-indicator absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center w-full cursor-not-allowed rounded-lg">
             <svg aria-hidden="true" class="w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,7 +33,7 @@
         </div>
         <button type="submit"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Login
+            Reset
         </button>
     </div>
 </form>
@@ -96,7 +84,7 @@
     });
 </script>
 <script>
-    document.getElementById('login-btn').addEventListener('click', function () {
+    document.getElementById('back-login-btn').addEventListener('click', function () {
         document.getElementById('login-form').classList.remove('hidden');
         document.getElementById('signup-form').classList.add('hidden');
         document.getElementById('forgot-form').classList.add('hidden');

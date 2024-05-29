@@ -7,7 +7,7 @@
 {% block main %}
 
 <div class="flex justify-start h-full">
-  <div class="px-3 py-4 w-fit bg-white dark:bg-gray-800 h-full border-r border-slate-200">
+  {% comment %} <div class="px-3 py-4 w-fit bg-white dark:bg-gray-800 h-full border-r border-slate-200">
     <ul class="space-y-2 font-medium">
       <li>
         <span>License</span>
@@ -94,7 +94,7 @@
         </ul>
       </li>
     </ul>
-  </div>
+  </div> {% endcomment %}
   <div class="p-4 w-full">
     <div class="flex justify-center w-full flex-wrap gap-4">
       {% for course in course_list %}

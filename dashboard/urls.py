@@ -9,6 +9,7 @@ urlpatterns = (
         path("", Dashboard),
         path("privacy", PrivacyView),
         path("refund/policy", RefundPolicyView),
+        path("terms-and-conditions", TermsConditionView),
     ]
     + user_urlpattern
     + data_urlpattern
