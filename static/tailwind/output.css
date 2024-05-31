@@ -1809,6 +1809,14 @@ input:checked + .toggle-bg {
   bottom: 63px;
 }
 
+.end-2 {
+  inset-inline-end: 0.5rem;
+}
+
+.end-2\.5 {
+  inset-inline-end: 0.625rem;
+}
+
 .left-0 {
   left: 0px;
 }
@@ -1952,6 +1960,11 @@ input:checked + .toggle-bg {
 .mx-1 {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
+}
+
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .mx-auto {
@@ -2165,6 +2178,10 @@ input:checked + .toggle-bg {
   margin-top: 2rem;
 }
 
+.me-1 {
+  margin-inline-end: 0.25rem;
+}
+
 .block {
   display: block;
 }
@@ -2199,10 +2216,6 @@ input:checked + .toggle-bg {
 
 .hidden {
   display: none;
-}
-
-.h-0 {
-  height: 0px;
 }
 
 .h-10 {
@@ -2442,6 +2455,10 @@ input:checked + .toggle-bg {
   width: 20rem;
 }
 
+.w-96 {
+  width: 24rem;
+}
+
 .w-\[450px\] {
   width: 450px;
 }
@@ -2470,6 +2487,10 @@ input:checked + .toggle-bg {
 
 .min-w-0 {
   min-width: 0px;
+}
+
+.min-w-\[1000px\] {
+  min-width: 1000px;
 }
 
 .min-w-\[18rem\] {
@@ -2505,6 +2526,10 @@ input:checked + .toggle-bg {
   max-width: 1230px;
 }
 
+.max-w-\[200px\] {
+  max-width: 200px;
+}
+
 .max-w-\[250px\] {
   max-width: 250px;
 }
@@ -2515,6 +2540,10 @@ input:checked + .toggle-bg {
 
 .max-w-\[592px\] {
   max-width: 592px;
+}
+
+.max-w-full {
+  max-width: 100%;
 }
 
 .max-w-lg {
@@ -2570,6 +2599,10 @@ input:checked + .toggle-bg {
 }
 
 .flex-grow {
+  flex-grow: 1;
+}
+
+.grow {
   flex-grow: 1;
 }
 
@@ -3276,6 +3309,11 @@ input:checked + .toggle-bg {
   background-color: rgb(200 30 30 / var(--tw-bg-opacity));
 }
 
+.bg-slate-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
+}
+
 .bg-slate-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(203 213 225 / var(--tw-bg-opacity));
@@ -3319,6 +3357,11 @@ input:checked + .toggle-bg {
   background-color: rgb(253 253 234 / var(--tw-bg-opacity));
 }
 
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 82 82 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
 }
@@ -3329,6 +3372,10 @@ input:checked + .toggle-bg {
 
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
+}
+
+.bg-opacity-75 {
+  --tw-bg-opacity: 0.75;
 }
 
 .bg-\[url\(\'\/public\/CodeCLub-IT-Institute-Seminer\.jpg\'\)\] {
@@ -3636,10 +3683,6 @@ input:checked + .toggle-bg {
   padding-top: 1.5rem;
 }
 
-.pl-2 {
-  padding-left: 0.5rem;
-}
-
 .text-left {
   text-align: left;
 }
@@ -3705,6 +3748,14 @@ input:checked + .toggle-bg {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-\[16px\] {
+  font-size: 16px;
+}
+
+.text-\[14px\] {
+  font-size: 14px;
 }
 
 .font-bold {
@@ -4016,6 +4067,10 @@ input:checked + .toggle-bg {
 
 .opacity-75 {
   opacity: 0.75;
+}
+
+.opacity-25 {
+  opacity: 0.25;
 }
 
 .shadow {
@@ -4810,6 +4865,10 @@ input:checked + .toggle-bg {
     align-items: center;
   }
 
+  .sm\:gap-5 {
+    gap: 1.25rem;
+  }
+
   .sm\:space-x-4 > :not([hidden]) ~ :not([hidden]) {
     --tw-space-x-reverse: 0;
     margin-right: calc(1rem * var(--tw-space-x-reverse));
@@ -4834,6 +4893,10 @@ input:checked + .toggle-bg {
     border-right-width: 1px;
   }
 
+  .sm\:p-6 {
+    padding: 1.5rem;
+  }
+
   .sm\:p-8 {
     padding: 2rem;
   }
@@ -4846,6 +4909,11 @@ input:checked + .toggle-bg {
   .sm\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .sm\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 
   .sm\:text-lg {
@@ -5321,8 +5389,16 @@ input:checked + .toggle-bg {
     margin-top: 4rem;
   }
 
+  .xl\:w-4\/12 {
+    width: 33.333333%;
+  }
+
   .xl\:w-auto {
     width: auto;
+  }
+
+  .xl\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .xl\:grid-cols-4 {
@@ -5408,5 +5484,11 @@ input:checked + .toggle-bg {
   .xl\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .\32xl\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
