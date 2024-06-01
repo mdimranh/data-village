@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from sslcommerz_lib import SSLCOMMERZ
@@ -91,3 +91,14 @@ def PaymentFail(request):
     print("--------- Fail ---------")
     print(data)
     return redirect("pricing")
+
+def PaymentList(request):
+    if request.method == 'GET':
+        payments = Payment.objects.all().order_by("-id")
+        return render(
+            request,
+            "dashboard/dashboard/payments.html",
+            {
+                "payments": payments
+            }
+        )

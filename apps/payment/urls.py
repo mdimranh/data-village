@@ -7,4 +7,5 @@ urlpatterns = [
     path("success/<int:uid>/<int:pid>", PaymentSuccess, name="payment-success"),
     path("cancel", PaymentCancel, name="payment-cancel"),
     path("fail", PaymentFail, name="payment-fail"),
+    path("payment-list", PaymentList, name="payment-list"),
 ]

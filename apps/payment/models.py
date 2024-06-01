@@ -11,3 +11,11 @@ class Payment(models.Model):
     bank_tran_id = models.CharField(max_length=255)
     status = models.CharField(max_length=20)
     tran_date = models.DateTimeField(auto_now_add=True)
+
+    def memberships(self):
+        from apps.membership.models import Membership
+        membership = Membership.objects.filter(
+            payment__id=self.id
+        ).first()
+        print("------------------", membership)
+        return membership

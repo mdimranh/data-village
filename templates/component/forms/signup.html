@@ -37,9 +37,38 @@
             placeholder="Email" required>
             {% if errors.email %}<span class="text-red-700 text-sm">{{errors.email}}</span>{% endif %}
     </div>
+        <div class="mb-6">
+        <h3 class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Your Designation</h3>
+        <ul class="grid w-full gap-3 md:grid-cols-3">
+            <li>
+                <input type="radio" id="student" name="designation" value="student" class="hidden peer" required {% if not designation or designation == 'student' %}checked{% endif %}>
+                <label for="student" class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
+                    <div class="block">
+                        <div class="w-full">Student</div>
+                    </div>
+                </label>
+            </li>
+            <li>
+                <input type="radio" id="teacher" name="designation" value="teacher" class="hidden peer" {% if designation == 'teacher' %}checked{% endif %}>
+                <label for="teacher" class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                    <div class="block">
+                        <div class="w-full">Teacher</div>
+                    </div>
+                </label>
+            </li>
+            <li>
+                <input type="radio" id="corporate" name="designation" value="corporate" class="hidden peer" {% if designation == 'corporate' %}checked{% endif %}>
+                <label for="corporate" class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                    <div class="block">
+                        <div class="w-full">Corporate</div>
+                    </div>
+                </label>
+            </li>
+        </ul>
+    </div>
     <div class="mb-6">
         <h3 class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Your Gender</h3>
-        <ul class="grid w-full gap-6 md:grid-cols-2">
+        <ul class="grid w-full gap-3 md:grid-cols-2">
             <li>
                 <input type="radio" id="male" name="gender" value="male" class="hidden peer" required {% if not gender or gender == 'male' %}checked{% endif %}>
                 <label for="male" class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           

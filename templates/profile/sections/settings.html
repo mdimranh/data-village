@@ -27,6 +27,42 @@
                 </div>
             </div>
             <div class="grid grid-cols-12">
+                <div class="col-span-4 text-sm font-bold text-gray-400">Designation</div>
+                <ul class="col-span-8 grid gap-6 md:grid-cols-3 max-w-xs">
+                    <li>
+                        <input type="radio" id="student" name="designation" value="student" class="hidden peer" 
+                        {% if request.user.designation == 'student' %}
+                            checked
+                        {% endif %} required>
+                        <label for="student" class="inline-flex items-center justify-center w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-lime-600 peer-checked:bg-green-50 peer-checked:text-green-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
+                            <div class="block">
+                                <div class="w-full">Student</div>
+                            </div>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" id="teacher" name="designation" value="teacher" class="hidden peer" {% if request.user.designation == 'teacher' %}
+                            checked
+                        {% endif %}>
+                        <label for="teacher" class="inline-flex items-center justify-center w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-lime-600 peer-checked:bg-green-50 peer-checked:text-green-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <div class="block">
+                                <div class="w-full">Teacher</div>
+                            </div>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" id="corporate" name="designation" value="corporate" class="hidden peer" {% if request.user.designation == 'corporate' %}
+                            checked
+                        {% endif %}>
+                        <label for="corporate" class="inline-flex items-center justify-center w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-lime-600 peer-checked:bg-green-50 peer-checked:text-green-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <div class="block">
+                                <div class="w-full">Corporate</div>
+                            </div>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="grid grid-cols-12">
                 <div class="col-span-4 text-sm font-bold text-gray-400">Gender</div>
                 <ul class="col-span-8 grid gap-6 md:grid-cols-3 max-w-xs">
                     <li>

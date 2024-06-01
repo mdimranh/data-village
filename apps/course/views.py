@@ -8,7 +8,7 @@ from .models import Course
 class CourseList(ListView):
     model = Course
     template_name = "courses.html"
-    paginate_by = 1
+    paginate_by = 12
 
 
 class CourseDetails(DetailView):

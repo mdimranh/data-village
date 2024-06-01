@@ -1,0 +1,52 @@
+<div class="relative overflow-x-auto sm:rounded-lg mx-4">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <caption class="p-5 text-xl font-bold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+            Last Joined Users
+            {% comment %} <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Browse a list of Flowbite products designed to help you work and play, stay organized, get answers, keep in touch, grow your business, and more.</p> {% endcomment %}
+        </caption>
+        <thead class="text-sm font-bold text-gray-700 uppercase bg-white dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-4 py-3">User</th>
+                <th scope="col" class="px-4 py-3">Phone</th>
+                <th scope="col" class="px-4 py-3">Membership</th>
+                <th scope="col" class="px-4 py-3">Join Date</th>
+                <th scope="col" class="px-4 py-3">Last Login</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white text-sm">
+            {% for user in user_list %}
+                <tr class="dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <th scope="row" class="flex items-center px-4 py-2 text-gray-900 whitespace-nowrap dark:text-white">
+                        {% if user.picture %}
+                            <img src="{{user.picture.url}}" alt="iMac Front Image" class="w-12 h-12 object-cover rounded-full mr-3">
+                        {% else %}
+                            <div class="relative inline-flex items-center justify-center w-12 h-12 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 mr-3">
+                                <span class="text-xl text-gray-600 dark:text-gray-300">{{user.avatar_name}}</span>
+                            </div>
+                        {% endif %}
+                        <a href="/admin/user/profile/{{user.id}}" class="flex flex-col justify-center gap-0">
+                            <h1 class="text-base font-bold text-slate-700">{{user.full_name}}</h1>
+                            <h1 class="text-sm font-normal text-slate-700">{{user.email}}</h1>
+                        </a>
+                    </th>
+                    <td class="px-4 py-2">
+                        <span class="bg-primary-100 text-primary-800 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{user.phone}}</span>
+                    </td>
+                    <td class="px-4 py-2 text-gray-900 whitespace-nowrap dark:text-white">
+                        <div class="flex items-center">
+                            {% if user.membership.all %}
+                                <div class="inline-block w-4 h-4 mr-2 bg-blue-700 rounded-full"></div>
+                                Premium
+                            {% else %}
+                                <div class="inline-block w-4 h-4 mr-2 bg-red-700 rounded-full"></div>
+                                Free
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td class="px-4 py-2 text-gray-900 whitespace-nowrap dark:text-white">{{user.date_joined}}</td>
+                    <td class="px-4 py-2 text-gray-900 whitespace-nowrap dark:text-white">{{user.last_login}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

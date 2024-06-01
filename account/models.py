@@ -56,12 +56,14 @@ class CustomUserManager(BaseUserManager):
 
 
 GENDER_CHOICES = (("male", "Male"), ("female", "Female"))
+DESIGNATION_CHOICES = (("student", "Student"), ("teacher", "Teacher"), ('corporate', 'Corporate'))
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     phone = PhoneNumberField(unique=True, region="BD")
     full_name = models.CharField(max_length=255, blank=True)
+    designation = models.CharField(max_length=15, choices=DESIGNATION_CHOICES, default="student")
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default="male")
     picture = models.FileField(upload_to="user", blank=True, null=True)
     date_joined = models.DateTimeField(_("date joined"), auto_now=True)

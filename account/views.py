@@ -404,9 +404,11 @@ def UserProfile(request):
             return render(request, "profile/picture.html")
         name = request.POST.get("full_name")
         gender = request.POST.get("gender")
+        designation = request.POST.get('designation')
 
         user.full_name = name
         user.gender = gender
+        user.designation = designation
         user.save()
 
         return HttpResponseClientRedirect(reverse("profile"))
@@ -418,8 +420,14 @@ def UserProfile(request):
     current = Session.objects.filter(
         session_key=request.session._SessionBase__session_key
     ).first()
-    context = {"sessions": sessions, "current": current}
+    context = {"sessions": sessions, "current": current, "user": request.user}
     return render(request, "profile/profile.html", context=context)
+
+
+def UserProfileDetails(request, id):
+    user = User.objects.filter(id=id).first()
+    context = {"user": user}
+    return render(request, "dashboard/user/profile.html", context=context)
 
 @login_required
 def removeSessions(request, key):
@@ -455,18 +463,27 @@ def removeSessions(request, key):
 class UserList(ListView):
     model = User
     template_name = "users/users.html"
-    paginate_by = 10
+    paginate_by = 12
 
     def get_queryset(self):
         return (
             User.objects.filter(is_active=True, is_superuser=False).exclude(id=self.request.user.id)
         )
 
+class LastJoinUserList(ListView):
+    model = User
+    template_name = "dashboard/dashboard/last-join-users.html"
+    paginate_by = 12
+
+    def get_queryset(self):
+        return (
+            User.objects.filter(is_active=True, is_superuser=False).exclude(id=self.request.user.id).order_by("-id")[:5]
+        )
 
 class UserSearch(ListView):
     model = User
     template_name = "users/user_section.html"
-    paginate_by = 10
+    paginate_by = 12
 
     def get_queryset(self):
         keyword = self.request.GET.get("keyword", "")
@@ -489,3 +506,8 @@ class UserSearch(ListView):
 
     def post(self, request, *args, **kwargs):
         return self.get(request, *args, **kwargs)
+
+
+class LatestUsers(ListView):
+    model = User
+    template_name = "users/user_section.html"

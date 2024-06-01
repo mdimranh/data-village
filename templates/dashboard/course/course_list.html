@@ -1,50 +1,49 @@
-<div id="message-list-section">
+<div id="course-list-section">
     <div class="overflow-x-auto">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400  min-w-[1000px] max-w-full">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="px-4 py-3">Sender</th>
-                    <th scope="col" class="px-4 py-3">Subject</th>
-                    <th scope="col" class="px-4 py-3">Sent at</th>
-                    <th scope="col" class="px-4 py-3">Status</th>
-                    <th scope="col" class="px-4 py-3">View</th>
+                <tr class="">
+                    <th scope="col" class="text-start px-4 py-3">Thumbnail</th>
+                    <th scope="col" class="text-center px-4 py-3">Fee</th>
+                    <th scope="col" class="text-center px-4 py-3">Discount</th>
+                    <th scope="col" class="text-center px-4 py-3">Edit</th>
                 </tr>
             </thead>
             <tbody>
-                {% for message in message_list %}
+                {% for course in course_list %}
                     <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <td class="flex gap-1 items-center px-4 py-2">
-                            <div class="relative inline-flex items-center justify-center w-12 h-12 border border-slate-200 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 mr-3">
+                        <td class="flex gap-1 items-top px-4 py-2">
+                            <div class="relative inline-flex items-center justify-center overflow-hidden">
                                 <span class="text-xl uppercase font-bold text-gray-600 dark:text-gray-300">
-                                {% if message.name %}
-                                    {{message.name|slice:"0:2"}}</span>
-                                {% else %}
-                                    {{message.email|slice:"0:2"}}</span>
-                                {% endif %}
+                                <img src="{{course.thumbnail.url}}" alt="iMac Front Image" class="h-20 w-auto mr-1">
                             </div>
                             <div>
-                                <h5 class="font-bold text-gray-900">{{message.name}}</h5>
-                                <h5 class="font-semibold text-gray-900">{{message.email}}</h5>
-                                <h5 class="font-semibold text-gray-900">{{message.phone}}</h5>
-                            </div>
-                        </td>
-                        <td class="px-4 py-2 font-bold cursor-pointer text-gray-900 whitespace-nowrap truncate max-w-[200px]">
-                            {{message.subject}}
-                        </td>
-                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{message.created_at}}</td>
-                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <div class="flex items-center">
-                                {% if message.status == 'unseen' %}
-                                    <div class="inline-block w-4 h-4 mr-2 bg-blue-700 rounded-full"></div>
-                                    {{message.status}}
+                                <h5 class="font-bold text-gray-900">{{course.title}}</h5>
+                                <h5 class="font-semibold text-gray-900">{% if course.class_type == 'PhysicalClass' %}
+                                    Physical Class
                                 {% else %}
-                                    <div class="inline-block w-4 h-4 mr-2 bg-green-700 rounded-full"></div>
-                                    {{message.status}}
-                                {% endif %}
+                                    Online Class
+                                {% endif %}</h5>
+                                <h5 class="font-semibold text-gray-900">{{course.class_start}}</h5>
                             </div>
                         </td>
-                        <td>
-                            <span data-drawer-target="drawer" data-drawer-show="drawer" data-drawer-backdrop="false" aria-controls="drawer" class="px-4 py-1 text-white bg-blue-700 rounded-md cursor-pointer" hx-get="/message/{{message.id}}/details" hx-target="#drawer-content" hx-indicator="#loader" hx-swap="inneHTML">Details</span>
+                        <td class="text-center text-base px-4 py-2 font-bold whitespace-nowrap truncate max-w-[200px]">
+                                {% if course.free %}
+                                    <span class="bg-green-200 text-green-700 px-2 py-0.5 rounded">free</span>
+                                {% else %}
+                                    <span class="line-through text-sm">{{course.fee}}</span> <span class="text-green-700 text-lg">{{course.final_fee}}</span>
+                                {% endif %}
+                            
+                        </td>
+                        <td class="text-center px-4 py-2 font-bold text-gray-900 whitespace-nowrap truncate max-w-[200px]">
+                            {% if course.discount_amount %}
+                                {{course.discount_amount}} {% if course.discount_type == 'percentage' %}%{% else %}TK{% endif %}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <span data-drawer-target="drawer" data-drawer-show="drawer" data-drawer-backdrop="false" aria-controls="drawer" class="px-4 py-1 text-white bg-blue-700 rounded-md cursor-pointer" hx-get="/course/{{course.id}}/details" hx-target="#drawer-content" hx-indicator="#loader" hx-swap="inneHTML">Details</span>
                         </td>
                     </tr>
                 {% endfor %}
@@ -54,7 +53,7 @@
             <div class="flex flex-col items-center my-6">
                 <div class="flex text-gray-700">
                     {% if page_obj.has_previous %}
-                    <a href="/admin/messages?page={{page_obj.previous_page_number}}"
+                    <a href="/admin/courses?page={{page_obj.previous_page_number}}"
                         class="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -74,7 +73,7 @@
                     <div class="flex h-8 font-medium rounded-full bg-gray-200">
 
                         {% if page_obj.has_previous %} 
-                            <a href="/admin/messages?page=1"
+                            <a href="/admin/courses?page=1"
                             class="w-8 flex justify-center items-center  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full">1</a>
                         {% endif %}
 
@@ -83,14 +82,14 @@
                         {% endif %}
 
                         {% if page_obj.number|add:-1 > 1 %}
-                            <a href="/admin/messages?page={{ page_obj.number|add:-1 }}"
+                            <a href="/admin/courses?page={{ page_obj.number|add:-1 }}"
                             class="w-8 flex justify-center items-center  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full">{{ page_obj.number|add:-1 }}</a>
                         {% endif %}
 
                         <div class="w-8 flex justify-center items-center cursor-pointer leading-5 transition duration-150 ease-in  rounded-full bg-teal-600 text-white ">{{ page_obj.number }}</div>
 
                         {% if page_obj.number|add:1 < page_obj.paginator.num_pages %}
-                            <a href="/admin/messages?page={{ page_obj.number|add:1 }}"
+                            <a href="/admin/courses?page={{ page_obj.number|add:1 }}"
                                 class="w-8 flex justify-center items-center  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full">{{ page_obj.number|add:1 }}</a>
                         {% endif %}
 
@@ -99,7 +98,7 @@
                         {% endif %}
 
                         {% if page_obj.has_next %}
-                            <a href="/admin/messages?page={{ page_obj.paginator.num_pages }}"
+                            <a href="/admin/courses?page={{ page_obj.paginator.num_pages }}"
                                 class="w-8 flex justify-center items-center  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full">{{ page_obj.paginator.num_pages }}</a>
                         {% endif %}
 
@@ -109,7 +108,7 @@
                         {% endif %}
 
                         {% if page_obj.has_previous and page_obj.number > 2 %}
-                            <a href="/admin/messages?page={{page_obj.previous_page_number}}"
+                            <a href="/admin/courses?page={{page_obj.previous_page_number}}"
                             class="w-8 flex justify-center items-center  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full">2</a>
                         {% endif %}
 
@@ -119,19 +118,19 @@
                         {% endif %}
 
                         {% if page_obj.has_previous and page_obj.number > 4 %}
-                            <a href="/admin/messages?page={{page_obj.previous_page_number}}"
+                            <a href="/admin/courses?page={{page_obj.previous_page_number}}"
                             class="w-8 flex justify-center items-center  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full">{{page_obj.previous_page_number}}</a>
                         {% endif %}
 
                         <div class="w-8 flex justify-center items-center cursor-pointer leading-5 transition duration-150 ease-in  rounded-full bg-teal-600 text-white ">{{ page_obj.number }}</div>
 
                         {% if page_obj.has_next %}
-                            <a href="/admin/messages?page={{page_obj.next_page_number}}"
+                            <a href="/admin/courses?page={{page_obj.next_page_number}}"
                             class="w-8 flex justify-center items-center  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full">{{page_obj.next_page_number}}</a>
                         {% endif %} {% endcomment %}
                     </div>
                     {% if page_obj.has_next %}
-                    <a href="/admin/messages?page={{page_obj.next_page_number}}"
+                    <a href="/admin/courses?page={{page_obj.next_page_number}}"
                         class="h-8 w-8 ml-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

@@ -1,10 +1,42 @@
 from django.shortcuts import render
-
+from account.models import User
 from .models import Privacy, RefundPolicy, TermsCondition
+from apps.payment.models import Payment
+from django.db.models import Sum
+from datetime import datetime, timedelta
 
 
 def Dashboard(request):
-    return render(request, "dashboard/dashboard/home.html")
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=30)
+
+    total_amount = Payment.objects.aggregate(Sum('store_amount')).get("store_amount__sum")
+    total_amount_last_30_days = Payment.objects.filter(tran_date__range=[start_date, end_date]).aggregate(Sum('store_amount')).get("store_amount__sum")
+
+    total_user_last_30_days = User.objects.filter(date_joined__range=[start_date, end_date], is_superuser=False, is_active=True).count()
+
+    student = User.objects.filter(is_superuser=False, is_active=True, designation="student").count()
+    teacher = User.objects.filter(is_superuser=False, is_active=True, designation="teacher").count()
+    corporate = User.objects.filter(is_superuser=False, is_active=True, designation="corporate").count()
+
+    total_user = student+teacher+corporate
+
+    context = {
+        "user": {
+            "total": total_user,
+            "last_month": round((total_user_last_30_days / total_user) * 100, 2),
+            "category": {
+                "student": round((student / total_user) * 100, 2),
+                "teacher": round((teacher / total_user) * 100, 2),
+                "corporate": round((corporate / total_user) * 100, 2)
+            }
+        },
+        "revenue": {
+            "total": total_amount,
+            "last_month": round((total_amount_last_30_days / total_amount) * 100, 2)
+        }
+    }
+    return render(request, "dashboard/dashboard/home.html", context)
 
 
 def PrivacyView(request):

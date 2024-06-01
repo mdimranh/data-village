@@ -14,5 +14,5 @@ class Pricing(models.Model):
 
 class Membership(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='membership')
-    payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, null=True)
+    payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, null=True, related_name="membership")
     pricing = models.ForeignKey(Pricing, on_delete=models.SET_NULL, null=True)

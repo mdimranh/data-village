@@ -1,0 +1,64 @@
+<div class="relative mx-4 overflow-x-auto sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 min-w-[1000px]">
+        <caption class="p-5 text-xl font-bold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+            Transactions
+            {% comment %} <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Browse a list of Flowbite products designed to help you work and play, stay organized, get answers, keep in touch, grow your business, and more.</p> {% endcomment %}
+        </caption>
+        <thead class="text-sm font-bold text-gray-900 uppercase bg-white">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    User
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    TXN ID
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Date &amp; Time
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Amount
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Store Amount
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Status
+                </th>
+            </tr>
+        </thead>
+        <tbody class="text-sm">
+            {% for payment in payments %}
+                <tr class="bg-white hover:bg-slate-100">
+                    <th scope="row" class="px-4 py-1 flex items-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {% if payment.memberships.user.picture %}
+                            <img src="{{payment.memberships.user.picture.url}}" alt="iMac Front Image" class="w-10 h-10 object-cover rounded-full mr-3">
+                        {% else %}
+                            <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 mr-3">
+                                <span class="text-xl text-gray-600 dark:text-gray-300">{{payment.memberships.user.avatar_name}}</span>
+                            </div>
+                        {% endif %}
+                        <a href="/admin/user/profile/{{payment.memberships.user.id}}" class="flex flex-col justify-center gap-0">
+                            <h1 class="text-base font-bold text-slate-700">{{payment.memberships.user.full_name}}</h1>
+                            <h1 class="text-sm font-normal text-slate-700">{{payment.memberships.user.email}}</h1>
+                        </a>
+                    </th>
+                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{payment.tran_id}}
+                    </th>
+                    <td class="px-4 py-1">
+                        {{payment.tran_date}}
+                    </td>
+                    <td class="px-4 py-1">
+                        {{payment.amount}}
+                    </td>
+                    <td class="px-4 py-1">
+                        {{payment.store_amount}}
+                    </td>
+                    <td class="px-4 py-1"> 
+                        {{payment.status}}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
