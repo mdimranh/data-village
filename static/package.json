@@ -4,6 +4,7 @@
     "autoprefixer": "^10.4.15",
     "djvalidator": "^2.0.0",
     "flowbite": "^1.8.1",
+    "flowbite-datepicker": "^1.2.6",
     "htmx.org": "^1.9.6",
     "inputmask": "^5.0.8",
     "intl-tel-input": "^18.2.1",

@@ -1,5 +1,22 @@
 {% extends 'dashboard/base.html' %}
 
+{% load static %}
+
+{% block style %}
+
+<link rel="stylesheet" href="{% static 'css/datepicker.minimal.css' %}">
+
+<script type="module">
+    htmx.onLoad(function(content) {
+        var script = document.createElement('script');
+        script.src = '/static/js/datepicker.js'; // Adjust the path to match the location of your script file
+        document.head.appendChild(script);
+        initpicker()
+    });
+</script>
+
+{% endblock style %}
+
 {% block main %}
     <div class="flex justify-between items-center px-3 py-1 bg-white border-b border-b-slate-300">
         <h1 class="font-bold text-2xl text-slate-500">Courses</h1>
@@ -35,21 +52,82 @@
                 <div class="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
                     <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
                         <h1 class="text-lg font-bold text-slate-700">Course List</h1>
-                        <div class="bg-blue-700 text-white px-3 py-1 cursor-pointer rounded" data-drawer-target="drawer" data-drawer-show="drawer" data-drawer-backdrop="false" aria-controls="drawer">Add Course</div>
-                        {% comment %} <div class="relative">
-                            <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                </svg>
-                            </div>
-                            <input hx-post="/admin/message/search" hx-trigger="keyup change delay:250ms" hx-target="#message-list-section" name="keyword" type="text" id="table-search-messages" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for message">
-                        </div> {% endcomment %}
+                        <div class="bg-blue-700 text-white px-3 py-1 cursor-pointer rounded" data-drawer-target="drawer" data-drawer-show="drawer" data-drawer-backdrop="false" aria-controls="drawer" hx-get="/admin/course/add" hx-target="#drawer-content" hx-indicator="#loader" hx-swap="inneHTML">Add Course</div>
                     </div>
                     {% include "dashboard/course/course_list.html" %}
                 </div>
             </div>
         </section>
     </div>
-    {% include "component/drawer.html" %}
+{% include "component/drawer.html" %}
+<script>
+    function initpicker(){
+        var datepicker = new Datepicker('#course-date');
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.addEventListener("htmx:afterSwap", function(event) {
+    console.log("config ...................\n", event)
+    if(event.detail.requestConfig.verb === "post"){
+        var successMessage = "Course Added Successfully.";
+        Swal.fire({
+            toast: true,
+            icon: 'success',
+            title: successMessage,
+            animation: true,
+            position: 'bottom-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        $("#drawer-close-button").click();
+    }
+})
+
+document.addEventListener("htmx:afterSwap", function(event) {
+    console.log("config ...................\n", event)
+    if(event.detail.requestConfig.verb === "delete"){
+        var successMessage = "Course deleted Successfully.";
+        Swal.fire({
+            toast: true,
+            icon: 'success',
+            title: successMessage,
+            animation: true,
+            position: 'bottom-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        $("#drawer-close-button").click();
+    }
+})
+
+document.addEventListener("htmx:confirm", function(e) {
+    if(e.detail.verb === "delete"){
+        e.preventDefault();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+            if (result.isConfirmed) {
+                e.detail.issueRequest(true)
+            }
+        });
+    }
+});
+</script>
 {% endblock main %}
-    
